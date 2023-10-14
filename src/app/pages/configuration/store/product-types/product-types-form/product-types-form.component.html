@@ -1,0 +1,101 @@
+<h2 class="flex-container">
+  <span *ngIf="!productTypeEdit.id"> {{ 'PRODUCT_TYPES.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="productTypeEdit.id"> {{ 'PRODUCT_TYPES.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/configuration/store/product_type">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'PRODUCT_TYPES.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!productTypeEdit.id"> {{ 'PRODUCT_TYPES.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="productTypeEdit.id"> {{ 'PRODUCT_TYPES.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        productTypeEdit.name + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!productTypeEdit._id ? save() : update()">
+
+
+      <div class="column-2">
+
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="name">{{'PRODUCT_TYPES.FORM.NAME' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="name" type="text" id="name" [(ngModel)]="productTypeEdit.name">
+              <div nzStatus="error" *ngIf="submitted && !productTypeEdit.name">
+                <small class="error">{{ 'PRODUCT_TYPES.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item *ngIf="!productTypeEdit.id">
+        </nz-form-item>
+
+          <!-- ACTIVE -->
+          <nz-form-item *ngIf="productTypeEdit.id">
+            <nz-form-label [nzSpan]="7" nzFor="active">{{ 'ACTIVE.TEXT' | translate}}</nz-form-label>
+            <nz-form-control [nzSpan]="15">
+              <nz-switch name="active" id="active" [(ngModel)]="productTypeEdit.active"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+
+      </div>
+
+      <div class="column-2">
+
+
+        <!-- ICON -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="icon">{{'PRODUCT_TYPES.FORM.ICON' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="10">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="icon" type="text" id="icon" [(ngModel)]="productTypeEdit.icon">
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- ICON PREVIEW -->
+        <nz-form-item>
+          <!-- <nz-form-label [nzSpan]="9" nzFor="name">{{'PRODUCT_TYPES.FORM.ICON.PREVIEW' | translate}}</nz-form-label> -->
+          <nz-form-control [nzSpan]="10">
+            <nz-card style="width:200px; height:150px">
+              <div nzFlex nzFlex="auto">
+              <span *ngIf="!productTypeEdit.icon">{{'PRODUCT_TYPES.FORM.ICON.PREVIEW' | translate}}</span>
+              </div>
+              <span style="font-size: 40px;" ngClass="{{productTypeEdit.icon}}"></span>
+              <!-- fa-solid fa-house -->
+            </nz-card>
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

@@ -1,0 +1,117 @@
+<h2 class="flex-container">
+  <span *ngIf="!pethistory?.idm">{{ 'PET.HISTORY.FORM.TITLE.NEW' | translate}}</span>
+  <span *ngIf="pethistory?.idm">{{ 'PET.HISTORY.FORM.TITLE.EDIT' | translate}}</span>
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/clients">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'CLIENTS.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/dashboard/clients/detail', client._id]">
+        <span nz-icon nzType="user"></span>
+        <span> {{ 'CLIENTS.DETAIL.BREADCRUMB' | translate}}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/dashboard/clients/pets/history', pet._id]">
+      <span nz-icon nzType="user"></span>
+      <span> {{ 'PET.DETAIL.BREADCRUMB' | translate}}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!pethistory?.idm"> {{ 'PET.HISTORY.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="pethistory?.idm"> {{ 'PET.HISTORY.FORM.BREADCRUMB.EDIT' | translate}} {{'(' + pethistory?.fec + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <div>
+    <br>
+    <br>
+    <form nz-form (submit)="!pethistory._id ? save() : update()">
+
+      <div class="column-2">
+        <!-- TEMPERATURE -->
+        <nz-form-item>
+          <nz-form-label nzFor="car">{{'PET.HISTORY.FORM.TEMP' | translate}}</nz-form-label>
+          <nz-form-control>
+            <div nzFlex nzFlex="auto">
+              <nz-input-group nzSuffix="ºC">
+                <input nz-input name="tmp" type="number" id="tmp" [(ngModel)]="pethistory.tmp" min="0">
+              </nz-input-group>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- WEIGTH -->
+        <nz-form-item>
+          <nz-form-label nzFor="pes">{{'PET.HISTORY.FORM.WEIGHT' | translate}}</nz-form-label>
+          <nz-form-control>
+            <div nzFlex nzFlex="auto">
+              <nz-input-group>
+                <input nz-input name="pes" type="number" id="pes" [(ngModel)]="pethistory.pes" min="0">
+              </nz-input-group>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- DATE -->
+
+        <nz-form-item>
+          <nz-form-label nzFor="fec">{{ 'PET.HISTORY.FORM.DATE' | translate}}</nz-form-label>
+          <nz-form-control>
+            <input nz-input name="fec" type="date" id="fec" [(ngModel)]="pethistory.fec">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+      <!-- OBS -->
+      <div>
+        <nz-form-item >
+          <nz-form-label nzFor="cli">{{ 'PET.HISTORY.FORM.OBS' | translate }} </nz-form-label>
+            <textarea nz-input name="cli" id="cli" [(ngModel)]="pethistory.cli"></textarea>
+            <div nzStatus="error" *ngIf="submitted && !pethistory?.cli">
+              <small class="error">{{ 'PET.HISTORY.FORM.OBSERVATION.MANDATORY' | translate }}</small>
+            </div>
+        </nz-form-item>
+      </div>
+
+
+
+      <nz-upload
+      nzType="drag"
+      [nzMultiple]="true"
+      nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      (nzChange)="handleChangeImage($event)"
+    >
+      <p class="ant-upload-drag-icon">
+        <span nz-icon nzType="inbox"></span>
+      </p>
+      <p class="ant-upload-text">Click or drag file to this area to upload</p>
+      <p class="ant-upload-hint">
+        Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+      </p>
+    </nz-upload>
+
+
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+  </div>

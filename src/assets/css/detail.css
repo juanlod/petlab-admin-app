@@ -1,0 +1,29 @@
+
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-icon {
+  position: absolute;
+  top: -20px;
+  left: -15px;
+  font-size: 30px;
+  background-color: #fff;
+}
+
+.edit-button {
+  font-size: 30px;
+}
+
+.edit-button {
+  font-size: 30px;
+  color: #1890ff !important;
+}
+
+.edit-button:hover {
+  font-size: 30px;
+  color: #44ADFF !important;
+}

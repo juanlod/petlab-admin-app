@@ -1,0 +1,83 @@
+<h2>{{ 'PROVINCE.LIST.TITLE' | translate}}</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <span nz-icon nzType="home" routerLink="/"></span>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a class="bi bi-h-square" routerLink="/dashboard/configuration/clinic"><span class="breadcrumb-item">{{ 'SIDEBAR.CLINIC.TITLE' | translate}}</span></a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+      <span>{{ 'PROVINCE.LIST.TITLE.BREADCRUMB' | translate }}</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- MODAL BUTTON -->
+<div nz-row nzJustify="end">
+  <a (click)="showModal()">
+    <i class="add-icon bi bi-plus-circle"></i>
+  </a>
+</div>
+<br>
+
+<!-- TABLE -->
+<nz-table #basicTable nzShowSizeChanger [nzData]="provinces" [nzFrontPagination]="false" [nzLoading]="loading"
+  [nzTotal]="totalResults" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)" nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th nzCustomFilter nzWidth="40%">
+        {{ 'PROVINCE.LIST.TABLE.NAME' | translate }}
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="filtro.length > 0" [nzDropdownMenu]="menu">
+          <span style="font-size: 15px;" nz-icon nzType="search"></span>
+        </nz-filter-trigger>
+      </th>
+      <th nzWidth="20%" nzColumnKey="province" [nzSortFn]="true">{{ 'PROVINCE.LIST.TABLE.PHONE_PREFIX' | translate}}
+      <th nzWidth="20%" nzColumnKey="province" [nzSortFn]="true">{{ 'PROVINCE.LIST.TABLE.ACTIVE' | translate}}
+      </th>
+      <th nzWidth="20%">{{ 'TABLE.ACTION' | translate}}
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let province of basicTable.data">
+      <tr>
+        <!-- CLIENT NAME -->
+        <td class="province-name">
+          <a (click)="showModal(province)"><span>{{ province.nom}}</span></a>
+        </td>
+        <td>{{province.Ctel}}</td>
+        <td>
+          <nz-tag *ngIf="province.active"  [nzColor]="'#45A745'">{{ 'ACTIVE.TEXT' | translate }}</nz-tag>
+          <nz-tag *ngIf="!province.active" [nzColor]="'#DC3545'">{{ 'INACTIVE.TEXT' | translate }}</nz-tag>
+        </td>
+        <td>
+          <!-- <a>{{ 'BUTTON.DELETE' | translate }}</a> -->
+          <a (click)="delete(province)"><i class="delete-icon bi bi-trash3"></i></a>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input province="text" nz-input placeholder="Buscar por province, mascota..." [(ngModel)]="filtro" />
+      <div style="display: flex; justify-content: space-between;">
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </div>
+</nz-dropdown-menu>
+
+
+<nz-modal [nzContent]="modalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
+  [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+</nz-modal>
+
+
+<ng-template #modalContent>
+  <app-provinces-form [province]="selectedProvince" (provinceEvent)="onUpdateProvince($event)"></app-provinces-form>
+</ng-template>

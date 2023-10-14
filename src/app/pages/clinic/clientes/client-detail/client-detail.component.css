@@ -1,0 +1,59 @@
+.column-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+}
+
+
+.ant-form-item {
+  margin: 0 0 10px !important;
+}
+
+.label-detail {
+  color: #303030 !important;
+  font-weight: 500;
+}
+
+.bi-circle {
+  font-size: 32px;
+}
+
+.pet-icon {
+  font-size: 30px;
+}
+
+.fa-paw {
+  font-size: 23px;
+  font-size: 21px;
+  left: -9.5px;
+  top: -7px;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.client-title {
+  margin-bottom: 22px;
+}
+
+.search-box {
+  padding: 8px;
+}
+
+.search-box input {
+  width: 250px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.search-box button {
+  width: 90px;
+}
+
+.search-button {
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 1199px) {
+  .pet-list {
+    margin-top: 40px;
+  }
+}

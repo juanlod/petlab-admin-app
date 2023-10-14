@@ -1,0 +1,61 @@
+<h2 class="flex-container">
+  <span *ngIf="!imageEdit.id"> {{ 'CLINIC.IMAGES.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="imageEdit.id"> {{ 'CLINIC.IMAGES.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/configuration/clinic/images">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'CLINIC.IMAGES.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!imageEdit.id"> {{ 'CLINIC.IMAGES.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="imageEdit.id"> {{ 'CLINIC.IMAGES.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        imageEdit?.route + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!imageEdit._id ? saveImage() : updateImage()">
+
+
+      <div class="column-2">
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label nzFor="route">{{'CLINIC.IMAGES.ROUTE' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control>
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="route" type="text" id="route" [(ngModel)]="imageEdit.route">
+              <div nzStatus="error" *ngIf="submitted && !imageEdit.route">
+                <small class="error">{{ 'CLINIC.IMAGES.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        </nz-form-item>
+      </div>
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

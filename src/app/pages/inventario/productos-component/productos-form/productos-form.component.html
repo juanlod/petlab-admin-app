@@ -1,0 +1,160 @@
+<h2 class="flex-container">
+  <span *ngIf="!product.id"> {{ 'PRODUCTS.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="product.id"> {{ 'PRODUCTS.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/inventory/products">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'PRODUCTS.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!product.id"> {{ 'PRODUCTS.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="product.id"> {{ 'PRODUCTS.FORM.BREADCRUMB.EDIT' | translate}} {{'(' + product.name + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!product._id ? save() : update()">
+
+      <div class="column-2">
+        <!-- NOMBRE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="name">{{'PRODUCTS.FORM.NAME' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="name" type="text" id="name" [(ngModel)]="product.name">
+              <div nzStatus="error" *ngIf="submitted && !product.name">
+                <small class="error">{{ 'PRODUCTS.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- PROVIDER -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="providerId">{{ 'PRODUCTS.FORM.PROVIDERS' | translate }}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PRODUCTS.FORM.PROVIDERS.PLACEHOLDER' | translate }}"
+              [(ngModel)]="product.providerId" name="providerId">
+              <nz-option *ngFor="let option of providers" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+
+      <div class="column-2">
+        <!-- PRODUCT_TYPE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="typeProductId">{{ 'PRODUCTS.FORM.PRODUCT_TYPE' | translate
+            }}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-select nzShowSearch nzAllowClear
+              nzPlaceHolder="{{ 'PRODUCTS.FORM.PRODUCT_TYPE.PLACEHOLDER' | translate }}"
+              [(ngModel)]="product.typeProductId" name="typeProductId">
+              <nz-option *ngFor="let option of productTypes" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- UNITY_TYPES -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="unityTypeId">{{ 'PRODUCTS.FORM.UNITY_TYPE' | translate }}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-select nzShowSearch nzAllowClear
+              nzPlaceHolder="{{ 'PRODUCTS.FORM.UNITY_TYPE.PLACEHOLDER' | translate }}" [(ngModel)]="product.unityTypeId"
+              name="unityTypeId">
+              <nz-option *ngFor="let option of unities" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+
+      <div class="column-2">
+        <!-- ACTIVE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="showStore">{{ 'PRODUCTS.FORM.SHOW_IN_STORE' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-switch name="showStore" id="showStore" [(ngModel)]="product.showStore"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+        </nz-form-item>
+      </div>
+
+      <div *ngIf="product.showStore">
+        <div class="column-2">
+          <!-- DESCRIPTION -->
+          <nz-form-item>
+            <nz-form-label [nzSpan]="3" nzFor="description">{{'PRODUCTS.FORM.DESCRIPTION' | translate}}</nz-form-label>
+            <nz-form-control [nzSpan]="20">
+              <textarea nz-input name="description" type="text" id="description"
+                [(ngModel)]="product.description"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="column-2">
+          <!-- PRIZE -->
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzFor="price">{{'PRODUCTS.FORM.PRIZE' | translate}}</nz-form-label>
+            <nz-form-control [nzSpan]="15">
+              <input nz-input name="price" type="number" id="price"
+                [(ngModel)]="product.price"/>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- TAX_TYPES -->
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzFor="taxTypeId">{{ 'PRODUCTS.FORM.TAX_TYPE' | translate }}</nz-form-label>
+            <nz-form-control [nzSpan]="15">
+              <nz-select nzShowSearch nzAllowClear
+                nzPlaceHolder="{{ 'PRODUCTS.FORM.TAX_TYPE.PLACEHOLDER' | translate }}"
+                [(ngModel)]="product.taxTypeId" name="taxTypeId">
+                <nz-option *ngFor="let option of unities" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+ <div class="column-2">
+          <!-- PRIZE -->
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzFor="finalPrice">{{'PRODUCTS.FORM.FINAL_PRIZE' | translate}}</nz-form-label>
+            <nz-form-control [nzSpan]="15">
+              <input nz-input name="finalPrice" type="number" id="finalPrice" [(ngModel)]="product.finalPrice">
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- TAX_TYPES -->
+          <nz-form-item>wwwwwwa
+          </nz-form-item>
+        </div>
+
+
+
+      </div>
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

@@ -1,0 +1,50 @@
+<mat-card>
+  <div class="login-container">
+    <div class="login-image" [style.backgroundImage]="currentImage" #loginImage></div>
+    <form nz-form class="login-form" (ngSubmit)="login()">
+
+      <!-- <mat-form-field class="nz-input">
+        <mat-label class="floating">Email</mat-label>
+        <input matInput type="email" [(ngModel)]="user.email" name="email" placeholder="Introduce tu email">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+
+      <mat-form-field class="nz-input">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [type]="passwordType" placeholder="" [(ngModel)]="user.password"
+          name="password">
+        <mat-icon matSuffix (click)="togglePassword()">visibility</mat-icon>
+      </mat-form-field> -->
+
+      <nz-form-item>
+        <nz-form-control>
+          <label>{{ 'USER.LOGIN.MAIL.LABEL' | translate}}</label>
+          <nz-input-group nzSuffixIcon="user">
+            <input type="text" nz-input name="email" placeholder="{{ 'USER.LOGIN.MAIL' | translate }}" [(ngModel)]="user.email"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <label>{{ 'USER.LOGIN.PASSWORD.LABEL' | translate}}</label>
+          <br>
+          <nz-input-group [nzSuffix]="suffixTemplate">
+            <input [type]="passwordType" nz-input name="password" placeholder="{{ 'USER.LOGIN.PASSWORD' | translate }}" [(ngModel)]="user.password"/>
+            <ng-template #suffixTemplate>
+              <i *ngIf="passwordType=='password'" nz-icon nzType="eye" nzTheme="outline" (click)="togglePassword()"></i>
+              <i *ngIf="passwordType!='password'" nz-icon nzType="eye-invisible" nzTheme="outline" (click)="togglePassword()"></i>
+            </ng-template>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [disabled]="user.email === '' || user.email === undefined
+      ||
+      user.password === '' || user.password === undefined">Login</button>
+
+
+    </form>
+  </div>
+</mat-card>

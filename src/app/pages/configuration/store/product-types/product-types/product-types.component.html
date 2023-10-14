@@ -1,0 +1,82 @@
+<h2>{{ 'PRODUCT_TYPE.LIST.TITLE' | translate}}</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <span nz-icon nzType="home" routerLink="/"></span>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a class="bi bi-box2-heart" routerLink="/dashboard/configuration/store"><span class="breadcrumb-item">{{ 'SIDEBAR.INVENTORY.TITLE' | translate}}</span></a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+      <span>{{ 'PRODUCT_TYPE.LIST.TITLE.BREADCRUMB' | translate }}</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- MODAL BUTTON -->
+<div nz-row nzJustify="end">
+  <a (click)="showModal()">
+    <i class="add-icon bi bi-plus-circle"></i>
+  </a>
+</div>
+<br>
+
+<!-- TABLE -->
+<nz-table #basicTable nzShowSizeChanger [nzData]="productTypes" [nzFrontPagination]="false" [nzLoading]="loading"
+  [nzTotal]="totalResults" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)" nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th nzCustomFilter nzWidth="20%">
+        {{ 'PRODUCT_TYPE.LIST.TABLE.NAME' | translate }}
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="filtro.length > 0" [nzDropdownMenu]="menu">
+          <span style="font-size: 15px;" nz-icon nzType="search"></span>
+        </nz-filter-trigger>
+      </th>
+      <th nzWidth="20%" nzColumnKey="type">{{ 'PRODUCT_TYPE.LIST.TABLE.ICON' | translate }}</th>
+      <th nzWidth="20%" nzColumnKey="type" [nzSortFn]="true">{{ 'PRODUCT_TYPE.LIST.TABLE.ACTIVE' | translate}}
+      </th>
+      <th nzWidth="20%">{{ 'TABLE.ACTION' | translate}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let type of basicTable.data">
+      <tr>
+        <!-- CLIENT NAME -->
+        <td class="type-name">
+          <a (click)="showModal(type)"><span>{{ type.name}}</span></a>
+        </td>
+        <td><span class="icon" ngClass="{{type.icon}}"></span></td>
+        <td>
+          <nz-tag *ngIf="type.active"  [nzColor]="'#45A745'">{{ 'ACTIVE.TEXT' | translate }}</nz-tag>
+          <nz-tag *ngIf="!type.active" [nzColor]="'#DC3545'">{{ 'INACTIVE.TEXT' | translate }}</nz-tag>
+        </td>
+        <td>
+          <a (click)="delete(type)"><i class="delete-icon bi bi-trash3"></i></a>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Buscar por type, mascota..." [(ngModel)]="filtro" />
+      <div style="display: flex; justify-content: space-between;">
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </div>
+</nz-dropdown-menu>
+
+
+<nz-modal [nzContent]="modalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
+  [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+</nz-modal>
+
+
+<ng-template #modalContent>
+  <app-product-types-form [productType]="selectedProductType" (productTypeEvent)="onUpdateProductType($event)"></app-product-types-form>
+</ng-template>

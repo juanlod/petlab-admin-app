@@ -1,0 +1,111 @@
+<h2 class="flex-container">
+  <span *ngIf="!raceEdit.id"> {{ 'RACE.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="raceEdit.id"> {{ 'RACE.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/configuration/clinic/races">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'RACE.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!raceEdit.id"> {{ 'RACE.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="raceEdit.id"> {{ 'RACE.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        raceEdit.nom + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!raceEdit._id ? saveProvider() : updateProvider()">
+
+
+      <div class="column-2">
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="nom">{{'RACE.FORM.NAME' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="nom" type="text" id="nom" [(ngModel)]="raceEdit.nom">
+              <div nzStatus="error" *ngIf="submitted && !raceEdit.nom">
+                <small class="error">{{ 'RACE.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!--SPECIES-->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="esp">{{ 'PET.FORM.SPECIES' | translate }}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.SPECIES.PLACEHOLDER' | translate }}"
+              [(ngModel)]="raceEdit.esp" name="esp">
+              <nz-option *ngFor="let option of species" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="column-2">
+
+        <!-- ORIGIN -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="ori">{{'RACE.FORM.ORIGIN' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <input nz-input name="ori" type="text" id="ori" [(ngModel)]="raceEdit.ori">
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item></nz-form-item>
+      </div>
+
+      <div class="column-2" *ngIf="raceEdit.id">
+
+        <!-- ACTIVE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="active">{{ 'ACTIVE.TEXT' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-switch name="active" id="active" [(ngModel)]="raceEdit.active"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        </nz-form-item>
+
+      </div>
+
+
+      <div class="column-2 obs">
+
+        <!-- DESCRIPTION -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="des">{{ 'RACE.FORM.DESCRIPTION' | translate }} </nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <textarea nz-input name="des" id="des" [(ngModel)]="raceEdit.des"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

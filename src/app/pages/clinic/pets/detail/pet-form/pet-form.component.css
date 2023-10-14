@@ -1,0 +1,10 @@
+.flex-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.obs {
+  margin-left: 1.7rem;
+}
+

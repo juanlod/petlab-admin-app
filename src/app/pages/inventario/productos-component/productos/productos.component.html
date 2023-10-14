@@ -1,0 +1,84 @@
+<h2>{{ 'PRODUCTS.LIST.TITLE' | translate}}</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <span nz-icon nzType="home" routerLink="/"></span>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+      <span>{{ 'PRODUCTS.LIST.TITLE.BREADCRUMB' | translate }}</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- MODAL BUTTON -->
+<div nz-row nzJustify="end">
+  <a (click)="showModal()">
+    <i class="add-icon bi bi-plus-circle"></i>
+  </a>
+</div>
+<br>
+
+<!-- TABLE -->
+<nz-table #basicTable nzShowSizeChanger [nzData]="products" [nzFrontPagination]="false" [nzLoading]="loading"
+  [nzTotal]="totalResults" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)" nzTableLayout="auto">
+  <thead>
+    <tr>
+      <th nzCustomFilter nzWidth="20%">
+        {{ 'PRODUCTS.LIST.TABLE.NAME' | translate }}
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="filtro.length > 0" [nzDropdownMenu]="menu">
+          <span style="font-size: 15px;" nz-icon nzType="search"></span>
+        </nz-filter-trigger>
+      </th>
+
+      <th nzWidth="5%">{{ 'PRODUCTS.LIST.TABLE.PRODUCT_GROUP' | translate }}</th>
+      <th nzWidth="20%" nzColumnKey="provider" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.PROVIDER' | translate }}</th>
+      <th nzWidth="20%" nzColumnKey="product" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.PRODUCT_TYPE' | translate}} </th>
+      <th nzWidth="20%" nzColumnKey="unity_type" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.UNITY_TYPE' | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let product of basicTable.data">
+      <tr>
+        <!-- CLIENT NAME -->
+        <td class="product-name">
+          <a (click)="productDetail(product._id)"><span>{{ product.name}}</span></a>
+        </td>
+
+        <!-- ICON-->
+        <td>
+          <span ngClass="{{findProductType(product.typeProductId)?.icon}}"> </span>
+        </td>
+
+        <!-- PROVIDER NAME -->
+        <td>{{ findProvider(product.providerId)?.name }} </td>
+
+        <!-- PRODUCT_TYPE -->
+        <td>{{ findProductType(product.typeProductId)?.name  }}</td>
+
+        <!-- UNITY_TYPE -->
+        <td>{{ findUnity(product.unityTypeId)?.name }}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Buscar por product, mascota..." [(ngModel)]="filtro" />
+      <div style="display: flex; justify-content: space-between;">
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-modal [nzContent]="modalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
+  [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+</nz-modal>
+
+<ng-template #modalContent>
+  <app-product-form [product]="product"></app-product-form>
+</ng-template>

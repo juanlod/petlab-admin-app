@@ -1,0 +1,13 @@
+
+.flex-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.column-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 16px;
+}
+

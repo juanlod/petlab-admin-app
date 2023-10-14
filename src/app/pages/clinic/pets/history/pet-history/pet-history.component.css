@@ -1,0 +1,21 @@
+.timeline-container {
+  overflow-y: auto;
+  height: 500px; /* ajusta la altura a tus necesidades */
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-button {
+  font-size: 30px;
+  color: #1890ff
+}
+
+.edit-button:hover {
+  font-size: 30px;
+  color: #44ADFF
+}
+

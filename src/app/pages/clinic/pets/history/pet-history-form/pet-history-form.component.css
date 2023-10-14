@@ -1,0 +1,12 @@
+.flex-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+textarea.ant-input{
+  min-height: 300px !important;
+  padding-bottom: 50px !important;
+}
+
+

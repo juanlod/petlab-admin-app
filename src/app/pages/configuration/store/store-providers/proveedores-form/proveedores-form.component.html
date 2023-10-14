@@ -1,0 +1,88 @@
+<h2 class="flex-container">
+  <span *ngIf="!providerEdit.id"> {{ 'PROVIDERS.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="providerEdit.id"> {{ 'PROVIDERS.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/inventory/providerEdits">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'PROVIDERS.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!providerEdit.id"> {{ 'PROVIDERS.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="providerEdit.id"> {{ 'PROVIDERS.FORM.BREADCRUMB.EDIT' | translate}} {{'(' + providerEdit.name + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!providerEdit._id ? saveProvider() : updateProvider()">
+
+      <div class="column-2">
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="name">{{'PROVIDERS.FORM.NAME' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="name" type="text" id="name" [(ngModel)]="providerEdit.name">
+              <div nzStatus="error" *ngIf="submitted && !providerEdit.name">
+                <small class="error">{{ 'PROVIDERS.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- PHONE NUMBER -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="phone_number">{{'PROVIDERS.FORM.PHONE_NUMBER' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <input nz-input name="phone_number" type="text" id="phone_number" [(ngModel)]="providerEdit.phone_number">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="column-2" *ngIf="providerEdit.id">
+          <!-- ACTIVE -->
+          <nz-form-item >
+            <nz-form-label [nzSpan]="7" nzFor="active">{{ 'ACTIVE.TEXT' | translate}}</nz-form-label>
+            <nz-form-control [nzSpan]="15">
+              <nz-switch name="active" id="active" [(ngModel)]="providerEdit.active"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+          </nz-form-item>
+      </div>
+
+
+      <div class="column-2 obs">
+        <!-- ADDRESS -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="address">{{'PROVIDERS.FORM.ADDRESS' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <input nz-input name="address" type="text" id="address" [(ngModel)]="providerEdit.address">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

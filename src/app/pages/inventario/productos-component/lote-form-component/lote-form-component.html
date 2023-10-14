@@ -1,0 +1,139 @@
+<h2 class="flex-container">
+  <span *ngIf="!batchEdit.id"> {{ 'BATCH.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="batchEdit.id"> {{ 'BATCH.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/inventory/products">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'PRODUCTS.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/dashboard/inventory/products/detail', product._id]">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span> {{ 'PRODUCTS.DETAIL.BREADCRUMB' | translate}}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!batchEdit.id"> {{ 'BATCH.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="batchEdit.id"> {{ 'BATCH.FORM.BREADCRUMB.EDIT' | translate}} {{'(' + batchEdit.number + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <br>
+  <br>
+  <form nz-form (submit)="!batchEdit._id ? save() : update()">
+
+    <div class="column-2">
+      <!-- NUMBER -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="number">{{'BATCH.FORM.NUMBER' | translate}}&nbsp;<span
+            class="error">*</span></nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <div nzFlex nzFlex="auto">
+            <input nz-input name="number" type="text" id="number" [(ngModel)]="batchEdit.number">
+            <div nzStatus="error" *ngIf="submitted && !batchEdit.number">
+              <small class="error">{{ 'BATCH.FORM.NUMBER.MANDATORY' | translate }}</small>
+            </div>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- DELIVERY_NOTE -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="delivery_note">{{'BATCH.FORM.DELIVERY_NOTE' | translate}}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <input nz-input name="delivery_note" type="text" id="delivery_note" [(ngModel)]="batchEdit.delivery_note">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+
+
+    <div class="column-2">
+      <!-- BIRTH_DATE -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="entry_date">{{ 'BATCH.FORM.ENTRY_DATE' | translate}}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <input nz-input name="entry_date" type="date" id="entry_date" [(ngModel)]="batchEdit.entry_date">
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <!-- BIRTH_DATE -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="expiration_date">{{ 'BATCH.FORM.EXPIRATION_DATE' |
+          translate}}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <input nz-input name="expiration_date" type="date" id="expiration_date"
+            [(ngModel)]="batchEdit.expiration_date">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="column-2">
+
+      <!-- PRODUCT_QUANTITY -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="product_quantity">{{'BATCH.FORM.PRODUCT_QUANTITY' |
+          translate}}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <input nz-input name="product_quantity" type="number" id="product_quantity"
+            [(ngModel)]="batchEdit.product_quantity" (ngModelChange)="calculateTotalQuantity()">
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <!-- QUANTITY_PER_UNIT -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="quantity_per_unity">{{'BATCH.FORM.QUANTITY_PER_UNIT' |
+          translate}}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <input nz-input name="quantity_per_unity" type="number" id="quantity_per_unity"
+            [(ngModel)]="batchEdit.quantity_per_unity" (ngModelChange)="calculateTotalQuantity()">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="column-2">
+      <!-- TOTAL_QUANTITY -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="total_quantity">{{'BATCH.FORM.TOTAL_QUANTITY' | translate}}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <input nz-input name="total_quantity" type="number" id="total_quantity" [(ngModel)]="batchEdit.total_quantity">
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <nz-form-item>
+      </nz-form-item>
+    </div>
+
+
+    <div class="column-2 obs">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzFor="obs">{{ 'BATCH.FORM.OBSERVATIONS' | translate }} </nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <textarea nz-input name="obs" id="obs" [(ngModel)]="batchEdit.observations"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="flex-button">
+      <!-- BOTON GUARDAR -->
+      <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="15">
+          <button type="submit" nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  </form>

@@ -1,0 +1,378 @@
+<h2 class="flex-container"><span>{{ 'PET.DETAIL.TITLE' | translate}}</span> <nz-divider
+    nzType="vertical"></nz-divider><span>{{ pet.nom }}</span> <nz-divider nzType="vertical"></nz-divider></h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/clients">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'CLIENTS.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/dashboard/clients/detail', client._id]">
+        <span nz-icon nzType="user"></span>
+        <span> {{ 'CLIENTS.DETAIL.BREADCRUMB' | translate}}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span> {{ 'PET.DETAIL.BREADCRUMB' | translate}}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+
+  <!-- PET CARD DETAIL -->
+  <nz-row nzGutter="16">
+
+    <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="14">
+
+      <!-- PET CARD DETAIL -->
+      <nz-card style="width: 100%;margin-top: 25px" [nzActions]="[]" nzFlex nzFlex="auto">
+        <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
+
+          <div class="legend">
+            <legend>{{pet.nom}}</legend>
+            <!-- TOP PET ICON -->
+            <div>
+              <i class="card-icon fa-solid fa-paw"></i>
+              <i class="card-icon bi bi-circle"></i>
+            </div>
+
+            <!-- EDIT BUTTON  -->
+            <a (click)="showPetModal()" class="edit-button">
+              <i class="bi bi-pencil-square"></i>
+            </a>
+          </div>
+
+          <span nz-tooltip *ngIf="getPetSpecieIcon(pet.esp)" [nzTooltipTitle]="getPetSpecie(pet.esp)"
+            nzTooltipPlacement="right" [nzTooltipArrowPointAtCenter]="true" class="pet-icon fa-solid"
+            [ngClass]="getPetSpecieIcon(pet.esp)">
+          </span>
+
+          <br>
+          <br>
+          <div class="column-2">
+            <!-- SPECIE -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="species">{{ 'PET.FORM.SPECIES' | translate }}</nz-form-label>
+              <nz-form-control>
+                {{getPetSpecie(pet.esp)}}
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- RACE -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="race">{{ 'PET.FORM.RACE' | translate }}</nz-form-label>
+              <nz-form-control>
+                {{ getPetRace(pet.raz)}}
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div class="column-2">
+            <!-- COAT -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="coat">{{ 'PET.FORM.COAT' | translate }}</nz-form-label>
+              <nz-form-control>
+                {{getPetCoat(pet.pel)}}
+              </nz-form-control>
+            </nz-form-item>
+
+
+            <!-- SEX -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="race">{{ 'PET.FORM.SEX' | translate }}</nz-form-label>
+              <nz-form-control>
+                {{getPetSex(pet.sex)}}
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div class="column-2">
+            <!-- CHARACTERISTICS -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="car">{{'PET.FORM.CHARACTERISTICS' | translate}}</nz-form-label>
+              <nz-form-control>{{pet.car}}</nz-form-control>
+            </nz-form-item>
+
+
+            <!-- BIRTH_DATE -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="fecn">{{ 'PET.FORM.BIRTH_DATE' | translate}}</nz-form-label>
+              <nz-form-control>
+                {{birthDate}}
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+
+          <div class="column-2">
+            <!-- WEIGHT -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="car">{{'PET.FORM.WEIGHT' | translate}}</nz-form-label>
+              <nz-form-control>{{ pet.pes}} KG</nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+            </nz-form-item>
+          </div>
+
+          <div class="column-2">
+
+            <!-- MICROCHIP -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="chip">{{'PET.FORM.MICROCHIP' | translate}}</nz-form-label>
+              <nz-form-control>{{pet.Chip}}</nz-form-control>
+            </nz-form-item>
+            <!--  -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="car">{{'PET.FORM.LAST_REVISION_DATE' |
+                translate}}</nz-form-label>
+              <nz-form-control>{{lastRevisionDate}}</nz-form-control>
+            </nz-form-item>
+          </div>
+
+
+          <div class="column-2">
+            <!-- DECEASED -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="dec">{{ 'PET.FORM.DEAD' | translate}}</nz-form-label>
+              <nz-form-control>
+                <nz-switch name="dec" id="dec" [(ngModel)]="pet.dec" [disabled]="true"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item *ngIf="pet.dec">
+              <nz-form-label class="label-detail" nzFor="fecDec">{{ 'PET.FORM.DEAD_DATE' | translate}}</nz-form-label>
+              <nz-form-control> {{deathDate}}
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div class="column-2">
+            <!-- BREEDER -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="rep">{{ 'PET.FORM.BREEDER' | translate}}</nz-form-label>
+              <nz-form-control>
+                <nz-switch name="rep" id="rep" [(ngModel)]="pet.rep" [disabled]="true"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- PEDIGREE -->
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="ped">{{ 'PET.FORM.PEDIGREE' | translate}}</nz-form-label>
+              <nz-form-control>
+                <nz-switch name="ped" id="ped" [(ngModel)]="pet.ped" [disabled]="true"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+
+          </div>
+
+          <div class="column-2 obs">
+            <nz-form-item>
+              <nz-form-label class="label-detail" nzFor="obs">{{ 'PET.FORM.OBSERVATIONS' | translate }} </nz-form-label>
+              <nz-form-control>{{pet.obs}}
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+        </nz-skeleton>
+      </nz-card>
+    </nz-col>
+
+
+    <!-- CLIENT CARD DETAIL -->
+    <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="10">
+
+      <nz-card style="width: 100%;margin-top: 25px" [nzActions]="[]" nzFlex nzFlex="auto">
+        <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
+
+          <div class="legend">
+            <legend>{{client.ayn}}</legend>
+            <!-- TOP ICON -->
+            <i class="card-icon bi bi-person-circle"></i>
+          </div>
+
+          <!-- ADDRESS -->
+          <nz-form-item>
+            <nz-form-label class="label-detail" class="label-detail" class="label-detail" nzFor="dir">{{
+              'CLIENTS.FORM.DIRECTION' |
+              translate
+              }}</nz-form-label>
+            <nz-form-control>{{ client.dir }}</nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.PROVINCE' | translate}}</nz-form-label>
+            <nz-form-control>{{ getProvinceName(client.Dep) }}</nz-form-control>
+          </nz-form-item>
+
+          <!-- LOCALIDAD -->
+          <nz-form-item>
+            <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.LOCALITY' | translate}}</nz-form-label>
+            <nz-form-control>{{ getLocalityName(client.Loc) }}</nz-form-control>
+          </nz-form-item>
+
+
+          <!-- TELEPHONE -->
+          <nz-form-item>
+            <nz-form-label class="label-detail" class="label-detail" nzFor="tel">{{ 'CLIENTS.FORM.TELEPHONE' | translate
+              }}</nz-form-label>
+            <nz-form-control>
+              {{client.tel2}}
+              <nz-divider nzType="vertical"></nz-divider>
+              {{client.telC2}}
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- EMAIL -->
+          <nz-form-item>
+            <nz-form-label class="label-detail" class="label-detail" nzFor="email">{{ 'CLIENTS.FORM.EMAIL' | translate
+              }}</nz-form-label>
+            <nz-form-control>{{client.email}}
+            </nz-form-control>
+          </nz-form-item>
+
+        </nz-skeleton>
+      </nz-card>
+
+
+      <!-- ALERTS  -->
+      <nz-card [nzActions]="[]" nzFlex nzFlex="auto" class="alerts-card">
+        <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
+
+          <div class="legend">
+            <legend>{{ 'PET.DETAIL.ALERTS'  | translate }}</legend>
+            <div>
+              <i class="card-icon bi bi-bell"></i>
+            </div>
+          </div>
+
+
+
+
+        </nz-skeleton>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+
+  <br>
+
+
+  <!-- MEDICAL DATA -->
+  <nz-card style="width: 100%;margin-top: 25px" [nzActions]="[]" nzFlex nzFlex="auto">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
+
+      <div class="legend">
+        <!-- TOP PET ICON -->
+        <div>
+          <i class="card-icon bi bi-heart-pulse"></i>
+        </div>
+
+      </div>
+
+
+      <!-- MEDICA HISTORY -->
+      <nz-tabset [nzTabPosition]="nzTabPosition">
+
+        <nz-tab [nzTitle]="titleTemplate">
+          <ng-template #titleTemplate>
+            <!-- <i class="icon bi bi-journal-medical"></i> -->
+            <i class="icon bi bi-clipboard2-pulse"></i>
+            {{ 'PET.DETAIL.HISTORY'  | translate }}
+          </ng-template>
+         <app-pet-history *ngIf="pet.idc" [pet]="pet"></app-pet-history>
+        </nz-tab>
+
+
+        <!-- TREATMENTS -->
+        <nz-tab [nzTitle]="treatmentTemplate">
+
+          <ng-template #treatmentTemplate>
+            <i class="icon bi bi-capsule-pill"></i>
+            {{ 'PET.DETAIL.TREATMENTS'  | translate }}
+          </ng-template>
+          Content of Tab Pane 2
+        </nz-tab>
+
+
+        <!-- RADIOLOGY -->
+        <nz-tab [nzTitle]="radioTemplate">
+          <ng-template #radioTemplate>
+            <i class="icon fa-solid fa-radiation"></i>
+            {{ 'PET.DETAIL.RADIOLOGY'  | translate }}
+          </ng-template>
+          Content of Tab Pane 3
+        </nz-tab>
+
+
+
+        <nz-tab [nzTitle]="foodTemplate">
+
+          <ng-template #foodTemplate>
+            <i class="icon fa-solid fa-bone"></i>
+            {{ 'PET.DETAIL.FEEDING'  | translate }}
+          </ng-template>
+          Content of Tab Pane 3
+        </nz-tab>
+
+
+
+        <nz-tab [nzTitle]="hairTemplate">
+          <ng-template #hairTemplate>
+            <i class="icon bi bi-scissors"></i>
+            {{ 'PET.DETAIL.HAIR_SALOON'  | translate }}
+          </ng-template>
+          Content of Tab Pane 3
+        </nz-tab>
+
+
+        <nz-tab [nzTitle]="despTemplate">
+          <ng-template #despTemplate>
+            <!-- <i class="icon bi bi-capsule"></i> -->
+            <i class="icon bi bi-bug"></i>
+            {{ 'PET.DETAIL.DEWORMING'  | translate }}
+          </ng-template>
+          Content of Tab Pane 3
+        </nz-tab>
+
+
+        <nz-tab [nzTitle]="vacumTemplate">
+          <ng-template #vacumTemplate>
+            <i class="icon fa-solid fa-syringe"></i>
+            {{ 'PET.DETAIL.VACCINATION'  | translate }}
+          </ng-template>
+          Content of Tab Pane 3
+        </nz-tab>
+
+        <nz-tab [nzTitle]="analiticTemplate">
+          <ng-template #analiticTemplate>
+            <i class="icon bi bi-droplet-fill"></i>
+            {{ 'PET.DETAIL.ANALYTICAL'  | translate }}
+          </ng-template>
+          Content of Tab Pane 3
+        </nz-tab>
+
+        <nz-tab [nzTitle]="hospitalTemplate">
+          <ng-template #hospitalTemplate>
+            <i class="icon bi bi-h-square"></i>
+            {{ 'PET.DETAIL.HOSPITALIZATION'  | translate }}
+          </ng-template>
+          Content of Tab Pane 3
+        </nz-tab>
+
+
+      </nz-tabset>
+
+    </nz-skeleton>
+  </nz-card>
+
+  <!-- PET FORM MODAL -->
+  <nz-modal [nzContent]="petModalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
+    [nzWidth]="'70%'" [(nzVisible)]="isPetVisible" (nzOnCancel)="handleCancel()">
+  </nz-modal>
+  <ng-template #petModalContent>
+    <app-pet-form [pet]="pet" [client]="client" (updatePet)="onUpdatePet($event)" [isDetail]="true"></app-pet-form>
+  </ng-template>

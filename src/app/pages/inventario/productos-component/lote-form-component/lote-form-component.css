@@ -1,0 +1,15 @@
+.obs {
+  margin-left: 1.7rem;
+}
+
+.space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}

@@ -1,0 +1,82 @@
+<h2 class="flex-container">
+  <span *ngIf="!provinceEdit.id"> {{ 'PROVINCE.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="provinceEdit.id"> {{ 'PROVINCE.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/configuration/store/unity_types">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'PROVINCE.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!provinceEdit.id"> {{ 'PROVINCE.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="provinceEdit.id"> {{ 'PROVINCE.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        provinceEdit.nom + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!provinceEdit._id ? saveProvider() : updateProvider()">
+
+
+      <div class="column-2">
+
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="nom">{{'PROVINCE.FORM.NAME' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="nom" type="text" id="nom" [(ngModel)]="provinceEdit.nom">
+              <div nzStatus="error" *ngIf="submitted && !provinceEdit.nom">
+                <small class="error">{{ 'PROVINCE.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- PHONE_PREFIX -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="name">{{'PROVINCE.FORM.PHONE_PREFIX' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <input nz-input name="name" type="text" id="Ctel" [(ngModel)]="provinceEdit.Ctel">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="column-2" *ngIf="provinceEdit.id">
+
+        <!-- ACTIVE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="active">{{ 'ACTIVE.TEXT' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-switch name="active" id="active" [(ngModel)]="provinceEdit.active"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        </nz-form-item>
+
+      </div>
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

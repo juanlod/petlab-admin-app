@@ -1,0 +1,95 @@
+<h2 class="flex-container">
+  <span *ngIf="!debtEdit.id"> {{ 'DEBT.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="debtEdit.id"> {{ 'DEBT.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!debtEdit.id"> {{ 'DEBT.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="debtEdit.id"> {{ 'DEBT.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        debtEdit.ticketNumber + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!debtEdit._id ? saveDebt() : updateDebt()">
+
+
+      <div class="column-2">
+        <!-- TICKET -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="ticketNumber">{{'DEBT.FORM.TICKET_NUMBER' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="ticketNumber" type="text" id="ticketNumber" [(ngModel)]="debtEdit.ticketNumber">
+              <div nzStatus="error" *ngIf="submitted && !debtEdit.ticketNumber">
+                <small class="error">{{ 'DEBT.FORM.TICKET_NUMBER.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="ticketNumber">{{'DEBT.FORM.QUANTITY' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <input nz-input name="quantity" type="number" id="quantity" [(ngModel)]="debtEdit.quantity">
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+
+
+      <div class="column-2">
+        <!-- DEBT DATE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="debtDate">{{ 'DEBT.FORM.DEBT_DATE' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <input nz-input name="debtDate" type="date" id="debtDate" [(ngModel)]="debtEdit.debtDate">
+          </nz-form-control>
+        </nz-form-item>
+        <!--  -->
+        <nz-form-item>
+        </nz-form-item>
+      </div>
+
+      <div class="column-2" *ngIf="debtEdit.id">
+
+        <!-- PAID -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="paid">{{ 'DEBT.PAID' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-switch name="paid" id="paid" [(ngModel)]="debtEdit.paid"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- PAID DATE -->
+        <nz-form-item>
+          <ng-container *ngIf="debtEdit.paid">
+            <nz-form-label [nzSpan]="7" nzFor="paidDate">{{ 'DEBT.FORM.PAID_DATE' | translate}}</nz-form-label>
+            <nz-form-control [nzSpan]="15">
+              <input nz-input name="paidDate" type="date" id="paidDate" [(ngModel)]="debtEdit.paidDate">
+            </nz-form-control>
+          </ng-container>
+        </nz-form-item>
+      </div>
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

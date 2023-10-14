@@ -1,0 +1,98 @@
+<h2 class="flex-container">
+  <span *ngIf="!localityEdit.id"> {{ 'LOCALITY.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="localityEdit.id"> {{ 'LOCALITY.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/configuration/store/unity_types">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'LOCALITY.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!localityEdit.id"> {{ 'LOCALITY.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="localityEdit.id"> {{ 'LOCALITY.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        localityEdit.nom + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!localityEdit._id ? saveProvider() : updateProvider()">
+
+
+      <div class="column-2">
+
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="nom">{{'LOCALITY.FORM.NAME' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="nom" type="text" id="nom" [(ngModel)]="localityEdit.nom">
+              <div nzStatus="error" *ngIf="submitted && !localityEdit.nom">
+                <small class="error">{{ 'LOCALITY.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+
+        <!-- POSTAL CODE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="cp">{{'LOCALITY.FORM.POSTAL_CODE' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <input nz-input name="cp" type="text" id="cp" [(ngModel)]="localityEdit.cp">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="column-2">
+        <!-- PROVINCIA -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="dep">{{ 'LOCALITY.FORM.PROVINCE' | translate }}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'LOCALITY.FORM.PROVINCE.PLACEHOLDER' | translate }}"
+              [(ngModel)]="localityEdit.dep" name="dep">
+              <nz-option *ngFor="let option of provinces" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item></nz-form-item>
+      </div>
+
+      <div class="column-2" *ngIf="localityEdit.id">
+
+        <!-- ACTIVE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="active">{{ 'ACTIVE.TEXT' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-switch name="active" id="active" [(ngModel)]="localityEdit.active"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        </nz-form-item>
+
+      </div>
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

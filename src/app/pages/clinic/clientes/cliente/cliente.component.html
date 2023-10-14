@@ -1,0 +1,126 @@
+<h2>{{ 'CLIENTS.LIST.TITLE' | translate}}</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <span nz-icon nzType="home" routerLink="/"></span>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+      <span>{{ 'CLIENTS.LIST.TITLE.BREADCRUMB' | translate }}</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+
+<!-- MODAL BUTTON -->
+<div nz-row nzJustify="end">
+  <a (click)="showModal()">
+    <i class="add-icon bi bi-plus-circle"></i>
+  </a>
+</div>
+<br>
+
+<!-- TABLE -->
+<nz-table zWidth="100%" #basicTable nzShowSizeChanger [nzData]="clientes"  nzSize="middle"
+  [nzFrontPagination]="false" [nzLoading]="loading"
+  [nzTotal]="totalResults" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)" nzTableLayout="auto">
+  <thead>
+    <tr>
+      <th nzWidth="5%"></th>
+      <th zWidth="20%" nzCustomFilter>
+        {{ 'CLIENTS.LIST.TABLE.NAME' | translate }}
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="filtro.length > 0" [nzDropdownMenu]="menu">
+          <span style="font-size: 15px;" nz-icon nzType="search"></span>
+        </nz-filter-trigger>
+      </th>
+      <th zWidth="20%" nzColumnKey="dir" [nzSortFn]="true">{{ 'CLIENTS.LIST.TABLE.DIRECTION' | translate}} </th>
+      <th zWidth="15%" nzColumnKey="email" [nzSortFn]="true">{{ 'CLIENTS.LIST.TABLE.EMAIL' | translate }}</th>
+      <th zWidth="20%" nzColumnKey="tel" [nzSortFn]="true">{{ 'CLIENTS.LIST.TABLE.TELEPHONE' | translate }}</th>
+      <th nzWidth="15%">{{ 'CLIENTS.LIST.TABLE.ALERTS' | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let cliente of basicTable.data">
+      <tr>
+        <ng-container zWidth="5%">
+          <td *ngIf="cliente?.mascotas?.length > 0" [nzExpand]="expandSet.has(cliente.idc)"
+          (nzExpandChange)="onExpandChange(cliente.idc, $event)">
+        </td>
+        <td *ngIf="cliente?.mascotas?.length === 0"></td>
+       </ng-container>
+
+
+        <!-- CLIENT NAME -->
+        <td  zWidth="20%"class="client-name" [ngClass]="{'contains-pet': checkFiltro(cliente)}">
+          <a (click)="clientDetail(cliente._id)"><span [ngClass]="{'contains-pet': checkFiltro(cliente)}">{{ cliente.ayn
+              }}</span></a>
+          <!-- <span class="client-name-pet" nz-icon nzType="plus" nzTheme="outline"></span> -->
+        </td>
+        <!-- CLIENT DIRECTION -->
+        <td zWidth="20%">{{ cliente.dir }}</td>
+
+        <!-- CLIENT EMAIL -->
+        <td zWidth="15%">{{ cliente.email }}</td>
+
+        <!-- CLIENT PHONE -->
+        <td zWidth="20%">
+          <span *ngIf="cliente.tel">
+            {{ cliente.tel }} <nz-divider nzType="vertical"></nz-divider>
+          </span>
+          <span *ngIf="cliente.telC">
+            {{ cliente.telC }} <nz-divider nzType="vertical"></nz-divider>
+          </span>
+          <span *ngIf="cliente.telC2">
+            {{ cliente.telC2 }} <nz-divider nzType="vertical"></nz-divider>
+          </span>
+        </td>
+        <!-- CLIENT ALERTS -->
+        <td zWidth="15%">
+          <span class="table-icon warning" *ngIf="cliente.problematico" nz-icon nzType="warning" nzTheme="outline"></span>
+          <nz-divider *ngIf="client.problematico" nzType="vertical"></nz-divider>
+          <span  *ngIf="cliente?.debts?.length > 0" nz-tooltip [nzTooltipTitle]="countDebts(cliente.debts)" nzTooltipPlacement="top" class="table-icon dollar"  nz-icon nzType="dollar" nzTheme="outline">
+
+          </span>
+        </td>
+      </tr>
+      <!-- CLIENT PETS -->
+      <ng-container *ngFor="let mascota of cliente.mascotas">
+        <tr  [nzExpand]="expandSet.has(cliente.idc)">
+          <td [nzIndentSize]="80">
+            <a (click)="petDetail(mascota._id)" [ngClass]="{'contains-pet' : checkFiltroMascota(mascota) }">{{ mascota.nom }}</a>
+
+            <nz-divider nzType="vertical"></nz-divider>
+            {{ getPetSpecie(mascota.esp)}}
+
+            <nz-divider nzType="vertical"></nz-divider>
+            {{ getPetSex(mascota.sex)}}
+            <nz-divider nzType="vertical"></nz-divider>
+            {{ getPetRace(mascota.raz)}}
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Buscar por cliente, mascota..." [(ngModel)]="filtro" />
+      <div style="display: flex; justify-content: space-between;">
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </div>
+</nz-dropdown-menu>
+
+
+<nz-modal [nzContent]="modalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
+  [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+</nz-modal>
+
+
+<ng-template #modalContent>
+  <app-cliente-form [client]="client"></app-cliente-form>
+</ng-template>

@@ -1,0 +1,103 @@
+<h2 class="flex-container">
+  <span *ngIf="!specieEdit.id"> {{ 'SPECIE.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="specieEdit.id"> {{ 'SPECIE.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/configuration/clinic/species">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'SPECIES.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!specieEdit.id"> {{ 'SPECIE.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="specieEdit.id"> {{ 'SPECIE.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        specieEdit.nom + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!specieEdit._id ? saveProvider() : updateProvider()">
+
+
+      <div class="column-2">
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="nom">{{'SPECIE.FORM.NAME' | translate}}&nbsp;<span
+              class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="nom" type="text" id="nom" [(ngModel)]="specieEdit.nom">
+              <div nzStatus="error" *ngIf="submitted && !specieEdit.nom">
+                <small class="error">{{ 'SPECIE.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        </nz-form-item>
+      </div>
+
+      <div class="column-2" *ngIf="specieEdit.id">
+
+        <!-- ACTIVE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="active">{{ 'ACTIVE.TEXT' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-switch name="active" id="active" [(ngModel)]="specieEdit.active"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        </nz-form-item>
+
+      </div>
+
+      <div class="column-2">
+        <!-- ICON -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzFor="icon">{{'SPECIE.FORM.ICON' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="10">
+            <div nzFlex nzFlex="auto">
+              <input nz-input name="icon" type="text" id="icon" [(ngModel)]="specieEdit.icon">
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- ICON PREVIEW -->
+        <nz-form-item>
+          <nz-form-control [nzSpan]="10">
+            <nz-card style="width:200px; height:150px">
+              <div nzFlex nzFlex="auto">
+              <span *ngIf="!specieEdit.icon">{{'SPECIE.FORM.ICON.PREVIEW' | translate}}</span>
+              </div>
+              <span style="font-size: 40px;" ngClass="{{specieEdit.icon}}"></span>
+            </nz-card>
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+
+
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>

@@ -1,0 +1,71 @@
+<h2 class="flex-container">
+  <span *ngIf="!coatEdit.id"> {{ 'COAT.FORM.TITLE.NEW' | translate }}</span>
+  <span *ngIf="coatEdit.id"> {{ 'COAT.FORM.TITLE.EDIT' | translate }}</span>
+
+</h2>
+<nz-breadcrumb>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="home" routerLink="/"></span>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/dashboard/configuration/clinic/coats">
+        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+        <span>{{ 'COAT.LIST.TITLE.BREADCRUMB' | translate }}</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <span nz-icon nzType="user"></span>
+      <span *ngIf="!coatEdit.id"> {{ 'COAT.FORM.BREADCRUMB.NEW' | translate}}</span>
+      <span *ngIf="coatEdit.id"> {{ 'COAT.FORM.BREADCRUMB.EDIT' | translate}} {{'(' +
+        coatEdit.nom + ')' }}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div>
+
+    <br>
+    <br>
+    <form nz-form (submit)="!coatEdit._id ? saveProvider() : updateProvider()">
+
+
+      <div class="obs">
+        <!-- NAME -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="nom">{{'COAT.FORM.NAME' | translate}}&nbsp;<span class="error">*</span></nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <div nzFlex nzFlex="auto">
+              <textarea nz-input name="nom" id="nom" [(ngModel)]="coatEdit.nom"></textarea>
+              <div nzStatus="error" *ngIf="submitted && !coatEdit.nom">
+                <small class="error">{{ 'COAT.FORM.NAME.MANDATORY' | translate }}</small>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+
+      </div>
+
+      <div *ngIf="coatEdit.id">
+
+        <!-- ACTIVE -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="active">{{ 'ACTIVE.TEXT' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="15">
+            <nz-switch name="active" id="active" [(ngModel)]="coatEdit.active"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+
+
+      <div class="flex-button">
+        <!-- BOTON GUARDAR -->
+        <nz-form-item>
+          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>
