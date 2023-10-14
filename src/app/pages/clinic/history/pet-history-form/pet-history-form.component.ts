@@ -2,13 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { lastValueFrom } from 'rxjs';
 import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
 import { Client } from 'src/app/api/models/clinic/client';
-import { Coat } from 'src/app/api/models/master/coat';
 import { Pet } from 'src/app/api/models/clinic/pet';
-import { Race } from 'src/app/api/models/master/race';
-import { Sex } from 'src/app/api/models/master/sex';
-import { Species } from 'src/app/api/models/master/species';
 import { NotificationService } from 'src/app/api/services/notification.service';
-import { PetsService } from 'src/app/api/services/clinic/pets.service';
 import { Utils } from 'src/app/utils';
 import { PetHistoryService } from 'src/app/api/services/clinic/history.service';
 import { PetHistory } from 'src/app/api/models/clinic/history';
@@ -23,7 +18,6 @@ export class PetHistoryFormComponent implements OnInit {
   @Input() isDetail: boolean = false;
   @Input() client: Client = new Client();
 
-  @Output() updateClient = new EventEmitter<Client>();
   @Output() updatePetHistory = new EventEmitter<PetHistory>();
 
   @Input() pethistory: PetHistory = new PetHistory();
@@ -43,16 +37,15 @@ export class PetHistoryFormComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    console.log(this.pet)
-    console.log(this.client)
 
-    this.pethistory = new PetHistory();
-    this.pethistory.idm = this.pet.idm;
-    this.pethistory.fec = Utils.transformDate(new Date().toUTCString(), 'yyyy-MM-dd', 'en-US')
-
-
-    if (this.pethistory) {
+    if (this.pethistory?._id) {
       this.pethistory.fec = Utils.transformDate(this.pethistory.fec, 'yyyy-MM-dd', 'en-US');
+    } else {
+
+      this.pethistory = new PetHistory();
+      this.pethistory.idm = this.pet.idm;
+      this.pethistory.fec = Utils.transformDate(new Date().toUTCString(), 'yyyy-MM-dd', 'en-US')
+
     }
     this.changeDetector.detectChanges()
 
@@ -80,12 +73,12 @@ export class PetHistoryFormComponent implements OnInit {
     });
 
     if (result) {
-
       this.submitted = false;
-      this.pethistory = new PetHistory();
+      this.pethistory = result;
+      this.pethistory.fec = Utils.transformDate(this.pethistory.fec, 'yyyy-MM-dd', 'en-US');
       this.notificationService.showSuccess('PET.HISTORY.SAVE.MESSAGE.OK');
       // Emit to client detail
-      this.updateClient.emit(this.client);
+      this.updatePetHistory.emit(this.client);
     }
   }
 

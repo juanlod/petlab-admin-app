@@ -146,7 +146,6 @@ export class PetFormComponent implements OnInit {
    * Change the race when the specie is modified
    */
   changeSpecies() {
-    console.log('se ejecuta')
     // this.petRaz = null;
     this.petsRace = this.pet.esp
       ? this.petsRaceBackup.filter((race) => race.esp === this.pet.esp)

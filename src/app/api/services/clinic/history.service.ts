@@ -25,7 +25,7 @@ export class PetHistoryService extends BaseService {
   /**
    * Path part for operation createPetHistory
    */
-  static readonly CreatePetHistoryPath = '/api/PetHistory/save';
+  static readonly CreatePetHistoryPath = '/api/pet-history/save';
 
   /**
    * Create a new PetHistory.
@@ -79,7 +79,7 @@ export class PetHistoryService extends BaseService {
   /**
    * Path part for operation findAllPetHistory
    */
-  static readonly FindAllPetHistoryPath = '/api/PetHistory/find_all';
+  static readonly FindAllPetHistoryPath = '/api/pet-history/find_all';
 
   /**
    * Retrieve a list of all PetHistorys.
@@ -130,7 +130,7 @@ export class PetHistoryService extends BaseService {
   /**
    * Path part for operation findOnePetHistory
    */
-  static readonly FindOnePetHistoryPath = '/api/PetHistory/find_one/{id}';
+  static readonly FindOnePetHistoryPath = '/api/pet-history/find_one/{id}';
 
   /**
    * Retrieve a PetHistory by ID.
@@ -184,7 +184,7 @@ export class PetHistoryService extends BaseService {
 /**
    * Path part for operation findByIdm
    */
-static readonly FindByIdmPath = '/api/history/find_by_idm/{id}';
+static readonly FindByIdmPath = '/api/pet-history/find_by_idm/{id}';
 
 /**
  * Retrieve a history list by idm.
@@ -244,7 +244,7 @@ findByIdm(params: {
   /**
    * Path part for operation updatePetHistory
    */
-  static readonly UpdatePetHistoryPath = '/api/PetHistory/update/{id}';
+  static readonly UpdatePetHistoryPath = '/api/pet-history/update/{id}';
 
   /**
    * Update a PetHistory by ID.
@@ -301,7 +301,7 @@ findByIdm(params: {
   /**
    * Path part for operation removePetHistory
    */
-  static readonly RemovePetHistoryPath = '/api/PetHistory/delete/{id}';
+  static readonly RemovePetHistoryPath = '/api/pet-history/delete/{id}';
 
   /**
    * Remove a PetHistory by ID.
@@ -355,7 +355,7 @@ findByIdm(params: {
   /**
    * Path part for operation findAllPagingPetHistory
    */
-  static readonly FindAllPagingPetHistoryPath = '/api/PetHistory/find_all/paging';
+  static readonly FindAllPagingPetHistoryPath = '/api/pet-history/find_all/paging';
 
   /**
    * Get all PetHistorys with pagination.

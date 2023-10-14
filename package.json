@@ -43,6 +43,7 @@
     "googleapis": "^127.0.0",
     "jquery": "^3.6.4",
     "ng-zorro-antd": "^13.4.0",
+    "ngx-socket-io": "^4.2.0",
     "ngx-toastr": "^14.3.0",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.17",

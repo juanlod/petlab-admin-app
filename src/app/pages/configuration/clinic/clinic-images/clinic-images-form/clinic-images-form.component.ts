@@ -43,7 +43,8 @@ export class ClinicImagesFormComponent implements OnInit {
   async saveImage(): Promise<void> {
     this.submitted = true;
 
-    if (!this.imageEdit.route) {
+    if (!this.imageEdit.clientId || !this.imageEdit.projectId || !this.imageEdit.authUri || !this.imageEdit.tokenUri
+      || !this.imageEdit.authProviderCertUrl || !this.imageEdit.clientSecret)  {
       return;
     }
     this.notificationService.showInfo('CLINIC_IMAGE.SAVE.MESSAGE.INFO');

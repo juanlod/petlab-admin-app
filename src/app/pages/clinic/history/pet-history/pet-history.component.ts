@@ -26,6 +26,8 @@ export class PetHistoryComponent implements OnInit {
   @Input() pet = new Pet();
   @Input() client = new Client();
 
+  public today: string = new Date().toUTCString();
+
   public pethistory = null;
   public isVisible: boolean = false;
 
@@ -42,9 +44,7 @@ export class PetHistoryComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loadMore()
-
     this.client = await lastValueFrom(this.clientService.findOneByIdcClient({id: this.pet.idc}))
-    console.log(this.client)
   }
 
   public async loadMore(): Promise<void> {
@@ -103,6 +103,13 @@ export class PetHistoryComponent implements OnInit {
 
 
   showModal(): void {
+    this.pethistory = new PetHistory();
+    this.isVisible = true;
+  }
+
+  showEditModal(history: PetHistory) {
+
+    this.pethistory = history;
     this.isVisible = true;
   }
 
@@ -112,6 +119,17 @@ export class PetHistoryComponent implements OnInit {
 
 
   onUpdateHistory(event:any) {
+    this.setState({
+      loadedCount: 0,
+      history: [],
+      isLoading: false
+    });
+    this.loadMore()
+  }
 
+
+  historyToday(historyDate: string) {
+
+    return this.transformDate(historyDate).includes(this.transformDate(this.today))
   }
 }

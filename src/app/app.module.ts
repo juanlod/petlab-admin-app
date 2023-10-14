@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CommonModule, registerLocaleData } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -37,7 +37,6 @@ registerLocaleData(es);
 registerLocaleData(en);
 registerLocaleData(gl);
 
-
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent],
   imports: [
@@ -62,10 +61,10 @@ registerLocaleData(gl);
     PetModule,
     FontAwesomeModule,
     InventarioModule,
-    ConfigurationModule
+    ConfigurationModule,
   ],
   exports: [],
-  providers: [{ provide: NZ_I18N, useValue: [es_ES, en_GB, gl_ES]}],
+  providers: [{ provide: NZ_I18N, useValue: [es_ES, en_GB, gl_ES] }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

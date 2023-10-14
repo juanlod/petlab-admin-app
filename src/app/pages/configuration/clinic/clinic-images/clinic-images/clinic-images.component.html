@@ -30,7 +30,7 @@
   <thead>
     <tr>
       <th nzCustomFilter nzWidth="90%">
-        {{ 'CLINIC.IMAGES.LIST.TABLE.ROUTE' | translate }}
+        {{ 'CLINIC.IMAGES.LIST.TABLE.PARAMS' | translate }}
         <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="filtro.length > 0" [nzDropdownMenu]="menu">
           <span style="font-size: 15px;" nz-icon nzType="search"></span>
         </nz-filter-trigger>
@@ -43,7 +43,20 @@
       <tr>
         <!-- CLIENT NAME -->
         <td class="image-name">
-          <a (click)="showModal(image)"><span>{{ image?.route}}</span></a>
+          <a (click)="showModal(image)">
+
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.CLIENT_ID' | translate}}: </span><span>{{ image?.clientId}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.PROJECT_ID' | translate}}: </span><span>{{ image?.projectId}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.AUTH_URI' | translate}}: </span><span>{{ image?.authUri}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.TOKEN_URI' | translate}}: </span><span>{{ image?.tokenUri}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.AUTH_PROVIDER_CERT_URL' | translate}}: </span><span>{{ image?.authProviderCertUrl}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.CLIENT_SECRET' | translate}}: </span><span>{{ image?.clientSecret}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.HISTORY_FOLDER' | translate}}: </span><span>{{ image?.historyFolder}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.ECOGRAPHY_FOLDER' | translate}}: </span><span>{{ image?.ecographyFolder}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.PET_PROFILE_FOLDER' | translate}}: </span><span>{{ image?.petProfileFolder}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.RAY_FOLDER' | translate}}: </span><span>{{ image?.rayFolder}}</span></p>
+
+          </a>
         </td>
         <td>
           <!-- <a>{{ 'BUTTON.DELETE' | translate }}</a> -->
