@@ -24,3 +24,11 @@
   color: rgb(23, 179, 23);
   font-size: 15px;
 }
+
+.timeline {
+  cursor: pointer;
+}
+
+.preserve-newline {
+  white-space: pre-wrap; /* o también puedes usar pre-line si prefieres */
+}

@@ -45,6 +45,7 @@ export class PetHistoryComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.loadMore()
     this.client = await lastValueFrom(this.clientService.findOneByIdcClient({id: this.pet.idc}))
+
   }
 
   public async loadMore(): Promise<void> {
@@ -62,6 +63,8 @@ export class PetHistoryComponent implements OnInit {
         isLoading: false,
         errorMessage: ''
       });
+
+      console.log(this.state.history)
     } catch (error) {
       this.setState({ errorMessage: 'Failed to load pet history', isLoading: false });
     }
@@ -129,7 +132,6 @@ export class PetHistoryComponent implements OnInit {
 
 
   historyToday(historyDate: string) {
-
     return this.transformDate(historyDate).includes(this.transformDate(this.today))
   }
 }

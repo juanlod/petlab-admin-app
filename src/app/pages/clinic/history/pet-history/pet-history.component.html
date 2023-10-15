@@ -10,13 +10,16 @@
 <nz-spin [nzSpinning]="state.isLoading">
   <nz-timeline  class="timeline-container">
     <nz-timeline-item *ngFor="let item of state.history">
-      <div class="font-color-black" (click)="showEditModal(item)" [ngClass]="{'today' : historyToday(item.fec)}">
-        <strong>
-          {{transformDate(item.fec)}}
-        </strong>
-        {{item.cli}}
+      <div class="font-color-black timeline" (click)="showEditModal(item)" >
+        <p [ngClass]="{'today' : historyToday(item.fec)}">
+          <strong>
+            {{transformDate(item.fec)}}
+          </strong>
+        </p>
+        <p class="preserve-newline">
+          {{item.cli}}
+        </p>
       </div>
-
     </nz-timeline-item>
   </nz-timeline>
 </nz-spin>
