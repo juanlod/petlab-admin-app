@@ -22,14 +22,15 @@
     </nz-breadcrumb-item>
     <nz-breadcrumb-item>
       <a [routerLink]="['/dashboard/clients/pets/history', pet._id]">
-      <span nz-icon nzType="user"></span>
-      <span> {{ 'PET.DETAIL.BREADCRUMB' | translate}}</span>
+        <span nz-icon nzType="user"></span>
+        <span> {{ 'PET.DETAIL.BREADCRUMB' | translate}}</span>
       </a>
     </nz-breadcrumb-item>
     <nz-breadcrumb-item>
       <span nz-icon nzType="user"></span>
       <span *ngIf="!pethistory?.idm"> {{ 'PET.HISTORY.FORM.BREADCRUMB.NEW' | translate}}</span>
-      <span *ngIf="pethistory?.idm"> {{ 'PET.HISTORY.FORM.BREADCRUMB.EDIT' | translate}} {{'(' + pethistory?.fec + ')' }}</span>
+      <span *ngIf="pethistory?.idm"> {{ 'PET.HISTORY.FORM.BREADCRUMB.EDIT' | translate}} {{'(' + pethistory?.fec + ')'
+        }}</span>
     </nz-breadcrumb-item>
   </nz-breadcrumb>
 
@@ -73,34 +74,41 @@
         </nz-form-item>
       </div>
 
+      <div class="column-2">
+        <!-- CONSULTATION_REASON -->
 
-      <!-- OBS -->
-      <div>
-        <nz-form-item >
-          <nz-form-label nzFor="cli">{{ 'PET.HISTORY.FORM.OBS' | translate }} </nz-form-label>
-            <textarea nz-input name="cli" id="cli" [(ngModel)]="pethistory.cli"></textarea>
-            <div nzStatus="error" *ngIf="submitted && !pethistory?.cli">
-              <small class="error">{{ 'PET.HISTORY.FORM.OBSERVATION.MANDATORY' | translate }}</small>
-            </div>
+        <nz-form-item style="padding-right: 5px;">
+          <nz-form-label nzFor="consultationReason">{{ 'PET.HISTORY.FORM.CONSULTATION_REASON' | translate }}
+          </nz-form-label>
+          <textarea nz-input name="consultationReason" id="consultationReason"
+            [(ngModel)]="pethistory.consultationReason"></textarea>
+          <div nzStatus="error" *ngIf="submitted && !pethistory?.consultationReason">
+            <small class="error">{{ 'PET.HISTORY.FORM.DIAGNOSTIC.CONSULTATION_REASON' | translate }}</small>
+          </div>
         </nz-form-item>
+
+        <nz-form-item style="padding-left: 5px;">
+          <nz-form-label nzFor="cli">{{ 'PET.HISTORY.FORM.DIAGNOSTIC' | translate }} </nz-form-label>
+          <textarea nz-input name="cli" id="cli" [(ngModel)]="pethistory.cli"></textarea>
+          <div nzStatus="error" *ngIf="submitted && !pethistory?.cli">
+            <small class="error">{{ 'PET.HISTORY.FORM.DIAGNOSTIC.MANDATORY' | translate }}</small>
+          </div>
+        </nz-form-item>
+
       </div>
 
 
 
-      <nz-upload
-      nzType="drag"
-      [nzMultiple]="true"
-      nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-      (nzChange)="handleChangeImage($event)"
-    >
-      <p class="ant-upload-drag-icon">
-        <span nz-icon nzType="inbox"></span>
-      </p>
-      <p class="ant-upload-text">Click or drag file to this area to upload</p>
-      <p class="ant-upload-hint">
-        Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
-      </p>
-    </nz-upload>
+      <nz-upload nzType="drag" [nzMultiple]="true" nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        (nzChange)="handleChangeImage($event)">
+        <p class="ant-upload-drag-icon">
+          <span nz-icon nzType="inbox"></span>
+        </p>
+        <p class="ant-upload-text">{{ 'FILE.UPLOAD.TITLE' | translate }}</p>
+        <p class="ant-upload-hint">
+          {{ 'FILE.UPLOAD.DESCRIPTION' | translate }}
+        </p>
+      </nz-upload>
 
 
 

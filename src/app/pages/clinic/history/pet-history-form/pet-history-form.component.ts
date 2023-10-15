@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
 import { Client } from 'src/app/api/models/clinic/client';
@@ -25,8 +32,7 @@ export class PetHistoryFormComponent implements OnInit {
 
   submitted: boolean = false;
 
-
-  compareFn = (o1: any, o2: any) => o1 && o2 ? o1.id === o2.id : o1 === o2;
+  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.id === o2.id : o1 === o2);
 
   constructor(
     public masterCacheService: MasterCacheService,
@@ -36,22 +42,23 @@ export class PetHistoryFormComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-
-
     if (this.pethistory?._id) {
-      this.pethistory.fec = Utils.transformDate(this.pethistory.fec, 'yyyy-MM-dd', 'en-US');
+      this.pethistory.fec = Utils.transformDate(
+        this.pethistory.fec,
+        'yyyy-MM-dd',
+        'en-US'
+      );
     } else {
-
       this.pethistory = new PetHistory();
       this.pethistory.idm = this.pet.idm;
-      this.pethistory.fec = Utils.transformDate(new Date().toUTCString(), 'yyyy-MM-dd', 'en-US')
-
+      this.pethistory.fec = Utils.transformDate(
+        new Date().toUTCString(),
+        'yyyy-MM-dd',
+        'en-US'
+      );
+      this.pethistory.type = 'HISTORY';
     }
-    this.changeDetector.detectChanges()
-
-
-
-
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -75,10 +82,14 @@ export class PetHistoryFormComponent implements OnInit {
     if (result) {
       this.submitted = false;
       this.pethistory = result;
-      this.pethistory.fec = Utils.transformDate(this.pethistory.fec, 'yyyy-MM-dd', 'en-US');
+      this.pethistory.fec = Utils.transformDate(
+        this.pethistory.fec,
+        'yyyy-MM-dd',
+        'en-US'
+      );
       this.notificationService.showSuccess('PET.HISTORY.SAVE.MESSAGE.OK');
       // Emit to client detail
-      this.updatePetHistory.emit(this.client);
+      this.updatePetHistory.emit(this.pethistory);
     }
   }
 
@@ -88,7 +99,10 @@ export class PetHistoryFormComponent implements OnInit {
   async update() {
     this.notificationService.showInfo('PET.HISTORY.UPDATE.MESSAGE.INFO');
     const result = await lastValueFrom(
-      this.service.updatePetHistory({ id: this.pethistory._id, body: this.pethistory })
+      this.service.updatePetHistory({
+        id: this.pethistory._id,
+        body: this.pethistory,
+      })
     ).catch((error) => {
       this.submitted = false;
       this.notificationService.showError('PET.HISTORY.UPDATE.MESSAGE.ERROR');
@@ -103,20 +117,19 @@ export class PetHistoryFormComponent implements OnInit {
   }
 
 
-
-
-  onUpdate() {
-
-  }
-
-
+  /**
+   * Sube imagenes a google drive
+   * @param param0
+   */
   handleChangeImage({ file, fileList }: NzUploadChangeParam): void {
     const status = file.status;
     if (status !== 'uploading') {
       console.log(file, fileList);
     }
     if (status === 'done') {
-      this.notificationService.showSuccess(`${file.name} file uploaded successfully.`);
+      this.notificationService.showSuccess(
+        `${file.name} file uploaded successfully.`
+      );
     } else if (status === 'error') {
       this.notificationService.showError(`${file.name} file upload failed.`);
     }

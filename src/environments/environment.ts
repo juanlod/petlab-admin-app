@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   // apiUrl: 'http://192.168.1.211:4201', // Ip para emitir la web a través de wifi
   apiUrl: 'http://localhost:4201',
+  websocketUrl: 'localhost:4202',
   emails: ['AVISOSMS@GMAIL.COM']
 };
 

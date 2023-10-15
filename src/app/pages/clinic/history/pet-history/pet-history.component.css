@@ -32,3 +32,7 @@
 .preserve-newline {
   white-space: pre-wrap; /* o también puedes usar pre-line si prefieres */
 }
+
+.icon {
+  font-size: 21px !important;
+}

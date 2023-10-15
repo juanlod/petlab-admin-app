@@ -414,5 +414,7 @@
   "INACTIVE.TEXT": "Inactivo",
 
   "BUTTON.SAVE": "Gardar",
-  "BUTTON.GO": "Ir"
+  "BUTTON.GO": "Ir",
+
+  "TIMELINE.LOADING": "Cargando..."
 }

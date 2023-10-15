@@ -46,6 +46,7 @@
     "ngx-socket-io": "^4.2.0",
     "ngx-toastr": "^14.3.0",
     "rxjs": "~7.5.0",
+    "socket.io-client": "^4.7.2",
     "sweetalert2": "^11.4.17",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

@@ -18,6 +18,11 @@ export class PetHistory {
   cli?: string = '';
 
   /**
+   * reason for medical consultation
+   */
+  consultationReason?: string = '';
+
+  /**
    * creation date
    */
   fec?: string;
@@ -42,4 +47,10 @@ export class PetHistory {
    * temperature
    */
   tmp?: number;
+
+
+  /**
+   * type of register
+   */
+  type: string;
 }

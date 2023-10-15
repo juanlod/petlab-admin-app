@@ -5,11 +5,12 @@
     <i class="bi bi-plus-circle"></i>
   </a>
 </div>
+<!-- <nz-divider></nz-divider> -->
 <br>
 <br>
 <nz-spin [nzSpinning]="state.isLoading">
-  <nz-timeline  class="timeline-container">
-    <nz-timeline-item *ngFor="let item of state.history">
+  <nz-timeline nzMode="alternate" [nzPending]="state.hasMoreData ? ('TIMELINE.LOADING' | translate) : null"   class="timeline-container">
+    <nz-timeline-item  [nzDot]="getItemType(item?.type)" *ngFor="let item of state.history">
       <div class="font-color-black timeline" (click)="showEditModal(item)" >
         <p [ngClass]="{'today' : historyToday(item.fec)}">
           <strong>
@@ -28,9 +29,12 @@
 
 <!-- PET FORM MODAL -->
 <nz-modal [nzContent]="petModalContent" [nzStyle]="{ top: '20px', height: '100%' }" [nzMaskClosable]="false"
-  [nzFooter]="null" [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+  [nzFooter]="null" [nzWidth]="'90%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
 </nz-modal>
 <ng-template #petModalContent>
   <app-pet-history-form [pet]="pet" [client]="client" [pethistory]="pethistory"
     (updatePetHistory)="onUpdateHistory($event)" [isDetail]="true"></app-pet-history-form>
 </ng-template>
+
+
+<ng-template #historyTemplate><i class="icon bi bi-clipboard2-pulse" ></i></ng-template>
