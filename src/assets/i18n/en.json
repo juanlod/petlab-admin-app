@@ -1,4 +1,5 @@
 {
+
   "USER.LOGIN.OK" :"Login successfully",
   "USER.LOGIN.MAIL" :"Put your mail",
   "USER.LOGIN.PASSWORD" :"Put your password",
@@ -102,6 +103,7 @@
   "PET.DETAIL.ANALYTICAL": "Analysis",
   "PET.DETAIL.HOSPITALIZATION": "Hospitalization",
   "PET.DETAIL.ALERTS": "Alerts",
+  "PET.DETAIL.BIRTHDAY.UNAVAILABLE": "Age cannot be calculated",
 
   "PET.SAVE.MESSAGE.OK": "Patient saved successfully",
   "PET.SAVE.MESSAGE.INFO": "Saving patient...",
@@ -410,5 +412,27 @@
   "TABLE.ACTION": "Actions",
 
   "BUTTON.SAVE": "Save",
-  "BUTTON.GO": "Go"
+  "BUTTON.GO": "Go",
+
+  "FILE.UPLOAD.TITLE": "Attach Image",
+  "FILE.UPLOAD.DESCRIPTION": "Attach images associated with the clinical history",
+
+  "PET.HISTORY.FORM.TITLE.EDIT" : "Edit patient record",
+  "PET.HISTORY.FORM.BREADCRUMB.EDIT": "Edit patient record dated ",
+  "PET.HISTORY.FORM.TEMP": "Temperature",
+  "PET.HISTORY.FORM.WEIGHT": "Weight",
+  "PET.HISTORY.FORM.DATE": "Date",
+  "PET.HISTORY.FORM.CONSULTATION_REASON": "Reason for Consultation",
+  "PET.HISTORY.FORM.DIAGNOSTIC": "Diagnosis",
+  "PET.HISTORY.SAVE.MESSAGE.INFO": "Saving history...",
+  "PET.HISTORY.SAVE.MESSAGE.OK": "History saved successfully",
+  "PET.HISTORY.SAVE.MESSAGE.ERROR": "An error occurred while saving the history",
+  "PET.HISTORY.UPDATE.MESSAGE.INFO": "Updating the history...",
+  "PET.HISTORY.UPDATE.MESSAGE.OK": "History updated successfully",
+  "PET.HISTORY.UPDATE.MESSAGE.ERROR": "An error occurred while updating the history",
+
+
+  "TIMELINE.LOADING": "Loading...",
+  "FORM.UNSAVED.CHANGES": "You have unsaved changes on the form"
+
 }

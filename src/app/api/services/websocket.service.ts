@@ -12,7 +12,9 @@ export class WebSocketService {
 
   constructor() {
     this.socket = io(`http://${environment.websocketUrl}`);
-    this.socket.on('message', (message) => this.messagesSubject.next(message));
+    this.socket.on('message', (message) => {
+      this.messagesSubject.next(message);
+    });
   }
 
   send(message: any): void {
@@ -20,6 +22,13 @@ export class WebSocketService {
   }
 
   get messages$(): Observable<any> {
+    return this.messagesSubject.asObservable();
+  }
+  get textInput$(): Observable<{
+    field: string;
+    value: string;
+    idClinica: number;
+  }> {
     return this.messagesSubject.asObservable();
   }
 }

@@ -103,6 +103,7 @@
   "PET.DETAIL.ANALYTICAL": "Análisis",
   "PET.DETAIL.HOSPITALIZATION": "Hospitalización",
   "PET.DETAIL.ALERTS": "Alertas",
+  "PET.DETAIL.BIRTHDAY.UNAVAILABLE": "No se puede calcular la edad",
 
   "PET.SAVE.MESSAGE.OK": "Paciente guardado correctamente",
   "PET.SAVE.MESSAGE.INFO": "Guardando paciente...",
@@ -405,5 +406,28 @@
   "TABLE.ACTION": "Acciones",
 
   "BUTTON.SAVE": "Guardar",
-  "BUTTON.GO": "Ir"
+  "BUTTON.GO": "Ir",
+
+  "FILE.UPLOAD.TITLE": "Adjuntar imagen",
+  "FILE.UPLOAD.DESCRIPTION": "Adjuntar imágenes asociadas a la historia clínica",
+
+  "PET.HISTORY.FORM.TITLE.NEW": "Nuevo historial del paciente",
+  "PET.HISTORY.FORM.TITLE.EDIT": "Editar historial del paciente",
+  "PET.HISTORY.FORM.BREADCRUMB.EDIT": "Editar historial del paciente con fecha ",
+  "PET.HISTORY.FORM.TEMP": "Temperatura",
+  "PET.HISTORY.FORM.WEIGHT": "Peso",
+  "PET.HISTORY.FORM.DATE": "Fecha",
+  "PET.HISTORY.FORM.CONSULTATION_REASON": "Motivo consulta",
+  "PET.HISTORY.FORM.DIAGNOSTIC": "Diagnóstico",
+
+  "PET.HISTORY.SAVE.MESSAGE.INFO": "Guardando historia...",
+  "PET.HISTORY.SAVE.MESSAGE.OK": "Historia guardada correctamente",
+  "PET.HISTORY.SAVE.MESSAGE.ERROR": "Ha sucedido un error al guardar la historia",
+  "PET.HISTORY.UPDATE.MESSAGE.INFO": "Actualizando la historia...",
+  "PET.HISTORY.UPDATE.MESSAGE.OK": "Historia actualizada correctamente",
+  "PET.HISTORY.UPDATE.MESSAGE.ERROR": "Ha sucedido un error al actualizar la historia",
+
+
+  "TIMELINE.LOADING": "Cargando...",
+  "FORM.UNSAVED.CHANGES": "Tiene cambios sin guardar en el formulario"
 }

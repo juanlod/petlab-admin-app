@@ -39,6 +39,7 @@
     "d3-transition": "^3.0.1",
     "d3-zoom": "^3.0.0",
     "dagre-compound": "^0.0.13",
+    "diff-match-patch": "^1.0.5",
     "google-auth-library": "^9.1.0",
     "googleapis": "^127.0.0",
     "jquery": "^3.6.4",

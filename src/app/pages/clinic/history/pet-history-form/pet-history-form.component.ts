@@ -11,26 +11,28 @@ import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
 import { Client } from 'src/app/api/models/clinic/client';
 import { Pet } from 'src/app/api/models/clinic/pet';
 import { NotificationService } from 'src/app/api/services/notification.service';
-import { Utils } from 'src/app/utils';
 import { PetHistoryService } from 'src/app/api/services/clinic/history.service';
 import { PetHistory } from 'src/app/api/models/clinic/history';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { WebSocketService } from 'src/app/api/services/websocket.service';
+import { diff_match_patch } from 'diff-match-patch';
+import { TranslateService } from '@ngx-translate/core';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 @Component({
   selector: 'app-pet-history-form',
   templateUrl: './pet-history-form.component.html',
   styleUrls: ['./pet-history-form.component.css'],
 })
-export class PetHistoryFormComponent implements OnInit {
+export class PetHistoryFormComponent extends CommonComponent implements OnInit {
   @Input() isDetail: boolean = false;
   @Input() client: Client = new Client();
-
   @Output() updatePetHistory = new EventEmitter<PetHistory>();
-
   @Input() pethistory: PetHistory = new PetHistory();
   @Input() pet: Pet = new Pet();
 
-  submitted: boolean = false;
+  public originalPethistory: PetHistory;
+  public submitted: boolean = false;
 
   compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.id === o2.id : o1 === o2);
 
@@ -38,27 +40,109 @@ export class PetHistoryFormComponent implements OnInit {
     public masterCacheService: MasterCacheService,
     public service: PetHistoryService,
     public notificationService: NotificationService,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+    private changeDetector: ChangeDetectorRef,
+    private websocketService: WebSocketService,
+    private translateService: TranslateService
+  ) {
+    super();
+  }
 
   async ngOnInit(): Promise<void> {
+
+
+     // Nos suscribimos a los mensajes del WebSocket para actualizar los campos en tiempo real
+    this.websocketService.textInput$.subscribe((data) => {
+      if (data.idClinica === this.pethistory.idClinica) {
+        if (data.field === 'consultationReason') {
+          this.pethistory.consultationReason = data.value;
+        } else if (data.field === 'cli') {
+          this.pethistory.cli = data.value;
+        }
+      }
+    });
+
+    // Nos suscribimos al guardado de la historia clinica del WebSocket para actualizar la lista en tiempo real
+    this.websocketService.messages$.subscribe((message) => {
+      if (message === `historySaved_${this.pet.idm}`) {
+        // Si el evento es 'historySaved', recarga los historiales
+        this.loadPetHistory();
+
+      }
+    });
+
+    // Si tiene id se formatea la fecha para mostrar en el campo
     if (this.pethistory?._id) {
-      this.pethistory.fec = Utils.transformDate(
+      this.pethistory.fec = this.transformDate(
         this.pethistory.fec,
         'yyyy-MM-dd',
-        'en-US'
+        'es-ES'
       );
     } else {
-      this.pethistory = new PetHistory();
-      this.pethistory.idm = this.pet.idm;
-      this.pethistory.fec = Utils.transformDate(
-        new Date().toUTCString(),
+      // Si no tiene id se busca por fecha por si se inicia uno nuevo y ya existe
+      const date = this.transformDate(
+        new Date().toISOString(),
         'yyyy-MM-dd',
-        'en-US'
+        'es-ES'
       );
-      this.pethistory.type = 'HISTORY';
+      const result = await lastValueFrom(
+        this.service.findByDatePetHistory({ date: date })
+      );
+
+      // Si no hay ninguno para esa fecha se inicializa un nuevo historial
+      if (!result) {
+        this.pethistory = new PetHistory();
+        this.pethistory.idm = this.pet.idm;
+        this.pethistory.fec = date;
+        this.pethistory.type = 'HISTORY';
+
+        // Se establece el mensaje inicial con la fecha del paciente
+        if (!this.pet.fecn) {
+          this.translateService
+            .get('PET.DETAIL.BIRTHDAY.UNAVAILABLE')
+            .subscribe((res: string) => {
+              this.pethistory.cli = res;
+            });
+        }
+
+        // Se guarda
+        this.save();
+      } else {
+        // Si existe por fecha se formatea la fecha
+        this.pethistory = result;
+        this.pethistory.fec = date;
+      }
     }
+    this.originalPethistory = { ...this.pethistory };
     this.changeDetector.detectChanges();
+  }
+
+  /**
+   * Carga los historiales de la mascota
+   */
+  private async loadPetHistory() {
+
+    if (this.pethistory?.idClinica) {
+      this.pethistory = await lastValueFrom(
+        this.service.findByCLinicIdPetHistory({
+          id: this.originalPethistory.idClinica,
+        })
+      );
+
+      const date = this.transformDate(
+        this.originalPethistory?.fec,
+        'yyyy-MM-dd',
+        'es-ES'
+      );
+
+      if (date && this.pethistory?.fec) {
+        this.pethistory.fec = date;
+      }
+
+      // Copia los valores y busca las diferencias
+      this.originalPethistory = { ...this.pethistory };
+      this.hasDifferences('consultationReason');
+      this.hasDifferences('cli');
+    }
   }
 
   /**
@@ -81,14 +165,10 @@ export class PetHistoryFormComponent implements OnInit {
 
     if (result) {
       this.submitted = false;
-      this.pethistory = result;
-      this.pethistory.fec = Utils.transformDate(
-        this.pethistory.fec,
-        'yyyy-MM-dd',
-        'en-US'
-      );
       this.notificationService.showSuccess('PET.HISTORY.SAVE.MESSAGE.OK');
-      // Emit to client detail
+      // Se igualan las variables para que se reinicien las comparativas
+      this.pethistory = result;
+      this.originalPethistory = { ...this.pethistory };
       this.updatePetHistory.emit(this.pethistory);
     }
   }
@@ -110,12 +190,12 @@ export class PetHistoryFormComponent implements OnInit {
 
     if (result) {
       this.notificationService.showSuccess('PET.HISTORY.UPDATE.MESSAGE.OK');
+      this.originalPethistory = { ...this.pethistory }; // Resetear originalPethistory
     }
 
     // Emit to pet history
     this.updatePetHistory.emit(this.pethistory);
   }
-
 
   /**
    * Sube imagenes a google drive
@@ -133,5 +213,30 @@ export class PetHistoryFormComponent implements OnInit {
     } else if (status === 'error') {
       this.notificationService.showError(`${file.name} file upload failed.`);
     }
+  }
+
+  /**
+   * Emite la escritura en los campos para ver los valores en tiempo real
+   * @param event
+   * @param field
+   */
+  onTextInput(event: Event, field: string): void {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.value;
+
+    // Envía el valor actual del texto, el campo, y el idClinica al servidor
+    this.hasDifferences(field);
+    this.websocketService.send({
+      event: 'text-input',
+      field,
+      value,
+      idClinica: this.pethistory.idClinica,
+    });
+  }
+
+  hasDifferences(field: string): boolean {
+    return this.originalPethistory && this.pethistory
+      ? this.originalPethistory[field] !== this.pethistory[field]
+      : false;
   }
 }

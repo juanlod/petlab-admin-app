@@ -1,7 +1,7 @@
 <div class="legend">
   <legend> {{ 'PET.DETAIL.HISTORY' | translate }}</legend>
   <!-- EDIT BUTTON  -->
-  <a (click)="showModal()" class="edit-button">
+  <a (click)="showModal($event)" class="edit-button">
     <i class="bi bi-plus-circle"></i>
   </a>
 </div>
@@ -9,20 +9,51 @@
 <br>
 <br>
 <nz-spin [nzSpinning]="state.isLoading">
-  <nz-timeline nzMode="alternate" [nzPending]="state.hasMoreData ? ('TIMELINE.LOADING' | translate) : null"   class="timeline-container">
-    <nz-timeline-item  [nzDot]="getItemType(item?.type)" *ngFor="let item of state.history">
-      <div class="font-color-black timeline" (click)="showEditModal(item)" >
-        <p [ngClass]="{'today' : historyToday(item.fec)}">
-          <strong>
-            {{transformDate(item.fec)}}
-          </strong>
-        </p>
-        <p class="preserve-newline">
-          {{item.cli}}
-        </p>
-      </div>
-    </nz-timeline-item>
+  <!-- <nz-timeline nzMode="alternate" [nzPending]="state.hasMoreData ? ('TIMELINE.LOADING' | translate) : null" class="timeline-container"> -->
+
+    <nz-timeline [nzPending]="state.hasMoreData ? ('TIMELINE.LOADING' | translate) : null" class="timeline-container">
+
+        <nz-timeline-item [nzDot]="getItemType(item?.type)" *ngFor="let item of state.history" style="padding-bottom: 20px;">
+
+          <div class="font-color-black timeline" >
+
+            <div class="flex-between">
+              <p class="bold" [ngClass]="{'today' : historyToday(item.fec)}" (click)="showEditModal(item, $event)">
+                  {{transformDate(item.fec, 'dd-MM-yyyy' , 'es-ES')}}
+              </p>
+              <a *ngIf="historyToday(item.fec)" (click)="delete(item, $event)">
+                <i class="delete-icon bi bi-trash"></i>
+              </a>
+            </div>
+
+            <div style="display: flex; flex-direction: row;" (click)="showEditModal(item, $event)">
+
+              <!-- PET.HISTORY.FORM.CONSULTATION_REASON -->
+              <div *ngIf="item?.consultationReason" style="flex: 1; padding: 0 10px 0 0;"> <!-- padding para dar espacio entre las columnas -->
+                <nz-divider class="bold" nzPlain nzText="{{ 'PET.HISTORY.FORM.CONSULTATION_REASON' | translate}}"
+                  nzOrientation="left"></nz-divider>
+                <p class="preserve-newline">
+                  {{item?.consultationReason}}
+                </p>
+              </div>
+
+              <!-- PET.HISTORY.FORM.DIAGNOSTIC -->
+              <div style="flex: 1; padding: 0 0 0 10px;"> <!-- padding para dar espacio entre las columnas -->
+                <nz-divider class="bold" nzPlain nzText="{{ 'PET.HISTORY.FORM.DIAGNOSTIC' | translate}}"
+                  nzOrientation="left"></nz-divider>
+                <p class="preserve-newline">
+                  {{item?.cli}}
+                </p>
+              </div>
+            </div>
+
+
+          </div>
+        </nz-timeline-item>
+
+
   </nz-timeline>
+
 </nz-spin>
 
 
@@ -37,4 +68,4 @@
 </ng-template>
 
 
-<ng-template #historyTemplate><i class="icon bi bi-clipboard2-pulse" ></i></ng-template>
+<ng-template #historyTemplate><i class="icon bi bi-clipboard2-pulse"></i></ng-template>

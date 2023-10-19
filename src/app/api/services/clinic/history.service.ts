@@ -196,7 +196,7 @@ static readonly FindByIdmPath = '/api/pet-history/find_by_idm/{id}';
  *
  * This method doesn't expect any request body.
  */
-findByIdm$Response(params: {
+private findByIdm$Response(params: {
   id: number;
   skip: number;
   loadedCount: number;
@@ -314,7 +314,7 @@ findByIdm(params: {
    * This method doesn't expect any request body.
    */
   private removePetHistory$Response(params: {
-    id: string;
+    id: number;
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, PetHistoryService.RemovePetHistoryPath, 'delete');
@@ -344,7 +344,7 @@ findByIdm(params: {
    * This method doesn't expect any request body.
    */
   removePetHistory(params: {
-    id: string;
+    id: number;
   }): Observable<void> {
 
     return this.removePetHistory$Response(params).pipe(
@@ -411,5 +411,116 @@ findByIdm(params: {
       map((r: StrictHttpResponse<Array<PetHistory>>) => r.body as Array<PetHistory>)
     );
   }
+
+
+  /**
+   * Path part for operation findByCLinicIdPetHistory
+   */
+  static readonly FindByCLinicIdPetHistoryPath = '/api/pet-history/find_by_clinic_id/{id}';
+
+  /**
+   * Retrieve a history by Clinic idD.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findByCLinicIdPetHistory()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  private findByCLinicIdPetHistory$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<PetHistory>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PetHistoryService.FindByCLinicIdPetHistoryPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PetHistory>;
+      })
+    );
+  }
+
+  /**
+   * Retrieve a history by Clinic idD.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `findByCLinicIdPetHistory$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findByCLinicIdPetHistory(params: {
+    id: number;
+  }): Observable<PetHistory> {
+
+    return this.findByCLinicIdPetHistory$Response(params).pipe(
+      map((r: StrictHttpResponse<PetHistory>) => r.body as PetHistory)
+    );
+  }
+
+
+   /**
+   * Path part for operation findByDatePetHistory
+   */
+   static readonly FindByDatePetHistoryPath = '/api/pet-history/find_by_date/{date}';
+
+   /**
+    * Retrieve a history by Date.
+    *
+    *
+    *
+    * This method provides access to the full `HttpResponse`, allowing access to response headers.
+    * To access only the response body, use `findByDatePetHistory()` instead.
+    *
+    * This method doesn't expect any request body.
+    */
+   private findByDatePetHistory$Response(params: {
+     date: string;
+   }): Observable<StrictHttpResponse<PetHistory>> {
+
+     const rb = new RequestBuilder(this.rootUrl, PetHistoryService.FindByDatePetHistoryPath, 'get');
+     if (params) {
+       rb.path('date', params.date, {});
+     }
+
+     return this.http.request(rb.build({
+       responseType: 'json',
+       accept: 'application/json'
+     })).pipe(
+       filter((r: any) => r instanceof HttpResponse),
+       map((r: HttpResponse<any>) => {
+         return r as StrictHttpResponse<PetHistory>;
+       })
+     );
+   }
+
+   /**
+    * Retrieve a history by Date.
+    *
+    *
+    *
+    * This method provides access to only to the response body.
+    * To access the full response (for headers, for example), `findByDatePetHistory$Response()` instead.
+    *
+    * This method doesn't expect any request body.
+    */
+   findByDatePetHistory(params: {
+     date: string;
+   }): Observable<PetHistory> {
+
+     return this.findByDatePetHistory$Response(params).pipe(
+       map((r: StrictHttpResponse<PetHistory>) => r.body as PetHistory)
+     );
+   }
+
 
 }

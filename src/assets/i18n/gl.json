@@ -1,10 +1,10 @@
 {
-  "USER.LOGIN.OK" :"Inicio de sesión realizado correctamente",
-  "USER.LOGIN.MAIL" :"Introduce o teu correo",
-  "USER.LOGIN.PASSWORD" :"Introduce o teu contrasinal",
+  "USER.LOGIN.OK": "Inicio de sesión realizado correctamente",
+  "USER.LOGIN.MAIL": "Introduce o teu correo",
+  "USER.LOGIN.PASSWORD": "Introduce o teu contrasinal",
   "USER.LOGIN.MAIL.LABEL": "Correo",
-  "USER.LOGIN.PASSWORD.LABEL" : "Contrasinal",
-  "USER.LOGIN.PASSWORD.INCORRECT" :"Usuario ou contrasinal incorrectos",
+  "USER.LOGIN.PASSWORD.LABEL": "Contrasinal",
+  "USER.LOGIN.PASSWORD.INCORRECT": "Usuario ou contrasinal incorrectos",
 
   "SIDEBAR.INIT.TITLE": "Inicio",
   "SIDEBAR.CLINIC.TITLE": "Clinica",
@@ -102,6 +102,7 @@
   "PET.DETAIL.ANALYTICAL": "Análise",
   "PET.DETAIL.HOSPITALIZATION": "Hospitalización",
   "PET.DETAIL.ALERTS": "Alertas",
+  "PET.DETAIL.BIRTHDAY.UNAVAILABLE": "Non se pode calcular a idade",
 
   "PET.SAVE.MESSAGE.OK": "Paciente gardado correctamente",
   "PET.SAVE.MESSAGE.INFO": "Gardando paciente...",
@@ -394,13 +395,13 @@
   "DEBT.FORM.TITLE.EDIT": "Editar débeda",
   "DEBT.FORM.BREADCRUMB.EDIT": "Editar débeda",
   "DEBT.FORM.PAID_DATE": "Data pago",
+
   "DEBT.SAVE.MESSAGE.INFO": "Gardando débeda...",
   "DEBT.SAVE.MESSAGE.OK": "Débeda gardada correctamente",
   "DEBT.SAVE.MESSAGE.ERROR": "Ocorreu un erro ó gardar a débeda",
   "DEBT.UPDATE.MESSAGE.INFO": "Actualizando a débeda...",
   "DEBT.UPDATE.MESSAGE.OK": "Débeda actualizada correctamente",
   "DEBT.UPDATE.MESSAGE.ERROR": "Ocorreu un erro ó actualizar a débeda",
-
 
   "DELETE.CONFIRMATION_MESSAGE": "¿Está seguro que desexa eliminar o rexistro?",
   "DELETE.MESSAGE.OK": "Rexistro eliminado correctamente",
@@ -416,5 +417,25 @@
   "BUTTON.SAVE": "Gardar",
   "BUTTON.GO": "Ir",
 
-  "TIMELINE.LOADING": "Cargando..."
+  "FILE.UPLOAD.TITLE": "Adxuntar imáxe",
+  "FILE.UPLOAD.DESCRIPTION": "Adxuntar imáxes asociadas a historia clínica",
+
+  "PET.HISTORY.FORM.TITLE.NEW": "Novo historial do paciente",
+  "PET.HISTORY.FORM.TITLE.EDIT": "Editar historial do paciente",
+  "PET.HISTORY.FORM.BREADCRUMB.EDIT": "Editar historial do paciente con data ",
+  "PET.HISTORY.FORM.TEMP": "Temperatura",
+  "PET.HISTORY.FORM.WEIGHT": "Peso",
+  "PET.HISTORY.FORM.DATE": "Data",
+  "PET.HISTORY.FORM.CONSULTATION_REASON": "Motivo consulta",
+  "PET.HISTORY.FORM.DIAGNOSTIC": "Diagnóstico",
+  "PET.HISTORY.SAVE.MESSAGE.INFO": "Gardando historia...",
+  "PET.HISTORY.SAVE.MESSAGE.OK": "Historia gardada correctamente",
+  "PET.HISTORY.SAVE.MESSAGE.ERROR": "Ocorreu un erro ó gardar a historia",
+  "PET.HISTORY.UPDATE.MESSAGE.INFO": "Actualizando a historia...",
+  "PET.HISTORY.UPDATE.MESSAGE.OK": "Historia actualizada correctamente",
+  "PET.HISTORY.UPDATE.MESSAGE.ERROR": "Ocorreu un erro ó actualizar a historia",
+
+
+  "TIMELINE.LOADING": "Cargando...",
+  "FORM.UNSAVED.CHANGES": "Ten cambios sen gardar no formulario"
 }

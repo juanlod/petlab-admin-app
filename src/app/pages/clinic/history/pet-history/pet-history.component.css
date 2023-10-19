@@ -1,6 +1,8 @@
+@import '../../../../../assets/css/confirm-modal.css';
+
 .timeline-container {
   overflow-y: auto;
-  height: 500px; /* ajusta la altura a tus necesidades */
+  height: 500px;
 }
 
 .legend {
@@ -27,12 +29,18 @@
 
 .timeline {
   cursor: pointer;
+  padding-bottom: 30px !important;
 }
 
 .preserve-newline {
-  white-space: pre-wrap; /* o también puedes usar pre-line si prefieres */
+  white-space: pre-wrap;
 }
 
 .icon {
   font-size: 21px !important;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
 }
