@@ -10,28 +10,34 @@ import {
 
 import { NotificationService } from 'src/app/api/services/notification.service';
 import { lastValueFrom } from 'rxjs';
-import { ClinicImage } from 'src/app/api/models/master/clinic-image';
-import { ClinicImageService } from 'src/app/api/services/master/clinic-image.service';
+import { ClinicImageConfiguration } from 'src/app/api/models/master/clinic-image-configuration';
+import { ClinicImageConfigurationService } from 'src/app/api/services/master/clinic-image-configuration.service';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 @Component({
   selector: 'app-clinic-images-form',
   templateUrl: './clinic-images-form.component.html',
   styleUrls: ['./clinic-images-form.component.css'],
 })
-export class ClinicImagesFormComponent implements OnInit {
+export class ClinicImagesFormComponent
+  extends CommonComponent
+  implements OnInit
+{
   @Output() imageEvent = new EventEmitter<object>();
 
-  @Input() image = new ClinicImage();
+  @Input() image = new ClinicImageConfiguration();
 
-  @Input() imageEdit: ClinicImage = new ClinicImage();
+  @Input() imageEdit: ClinicImageConfiguration = new ClinicImageConfiguration();
 
   // SELECT DE COMBOS
   submitted: boolean = false;
 
   constructor(
-    public imageService: ClinicImageService,
+    public imageService: ClinicImageConfigurationService,
     private notificationService: NotificationService
-  ) {}
+  ) {
+    super();
+  }
 
   async ngOnInit(): Promise<void> {
     this.imageEdit = Object.assign({}, this.image);
@@ -43,13 +49,20 @@ export class ClinicImagesFormComponent implements OnInit {
   async saveImage(): Promise<void> {
     this.submitted = true;
 
-    if (!this.imageEdit.clientId || !this.imageEdit.projectId || !this.imageEdit.authUri || !this.imageEdit.tokenUri
-      || !this.imageEdit.authProviderCertUrl || !this.imageEdit.clientSecret)  {
+    if (
+      !this.imageEdit.clientEmail ||
+      !this.imageEdit.clientX509CertUrl ||
+      !this.imageEdit.privateKey ||
+      !this.imageEdit.privateKeyId ||
+      !this.imageEdit.type ||
+      !this.imageEdit.universeDomain
+    ) {
       return;
     }
     this.notificationService.showInfo('CLINIC_IMAGE.SAVE.MESSAGE.INFO');
+    const encryptedImageEdit = this.encryptAllFields(this.imageEdit);
     const result = await lastValueFrom(
-      this.imageService.createClinicImage({ body: this.imageEdit })
+      this.imageService.createClinicImageConfiguration({ body: encryptedImageEdit })
     ).catch((error) => {
       this.notificationService.showError(`CLINIC_IMAGE.SAVE.MESSAGE.ERROR`);
     });
@@ -63,10 +76,11 @@ export class ClinicImagesFormComponent implements OnInit {
     // Actualiza un image
 
     this.notificationService.showInfo('CLINIC_IMAGE.UPDATE.MESSAGE.INFO');
+    const encryptedImageEdit = this.encryptAllFields(this.imageEdit);
     const result = await lastValueFrom(
-      this.imageService.updateClinicImage({
+      this.imageService.updateClinicImageConfiguration({
         id: this.imageEdit._id,
-        body: this.imageEdit,
+        body: encryptedImageEdit,
       })
     ).catch((error) => {
       this.notificationService.showError(`CLINIC_IMAGE.UPDATE.MESSAGE.ERROR`);

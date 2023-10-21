@@ -25,91 +25,52 @@
     <br>
     <br>
     <form nz-form (submit)="!imageEdit._id ? saveImage() : updateImage()">
-
-
-      <!-- CLIENT_ID -->
+      <!-- CLIENT_EMAIL -->
       <nz-form-item>
-        <nz-form-label nzFor="clientId">{{'CLINIC.IMAGES.FORM.CLIENT_ID' | translate}}&nbsp;<span
-            class="error">*</span></nz-form-label>
+        <nz-form-label nzFor="clientEmail">{{'CLINIC.IMAGES.FORM.CLIENT_EMAIL' | translate}}</nz-form-label>
         <nz-form-control>
-          <div nzFlex nzFlex="auto">
-            <input nz-input name="clientId" type="text" id="clientId" [(ngModel)]="imageEdit.clientId">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.clientId">
-              <small class="error">{{ 'CLINIC.IMAGES.FORM.CLIENT_ID.MANDATORY' | translate }}</small>
-            </div>
-          </div>
+          <input nz-input name="clientEmail" type="email" id="clientEmail" [(ngModel)]="imageEdit.clientEmail">
         </nz-form-control>
       </nz-form-item>
 
-
-      <!-- PROJECT_ID -->
+      <!-- CLIENT_X509_CERT_URL -->
       <nz-form-item>
-        <nz-form-label nzFor="projectId">{{'CLINIC.IMAGES.FORM.PROJECT_ID' | translate}}&nbsp;<span
-            class="error">*</span></nz-form-label>
-        <nz-form-control [nzSpan]="20">
-          <div nzFlex nzFlex="auto">
-            <input nz-input name="projectId" type="text" id="projectId" [(ngModel)]="imageEdit.projectId">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.projectId">
-              <small class="error">{{ 'CLINIC.IMAGES.FORM.PROJECT_ID.MANDATORY' | translate }}</small>
-            </div>
-          </div>
+        <nz-form-label nzFor="clientX509CertUrl">{{'CLINIC.IMAGES.FORM.CLIENT_X509_CERT_URL' | translate}}</nz-form-label>
+        <nz-form-control>
+          <input nz-input name="clientX509CertUrl" type="text" id="clientX509CertUrl"
+            [(ngModel)]="imageEdit.clientX509CertUrl">
         </nz-form-control>
       </nz-form-item>
 
-      <!-- AUTH_URI -->
+      <!-- PRIVATE_KEY -->
       <nz-form-item>
-        <nz-form-label nzFor="authUri">{{'CLINIC.IMAGES.FORM.AUTH_URI' | translate}}&nbsp;<span
-            class="error">*</span></nz-form-label>
-        <nz-form-control [nzSpan]="20">
-          <div nzFlex nzFlex="auto">
-            <input nz-input name="authUri" type="text" id="projectId" [(ngModel)]="imageEdit.authUri">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.authUri">
-              <small class="error">{{ 'CLINIC.IMAGES.FORM.AUTH_URI.MANDATORY' | translate }}</small>
-            </div>
-          </div>
+        <nz-form-label nzFor="privateKey">{{'CLINIC.IMAGES.FORM.PRIVATE_KEY_ID' | translate}}</nz-form-label>
+        <nz-form-control>
+          <input nz-input name="privateKey" type="text" id="privateKey" [(ngModel)]="imageEdit.privateKey">
         </nz-form-control>
       </nz-form-item>
 
-      <!-- TOKEN_URI -->
+      <!-- PRIVATE_KEY_ID -->
       <nz-form-item>
-        <nz-form-label nzFor="tokenUri">{{'CLINIC.IMAGES.FORM.TOKEN_URI' | translate}}&nbsp;<span
-            class="error">*</span></nz-form-label>
-        <nz-form-control [nzSpan]="20">
-          <div nzFlex nzFlex="auto">
-            <input nz-input name="tokenUri" type="text" id="tokenUri" [(ngModel)]="imageEdit.tokenUri">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.authUri">
-              <small class="error">{{ 'CLINIC.IMAGES.FORM.TOKEN_URI.MANDATORY' | translate }}</small>
-            </div>
-          </div>
+        <nz-form-label nzFor="privateKeyId">Private Key ID</nz-form-label>
+        <nz-form-control>
+          <input nz-input name="privateKeyId" type="text" id="privateKeyId" [(ngModel)]="imageEdit.privateKeyId">
         </nz-form-control>
       </nz-form-item>
 
-      <!-- AUTH_PROVIDER_CERT_URL -->
+      <!-- TYPE -->
       <nz-form-item>
-        <nz-form-label nzFor="authProviderCertUrl">{{'CLINIC.IMAGES.AUTH_PROVIDER_CERT_URL' | translate}}&nbsp;<span
-            class="error">*</span></nz-form-label>
-        <nz-form-control [nzSpan]="20">
-          <div nzFlex nzFlex="auto">
-            <input nz-input name="authProviderCertUrl" type="text" id="authProviderCertUrl" [(ngModel)]="imageEdit.authProviderCertUrl">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.authProviderCertUrl">
-              <small class="error">{{ 'CLINIC.IMAGES.FORM.AUTH_PROVIDER_CERT_URL.MANDATORY' | translate }}</small>
-            </div>
-          </div>
+        <nz-form-label nzFor="type">{{'CLINIC.IMAGES.FORM.TYPE' | translate}}</nz-form-label>
+        <nz-form-control>
+          <input nz-input name="type" type="text" id="type" [(ngModel)]="imageEdit.type">
         </nz-form-control>
       </nz-form-item>
 
-
-      <!-- CLIENT_SECRET -->
+      <!-- UNIVERSE_DOMAIN -->
       <nz-form-item>
-        <nz-form-label nzFor="clientSecret">{{'CLINIC.IMAGES.FORM.CLIENT_SECRET' | translate}}&nbsp;<span
-            class="error">*</span></nz-form-label>
-        <nz-form-control [nzSpan]="20">
-          <div nzFlex nzFlex="auto">
-            <input nz-input name="clientSecret" type="text" id="clientSecret" [(ngModel)]="imageEdit.clientSecret">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.clientSecret">
-              <small class="error">{{ 'CLINIC.IMAGES.FORM.CLIENT_SECRET.MANDATORY' | translate }}</small>
-            </div>
-          </div>
+        <nz-form-label nzFor="universeDomain">{{'CLINIC.IMAGES.UNIVERSE_DOMAIN' | translate}}</nz-form-label>
+        <nz-form-control>
+          <input nz-input name="universeDomain" type="text" id="universeDomain" [(ngModel)]="imageEdit.universeDomain">
         </nz-form-control>
       </nz-form-item>
 
@@ -121,9 +82,9 @@
         <nz-form-control [nzSpan]="20">
           <div nzFlex nzFlex="auto">
             <input nz-input name="historyFolder" type="text" id="historyFolder" [(ngModel)]="imageEdit.historyFolder">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.historyFolder">
+            <!-- <div nzStatus="error" *ngIf="submitted && !imageEdit.historyFolder">
               <small class="error">{{ 'CLINIC.IMAGES.FORM.HISTORY_FOLDER.MANDATORY' | translate }}</small>
-            </div>
+            </div> -->
           </div>
         </nz-form-control>
       </nz-form-item>
@@ -134,10 +95,11 @@
             class="error">*</span></nz-form-label>
         <nz-form-control [nzSpan]="20">
           <div nzFlex nzFlex="auto">
-            <input nz-input name="ecographyFolder" type="text" id="ecographyFolder" [(ngModel)]="imageEdit.ecographyFolder">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.ecographyFolder">
+            <input nz-input name="ecographyFolder" type="text" id="ecographyFolder"
+              [(ngModel)]="imageEdit.ecographyFolder">
+            <!-- <div nzStatus="error" *ngIf="submitted && !imageEdit.ecographyFolder">
               <small class="error">{{ 'CLINIC.IMAGES.FORM.ECOGRAPHY_FOLDER.MANDATORY' | translate }}</small>
-            </div>
+            </div> -->
           </div>
         </nz-form-control>
       </nz-form-item>
@@ -148,10 +110,11 @@
             class="error">*</span></nz-form-label>
         <nz-form-control [nzSpan]="20">
           <div nzFlex nzFlex="auto">
-            <input nz-input name="petProfileFolder" type="text" id="petProfileFolder" [(ngModel)]="imageEdit.petProfileFolder">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.ecographyFolder">
+            <input nz-input name="petProfileFolder" type="text" id="petProfileFolder"
+              [(ngModel)]="imageEdit.petProfileFolder">
+            <!-- <div nzStatus="error" *ngIf="submitted && !imageEdit.ecographyFolder">
               <small class="error">{{ 'CLINIC.IMAGES.FORM.PET_PROFILE_FOLDER.MANDATORY' | translate }}</small>
-            </div>
+            </div> -->
           </div>
         </nz-form-control>
       </nz-form-item>
@@ -164,9 +127,9 @@
         <nz-form-control [nzSpan]="20">
           <div nzFlex nzFlex="auto">
             <input nz-input name="rayFolder" type="text" id="rayFolder" [(ngModel)]="imageEdit.rayFolder">
-            <div nzStatus="error" *ngIf="submitted && !imageEdit.rayFolder">
+            <!-- <div nzStatus="error" *ngIf="submitted && !imageEdit.rayFolder">
               <small class="error">{{ 'CLINIC.IMAGES.FORM.RAY_FOLDER.MANDATORY' | translate }}</small>
-            </div>
+            </div> -->
           </div>
         </nz-form-control>
       </nz-form-item>

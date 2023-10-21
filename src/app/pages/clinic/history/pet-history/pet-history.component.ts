@@ -150,7 +150,6 @@ export class PetHistoryComponent extends CommonComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onTimelineScroll(event: any) {
 
-    console.log('Scroll event:', event);
     if (this.isDeleting) {
       return;
     }
@@ -159,7 +158,6 @@ export class PetHistoryComponent extends CommonComponent implements OnInit {
     const remainingHeight =
       element.scrollHeight - (element.scrollTop + element.clientHeight);
     if (remainingHeight < 20) {
-      // ajustar este valor a tu necesidad
       this.loadMore();
     }
   }
@@ -264,31 +262,22 @@ export class PetHistoryComponent extends CommonComponent implements OnInit {
       .get(translationKeys)
       .toPromise();
 
-    // Swal.fire({
-    //   heightAuto: false,
-    //   title: '',
-    //   text: translations['DELETE.CONFIRMATION_MESSAGE'],
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonText: translations['DELETE.CONFIRM_BUTTON'],
-    //   cancelButtonText: translations['DELETE.CANCEL_BUTTON'],
-    //   confirmButtonColor: '#22bb33',
-    //   cancelButtonColor: '#bb2124',
-    //   reverseButtons: true,
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-      //  this.removePetHistory(element.idClinica);
-    //   }
-    // });
-
-    this.confirmModal = this.modal.confirm({
-      nzTitle: translations['DELETE.CONFIRMATION_MESSAGE'],
-      nzCentered: true,
-      nzOkDanger: true,
-      nzWidth: '500px',
-      nzIconType: 'warning',  // Mostrar el botón de cancelar
-      nzOnOk: () =>
-        this.removePetHistory(element?.idClinica)
+    Swal.fire({
+      heightAuto: false,
+      title: '',
+      text: translations['DELETE.CONFIRMATION_MESSAGE'],
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: translations['DELETE.CONFIRM_BUTTON'],
+      cancelButtonText: translations['DELETE.CANCEL_BUTTON'],
+      confirmButtonColor: '#22bb33',
+      cancelButtonColor: '#bb2124',
+      reverseButtons: true,
+      didClose: () => window.scrollTo(0,0) // Corrige el autoscroll
+    }).then((result) => {
+      if (result.isConfirmed) {
+       this.removePetHistory(element.idClinica);
+      }
     });
   }
 

@@ -6,22 +6,24 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { ApiConfiguration } from '../../api-configuration';
 import { BaseService } from '../../base-service';
-import { ClinicImage } from '../../models/master/clinic-image';
+import { ClinicImageConfiguration } from '../../models/master/clinic-image-configuration';
 import { RequestBuilder } from '../../request-builder';
 import { StrictHttpResponse } from '../../strict-http-response';
+
 
 @Injectable({
   providedIn: 'root',
 })
-export class ClinicImageService extends BaseService {
+export class ClinicImageConfigurationService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
   /**
-   * Path part for operation createClinicImage
+   * Path part for operation createClinicImageConfiguration
    */
-  static readonly CreateClinicImagePath = '/api/clinic-image/save';
+  static readonly CreateClinicImageConfigurationPath =
+    '/api/clinic-image-configuarion/save';
 
   /**
    * Create a new clinicImage.
@@ -29,16 +31,16 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `createClinicImage()` instead.
+   * To access only the response body, use `createClinicImageConfiguration()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  private createClinicImage$Response(params: {
-    body: ClinicImage;
-  }): Observable<StrictHttpResponse<ClinicImage>> {
+  createClinicImageConfiguration$Response(params: {
+    body: ClinicImageConfiguration;
+  }): Observable<StrictHttpResponse<ClinicImageConfiguration>> {
     const rb = new RequestBuilder(
       this.rootUrl,
-      ClinicImageService.CreateClinicImagePath,
+      ClinicImageConfigurationService.CreateClinicImageConfigurationPath,
       'post'
     );
     if (params) {
@@ -55,7 +57,7 @@ export class ClinicImageService extends BaseService {
       .pipe(
         filter((r: any) => r instanceof HttpResponse),
         map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<ClinicImage>;
+          return r as StrictHttpResponse<ClinicImageConfiguration>;
         })
       );
   }
@@ -66,20 +68,26 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `createClinicImage$Response()` instead.
+   * To access the full response (for headers, for example), `createClinicImageConfiguration$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createClinicImage(params: { body: ClinicImage }): Observable<ClinicImage> {
-    return this.createClinicImage$Response(params).pipe(
-      map((r: StrictHttpResponse<ClinicImage>) => r.body as ClinicImage)
+  createClinicImageConfiguration(params: {
+    body: ClinicImageConfiguration;
+  }): Observable<ClinicImageConfiguration> {
+    return this.createClinicImageConfiguration$Response(params).pipe(
+      map(
+        (r: StrictHttpResponse<ClinicImageConfiguration>) =>
+          r.body as ClinicImageConfiguration
+      )
     );
   }
 
   /**
-   * Path part for operation findAllClinicImage
+   * Path part for operation findAllClinicImageConfiguration
    */
-  static readonly FindAllClinicImagePath = '/api/clinic-image/find_all';
+  static readonly FindAllClinicImageConfigurationPath =
+    '/api/clinic-image-configuarion/find_all';
 
   /**
    * Retrieve a list of all clinicImages.
@@ -87,16 +95,16 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAllClinicImage()` instead.
+   * To access only the response body, use `findAllClinicImageConfiguration()` instead.
    *
    * This method doesn't expect any request body.
    */
-  private findAllClinicImage$Response(params?: {}): Observable<
-    StrictHttpResponse<Array<ClinicImage>>
+  private findAllClinicImageConfiguration$Response(params?: {}): Observable<
+    StrictHttpResponse<Array<ClinicImageConfiguration>>
   > {
     const rb = new RequestBuilder(
       this.rootUrl,
-      ClinicImageService.FindAllClinicImagePath,
+      ClinicImageConfigurationService.FindAllClinicImageConfigurationPath,
       'get'
     );
     if (params) {
@@ -112,7 +120,7 @@ export class ClinicImageService extends BaseService {
       .pipe(
         filter((r: any) => r instanceof HttpResponse),
         map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<Array<ClinicImage>>;
+          return r as StrictHttpResponse<Array<ClinicImageConfiguration>>;
         })
       );
   }
@@ -123,23 +131,26 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `findAllClinicImage$Response()` instead.
+   * To access the full response (for headers, for example), `findAllClinicImageConfiguration$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAllClinicImage(params?: {}): Observable<Array<ClinicImage>> {
-    return this.findAllClinicImage$Response(params).pipe(
+  findAllClinicImageConfiguration(params?: {}): Observable<
+    Array<ClinicImageConfiguration>
+  > {
+    return this.findAllClinicImageConfiguration$Response(params).pipe(
       map(
-        (r: StrictHttpResponse<Array<ClinicImage>>) =>
-          r.body as Array<ClinicImage>
+        (r: StrictHttpResponse<Array<ClinicImageConfiguration>>) =>
+          r.body as Array<ClinicImageConfiguration>
       )
     );
   }
 
   /**
-   * Path part for operation findOneClinicImage
+   * Path part for operation findOneClinicImageConfiguration
    */
-  static readonly FindOneClinicImagePath = '/api/clinic-image/find_one/{id}';
+  static readonly FindOneClinicImageConfigurationPath =
+    '/api/clinic-image-configuarion/find_one/{id}';
 
   /**
    * Retrieve a clinicImage by ID.
@@ -147,16 +158,16 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findOneClinicImage()` instead.
+   * To access only the response body, use `findOneClinicImageConfiguration()` instead.
    *
    * This method doesn't expect any request body.
    */
-  private findOneClinicImage$Response(params: {
+  private findOneClinicImageConfiguration$Response(params: {
     id: string;
-  }): Observable<StrictHttpResponse<ClinicImage>> {
+  }): Observable<StrictHttpResponse<ClinicImageConfiguration>> {
     const rb = new RequestBuilder(
       this.rootUrl,
-      ClinicImageService.FindOneClinicImagePath,
+      ClinicImageConfigurationService.FindOneClinicImageConfigurationPath,
       'get'
     );
     if (params) {
@@ -173,7 +184,7 @@ export class ClinicImageService extends BaseService {
       .pipe(
         filter((r: any) => r instanceof HttpResponse),
         map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<ClinicImage>;
+          return r as StrictHttpResponse<ClinicImageConfiguration>;
         })
       );
   }
@@ -184,20 +195,26 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `findOneClinicImage$Response()` instead.
+   * To access the full response (for headers, for example), `findOneClinicImageConfiguration$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findOneClinicImage(params: { id: string }): Observable<ClinicImage> {
-    return this.findOneClinicImage$Response(params).pipe(
-      map((r: StrictHttpResponse<ClinicImage>) => r.body as ClinicImage)
+  findOneClinicImageConfiguration(params: {
+    id: string;
+  }): Observable<ClinicImageConfiguration> {
+    return this.findOneClinicImageConfiguration$Response(params).pipe(
+      map(
+        (r: StrictHttpResponse<ClinicImageConfiguration>) =>
+          r.body as ClinicImageConfiguration
+      )
     );
   }
 
   /**
-   * Path part for operation updateClinicImage
+   * Path part for operation updateClinicImageConfiguration
    */
-  static readonly UpdateClinicImagePath = '/api/clinic-image/update/{id}';
+  static readonly UpdateClinicImageConfigurationPath =
+    '/api/clinic-image-configuarion/update/{id}';
 
   /**
    * Update a clinicImage by ID.
@@ -205,17 +222,17 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `updateClinicImage()` instead.
+   * To access only the response body, use `updateClinicImageConfiguration()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  private updateClinicImage$Response(params: {
+  private updateClinicImageConfiguration$Response(params: {
     id: string;
-    body: ClinicImage;
-  }): Observable<StrictHttpResponse<ClinicImage>> {
+    body: ClinicImageConfiguration;
+  }): Observable<StrictHttpResponse<ClinicImageConfiguration>> {
     const rb = new RequestBuilder(
       this.rootUrl,
-      ClinicImageService.UpdateClinicImagePath,
+      ClinicImageConfigurationService.UpdateClinicImageConfigurationPath,
       'patch'
     );
     if (params) {
@@ -233,7 +250,7 @@ export class ClinicImageService extends BaseService {
       .pipe(
         filter((r: any) => r instanceof HttpResponse),
         map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<ClinicImage>;
+          return r as StrictHttpResponse<ClinicImageConfiguration>;
         })
       );
   }
@@ -244,23 +261,27 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `updateClinicImage$Response()` instead.
+   * To access the full response (for headers, for example), `updateClinicImageConfiguration$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updateClinicImage(params: {
+  updateClinicImageConfiguration(params: {
     id: string;
-    body: ClinicImage;
-  }): Observable<ClinicImage> {
-    return this.updateClinicImage$Response(params).pipe(
-      map((r: StrictHttpResponse<ClinicImage>) => r.body as ClinicImage)
+    body: ClinicImageConfiguration;
+  }): Observable<ClinicImageConfiguration> {
+    return this.updateClinicImageConfiguration$Response(params).pipe(
+      map(
+        (r: StrictHttpResponse<ClinicImageConfiguration>) =>
+          r.body as ClinicImageConfiguration
+      )
     );
   }
 
   /**
-   * Path part for operation removeClinicImage
+   * Path part for operation removeClinicImageConfiguration
    */
-  static readonly RemoveClinicImagePath = '/api/clinic-image/delete/{id}';
+  static readonly RemoveClinicImageConfigurationPath =
+    '/api/clinic-image-configuarion/delete/{id}';
 
   /**
    * Remove a clinicImage by ID.
@@ -268,16 +289,16 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `removeClinicImage()` instead.
+   * To access only the response body, use `removeClinicImageConfiguration()` instead.
    *
    * This method doesn't expect any request body.
    */
-  private removeClinicImage$Response(params: {
+  private removeClinicImageConfiguration$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<void>> {
     const rb = new RequestBuilder(
       this.rootUrl,
-      ClinicImageService.RemoveClinicImagePath,
+      ClinicImageConfigurationService.RemoveClinicImageConfigurationPath,
       'delete'
     );
     if (params) {
@@ -287,7 +308,7 @@ export class ClinicImageService extends BaseService {
     return this.http
       .request(
         rb.build({
-          responseType: 'json',
+          responseType: 'text',
           accept: '*/*',
         })
       )
@@ -307,21 +328,21 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `removeClinicImage$Response()` instead.
+   * To access the full response (for headers, for example), `removeClinicImageConfiguration$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  removeClinicImage(params: { id: number }): Observable<void> {
-    return this.removeClinicImage$Response(params).pipe(
+  removeClinicImageConfiguration(params: { id: number }): Observable<void> {
+    return this.removeClinicImageConfiguration$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
   /**
-   * Path part for operation findAllPagingClinicImage
+   * Path part for operation findAllPagingClinicImageConfiguration
    */
-  static readonly FindAllPagingClinicImagePath =
-    '/api/clinic-image/find_all/paging';
+  static readonly FindAllPagingClinicImageConfigurationPath =
+    '/api/clinic-image-configuarion/find_all/paging';
 
   /**
    * Get all clinicImages with pagination.
@@ -329,18 +350,18 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAllPagingClinicImage()` instead.
+   * To access only the response body, use `findAllPagingClinicImageConfiguration()` instead.
    *
    * This method doesn't expect any request body.
    */
-  private findAllPagingClinicImage$Response(params?: {
+  private findAllPagingClinicImageConfiguration$Response(params?: {
     filter?: string;
     page?: number;
     pageSize?: number;
-  }): Observable<StrictHttpResponse<Array<ClinicImage>>> {
+  }): Observable<StrictHttpResponse<Array<ClinicImageConfiguration>>> {
     const rb = new RequestBuilder(
       this.rootUrl,
-      ClinicImageService.FindAllPagingClinicImagePath,
+      ClinicImageConfigurationService.FindAllPagingClinicImageConfigurationPath,
       'get'
     );
     if (params) {
@@ -359,7 +380,7 @@ export class ClinicImageService extends BaseService {
       .pipe(
         filter((r: any) => r instanceof HttpResponse),
         map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<Array<ClinicImage>>;
+          return r as StrictHttpResponse<Array<ClinicImageConfiguration>>;
         })
       );
   }
@@ -370,19 +391,19 @@ export class ClinicImageService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `findAllPagingClinicImage$Response()` instead.
+   * To access the full response (for headers, for example), `findAllPagingClinicImageConfiguration$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAllPagingClinicImage(params?: {
+  findAllPagingClinicImageConfiguration(params?: {
     filter?: string;
     page?: number;
     pageSize?: number;
-  }): Observable<Array<ClinicImage>> {
-    return this.findAllPagingClinicImage$Response(params).pipe(
+  }): Observable<Array<ClinicImageConfiguration>> {
+    return this.findAllPagingClinicImageConfiguration$Response(params).pipe(
       map(
-        (r: StrictHttpResponse<Array<ClinicImage>>) =>
-          r.body as Array<ClinicImage>
+        (r: StrictHttpResponse<Array<ClinicImageConfiguration>>) =>
+          r.body as Array<ClinicImageConfiguration>
       )
     );
   }

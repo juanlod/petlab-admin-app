@@ -5,13 +5,10 @@ import Swal from 'sweetalert2';
 import { NotificationService } from 'src/app/api/services/notification.service';
 import { lastValueFrom } from 'rxjs';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { InventoryCacheService } from 'src/app/api/cache/inventory-cache-service';
-
 import { TranslateService } from '@ngx-translate/core';
-
-import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
-import { ClinicImage } from 'src/app/api/models/master/clinic-image';
-import { ClinicImageService } from 'src/app/api/services/master/clinic-image.service';
+import { ClinicImageConfigurationService } from 'src/app/api/services/master/clinic-image-configuration.service';
+import { ClinicImageConfiguration } from 'src/app/api/models/master/clinic-image-configuration';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 
 @Component({
@@ -19,7 +16,7 @@ import { ClinicImageService } from 'src/app/api/services/master/clinic-image.ser
   templateUrl: './clinic-images.component.html',
   styleUrls: ['./clinic-images.component.css'],
 })
-export class ClinicImagesComponent implements OnInit {
+export class ClinicImagesComponent extends CommonComponent implements OnInit {
   loading = true;
   filtro: string = '';
   pageIndex = 1;
@@ -29,22 +26,22 @@ export class ClinicImagesComponent implements OnInit {
   visible = false;
   expandSet = new Set<number>();
   isVisible = false;
-  image = new ClinicImage();
-  selectedClinicImage = new ClinicImage();
+  image = new ClinicImageConfiguration();
+  selectedClinicImage = new ClinicImageConfiguration();
 
-  images: ClinicImage[] = [];
+  images: ClinicImageConfiguration[] = [];
 
   size: any;
   filter: any;
 
   constructor(
     private router: Router,
-    private service: ClinicImageService,
+    private service: ClinicImageConfigurationService,
     private notificationService: NotificationService,
-    private inventoryCache: InventoryCacheService,
     private translateService: TranslateService,
-    private masterCacheService: MasterCacheService
-  ) {}
+  ) {
+    super()
+  }
 
   async ngOnInit(): Promise<void> {}
 
@@ -56,7 +53,7 @@ export class ClinicImagesComponent implements OnInit {
     this.loading = true;
     this.images = [];
     const response = (await lastValueFrom(
-      this.service.findAllPagingClinicImage({
+      this.service.findAllPagingClinicImageConfiguration({
         filter: this.filtro,
         page: this.pageIndex,
         pageSize: this.pageSize,
@@ -74,7 +71,6 @@ export class ClinicImagesComponent implements OnInit {
       this.totalPages = response.total_paginas > 0 ? response.total_paginas : 1;
       this.loading = false;
     }
-    console.log(response);
   }
 
   /**
@@ -91,9 +87,9 @@ export class ClinicImagesComponent implements OnInit {
     this.getClinicImage();
   }
 
-  showModal(image?: ClinicImage) {
+  showModal(image?: ClinicImageConfiguration) {
     this.isVisible = true;
-    this.selectedClinicImage = image ? image : new ClinicImage();
+    this.selectedClinicImage = image ?  this.decryptAllFields(image) : new ClinicImageConfiguration();
   }
 
   handleCancel() {
@@ -120,7 +116,7 @@ export class ClinicImagesComponent implements OnInit {
    * Remove a registry
    * @param registro
    */
-  async delete(element: ClinicImage): Promise<void> {
+  async delete(element: ClinicImageConfiguration): Promise<void> {
     const translationKeys = [
       'DELETE.CONFIRMATION_MESSAGE',
       'DELETE.CONFIRM_BUTTON',
@@ -144,7 +140,7 @@ export class ClinicImagesComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(element)
-         this.service.removeClinicImage({id : element.id}).subscribe({
+         this.service.removeClinicImageConfiguration({id : element.id}).subscribe({
           next: () => {
             this.pageIndex = 1;
             this.getClinicImage();
@@ -160,15 +156,5 @@ export class ClinicImagesComponent implements OnInit {
     });
   }
 
-  /**
-   *
-   */
-  private async save(element: ClinicImage) {
-    return await lastValueFrom(
-      this.service.updateClinicImage({ id: element._id, body: element })
-    ).catch((error) => {
-      this.notificationService.showError(`DELETE.MESSAGE.ERROR`);
-    });
-  }
 
 }

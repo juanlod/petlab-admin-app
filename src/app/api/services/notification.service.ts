@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
   constructor(
-    private messageService: NzMessageService,
+    private toastr: ToastrService,
     private translate: TranslateService
   ) {}
 
@@ -17,13 +17,13 @@ export class NotificationService {
         const title = res;
         this.translate.get(message).subscribe((res: string) => {
           const message = res;
-          this.messageService.success(message);
+          this.toastr.success(message, title != null ? title : '');
         });
       });
     } else {
       this.translate.get(message).subscribe((res: string) => {
         const message = res;
-        this.messageService.success(message);
+        this.toastr.success(message, title != null ? title : '');
       });
     }
   }
@@ -34,14 +34,14 @@ export class NotificationService {
         const title = res;
         this.translate.get(message).subscribe((res: string) => {
           const message = res;
-          this.messageService.error(message);
+          this.toastr.error(message, title != null ? title : '');
         });
       });
     } else {
       if (message) {
         this.translate.get(message).subscribe((res: string) => {
           const message = res;
-          this.messageService.error(message);
+          this.toastr.error(message, title != null ? title : '');
         });
       }
 
@@ -54,13 +54,13 @@ export class NotificationService {
         const title = res;
         this.translate.get(message).subscribe((res: string) => {
           const message = res;
-          this.messageService.info(message);
+          this.toastr.info(message, title != null ? title : '');
         });
       });
     } else {
       this.translate.get(message).subscribe((res: string) => {
         const message = res;
-        this.messageService.info(message);
+        this.toastr.info(message, title != null ? title : '');
       });
     }
   }

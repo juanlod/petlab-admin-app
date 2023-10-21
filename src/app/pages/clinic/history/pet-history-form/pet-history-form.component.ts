@@ -18,6 +18,7 @@ import { WebSocketService } from 'src/app/api/services/websocket.service';
 import { diff_match_patch } from 'diff-match-patch';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonComponent } from 'src/app/api/common/common.component';
+import { GoogleDriveService } from 'src/app/api/services/google/google-drive.service';
 
 @Component({
   selector: 'app-pet-history-form',
@@ -42,7 +43,8 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
     public notificationService: NotificationService,
     private changeDetector: ChangeDetectorRef,
     private websocketService: WebSocketService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private googleDriveService: GoogleDriveService
   ) {
     super();
   }
@@ -238,5 +240,46 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
     return this.originalPethistory && this.pethistory
       ? this.originalPethistory[field] !== this.pethistory[field]
       : false;
+  }
+
+  uploadImage(file: File): void {
+    this.googleDriveService.uploadFile(file).subscribe(
+      response => {
+        console.log('File uploaded successfully', response);
+      },
+      error => {
+        console.error('Error uploading file', error);
+      }
+    );
+  }
+
+  downloadImage(fileId: string): void {
+    this.googleDriveService.downloadFile({ fileId }).subscribe(
+      response => {
+        console.log('File downloaded successfully', response);
+      },
+      error => {
+        console.error('Error downloading file', error);
+      }
+    );
+  }
+
+  deleteImage(fileName: string): void {
+    this.googleDriveService.deleteFile({ fileName }).subscribe(
+      response => {
+        console.log('File deleted successfully', response);
+      },
+      error => {
+        console.error('Error deleting file', error);
+      }
+    );
+  }
+
+
+  handleUploadChange(event: NzUploadChangeParam): void {
+    const file = event.file.originFileObj; // Obtén el objeto File desde el evento
+    if (file) {
+      this.uploadImage(file);
+    }
   }
 }

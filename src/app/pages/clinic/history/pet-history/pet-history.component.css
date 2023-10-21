@@ -44,3 +44,6 @@
   display: flex;
   justify-content: space-between;
 }
+
+
+html.swal2-shown,body.swal2-shown { overflow-y: hidden !important; height: auto!important;}

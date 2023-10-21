@@ -44,17 +44,16 @@
         <!-- CLIENT NAME -->
         <td class="image-name">
           <a (click)="showModal(image)">
-
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.CLIENT_ID' | translate}}: </span><span>{{ image?.clientId}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.PROJECT_ID' | translate}}: </span><span>{{ image?.projectId}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.AUTH_URI' | translate}}: </span><span>{{ image?.authUri}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.TOKEN_URI' | translate}}: </span><span>{{ image?.tokenUri}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.AUTH_PROVIDER_CERT_URL' | translate}}: </span><span>{{ image?.authProviderCertUrl}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.CLIENT_SECRET' | translate}}: </span><span>{{ image?.clientSecret}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.HISTORY_FOLDER' | translate}}: </span><span>{{ image?.historyFolder}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.ECOGRAPHY_FOLDER' | translate}}: </span><span>{{ image?.ecographyFolder}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.PET_PROFILE_FOLDER' | translate}}: </span><span>{{ image?.petProfileFolder}}</span></p>
-            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.RAY_FOLDER' | translate}}: </span><span>{{ image?.rayFolder}}</span></p>
+            <!-- Campos que están en la clase pero no estaban en la tabla -->
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.CLIENT_X509_CERT_URL' | translate}}: </span><span>{{ decrypt(image?.clientX509CertUrl)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.PRIVATE_KEY' | translate}}: </span><span>{{ decrypt(image?.privateKey)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.PRIVATE_KEY_ID' | translate}}: </span><span>{{ decrypt(image?.privateKeyId)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.TYPE' | translate}}: </span><span>{{ decrypt(image?.type)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.UNIVERSE_DOMAIN' | translate}}: </span><span>{{ decrypt(image?.universeDomain)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.HISTORY_FOLDER' | translate}}: </span><span>{{ decrypt(image?.historyFolder)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.ECOGRAPHY_FOLDER' | translate}}: </span><span>{{ decrypt(image?.ecographyFolder)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.PET_PROFILE_FOLDER' | translate}}: </span><span>{{ decrypt(image?.petProfileFolder)}}</span></p>
+            <p><span class="font-color-black">{{'CLINIC.IMAGES.FORM.RAY_FOLDER' | translate}}: </span><span>{{ decrypt(image?.rayFolder)}}</span></p>
 
           </a>
         </td>

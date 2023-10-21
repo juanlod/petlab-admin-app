@@ -21,8 +21,8 @@ import { CoatComponent } from './coats/coats/coats.component';
 import { CoatsFormComponent } from './coats/coats-form/coats-form.component';
 import { SexComponent } from './sexes/sexes/sexes.component';
 import { SexFormComponent } from './sexes/sexes-form/sexes-form.component';
-import { ClinicImagesComponent } from './clinic-images/clinic-images/clinic-images.component';
 import { ClinicImagesFormComponent } from './clinic-images/clinic-images-form/clinic-images-form.component';
+import { ClinicImagesComponent } from './clinic-images/clinic-images/clinic-images.component';
 
 @NgModule({
   declarations: [

@@ -32,17 +32,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InventarioModule } from './pages/inventario/inventario.module';
 import { ConfigurationModule } from './pages/configuration/configuration.module';
-// import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
+import { GoogleDriveService } from './api/services/google/google-drive.service';
 
 registerLocaleData(es);
 registerLocaleData(en);
 registerLocaleData(gl);
-
-// const ngZorroConfig: NzConfig = {
-//   message: { nzTop: 120 },
-//   notification: { nzTop: 240 }
-// };
-
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent],
@@ -71,8 +65,8 @@ registerLocaleData(gl);
     ConfigurationModule,
   ],
   exports: [],
-  providers: [{ provide: NZ_I18N, useValue: [es_ES, en_GB, gl_ES] },
-    // provideNzConfig(ngZorroConfig)
+  providers: [
+    { provide: NZ_I18N, useValue: [es_ES, en_GB, gl_ES] },
   ],
   bootstrap: [AppComponent],
 })
