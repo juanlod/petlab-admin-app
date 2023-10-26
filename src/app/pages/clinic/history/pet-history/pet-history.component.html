@@ -17,13 +17,30 @@
 
           <div class="font-color-black timeline" >
 
-            <div class="flex-between">
-              <p class="bold" [ngClass]="{'today' : historyToday(item.fec)}" (click)="showEditModal(item, $event)">
+            <div class="flex flex-between">
+
+
+              <!-- DATE -->
+                <p class="bold" [ngClass]="{'today' : historyToday(item.fec)}" (click)="showEditModal(item, $event)">
                   {{transformDate(item.fec, 'dd-MM-yyyy' , 'es-ES')}}
               </p>
-              <a *ngIf="historyToday(item.fec)" (click)="delete(item, $event)">
-                <i class="delete-icon bi bi-trash"></i>
-              </a>
+
+
+              <!-- BUTTONS -->
+              <div class="d-flex">
+
+                <!-- FLAG -->
+                <a (click)="setFixed(item, $event)">
+                  <i class="bi bi-flag flag" *ngIf="!item?.fixed" nz-typography></i>
+                  <i class="bi bi-flag-fill flag" *ngIf="item.fixed" nz-typography nzType="danger"></i>
+                </a>
+
+                <!-- DELETE -->
+                <a *ngIf="historyToday(item.fec)" (click)="delete(item, $event)"  style="margin-left: 10px;">
+                  <i class="delete-icon bi bi-trash"></i>
+                </a>
+              </div>
+
             </div>
 
             <div style="display: flex; flex-direction: row;" (click)="showEditModal(item, $event)">
@@ -46,14 +63,9 @@
                 </p>
               </div>
             </div>
-
-
           </div>
         </nz-timeline-item>
-
-
   </nz-timeline>
-
 </nz-spin>
 
 

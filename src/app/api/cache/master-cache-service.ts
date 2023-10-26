@@ -13,6 +13,7 @@ import { Sex } from "../models/master/sex";
 import { Species } from "../models/master/species";
 import { Race } from "../models/master/race";
 import { Coat } from "../models/master/coat";
+import { ProductService } from "../services/inventory/product.service";
 
 
 
@@ -34,7 +35,8 @@ export class MasterCacheService {
       private sexService: SexService,
       private speciesService: SpeciesService,
       private raceService: RaceService,
-      private coatService: CoatService
+      private coatService: CoatService,
+      private productService: ProductService
     ) {
     }
 
@@ -104,6 +106,10 @@ export class MasterCacheService {
 
     getRace() {
         return this.getCacheAndUpdate('races', this.raceService.findAllRace());
+    }
+
+    getProducts() {
+        return this.getCacheAndUpdate('products', this.productService.findAllProduct());
     }
 
 

@@ -5,21 +5,6 @@
   height: 500px;
 }
 
-.legend {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.edit-button {
-  font-size: 30px;
-  color: #1890ff
-}
-
-.edit-button:hover {
-  font-size: 30px;
-  color: #44ADFF
-}
 
 
 .today {
@@ -40,10 +25,7 @@
   font-size: 21px !important;
 }
 
-.flex-between {
-  display: flex;
-  justify-content: space-between;
+
+.flag {
+  font-size: 17px;
 }
-
-
-html.swal2-shown,body.swal2-shown { overflow-y: hidden !important; height: auto!important;}

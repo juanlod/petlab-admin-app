@@ -52,5 +52,11 @@ export class PetHistory {
   /**
    * type of register
    */
-  type: string;
+  type?: string;
+
+
+  /**
+   * Indica si se fija al principio
+   */
+  fixed?: boolean;
 }

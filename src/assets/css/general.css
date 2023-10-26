@@ -43,3 +43,24 @@ body {
 .delete-icon {
   font-size: 18px;
 }
+
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.space-around {
+  justify-content: space-around !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+
+.text-center {
+  text-align: center;
+}

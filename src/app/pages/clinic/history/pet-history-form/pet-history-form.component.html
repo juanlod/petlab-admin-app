@@ -39,39 +39,56 @@
     <br>
     <form nz-form (submit)="!pethistory._id ? save() : update()">
 
-      <div class="column-2">
-        <!-- TEMPERATURE -->
-        <nz-form-item>
-          <nz-form-label nzFor="car">{{'PET.HISTORY.FORM.TEMP' | translate}}</nz-form-label>
-          <nz-form-control>
-            <div nzFlex nzFlex="auto">
-              <nz-input-group nzSuffix="ºC">
-                <input nz-input name="tmp" type="number" id="tmp" [(ngModel)]="pethistory.tmp" min="0">
-              </nz-input-group>
-            </div>
-          </nz-form-control>
-        </nz-form-item>
+      <div nz-row nzGutter="16">
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="6">
+          <!-- TEMPERATURE -->
+          <nz-form-item>
+            <nz-form-label nzFor="tmp">{{'PET.HISTORY.FORM.TEMP' | translate}}</nz-form-label>
+            <nz-form-control>
+              <div nzFlex nzFlex="auto">
+                <nz-input-group nzSuffix="ºC">
+                  <input nz-input name="tmp" type="number" id="tmp" [(ngModel)]="pethistory.tmp" min="0">
+                </nz-input-group>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-        <!-- WEIGTH -->
-        <nz-form-item>
-          <nz-form-label nzFor="pes">{{'PET.HISTORY.FORM.WEIGHT' | translate}}</nz-form-label>
-          <nz-form-control>
-            <div nzFlex nzFlex="auto">
-              <nz-input-group>
-                <input nz-input name="pes" type="number" id="pes" [(ngModel)]="pethistory.pes" min="0">
-              </nz-input-group>
-            </div>
-          </nz-form-control>
-        </nz-form-item>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="6">
+          <!-- WEIGTH -->
+          <nz-form-item>
+            <nz-form-label nzFor="pes">{{'PET.HISTORY.FORM.WEIGHT' | translate}}</nz-form-label>
+            <nz-form-control>
+              <div nzFlex nzFlex="auto">
+                <nz-input-group>
+                  <input nz-input name="pes" type="number" id="pes" [(ngModel)]="pethistory.pes" min="0">
+                </nz-input-group>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
 
-        <!-- DATE -->
+        </div>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="6">
+          <!-- DATE -->
+          <nz-form-item>
+            <nz-form-label nzFor="fec">{{ 'PET.HISTORY.FORM.DATE' | translate}}</nz-form-label>
+            <nz-form-control>
+              <input nz-input name="fec" type="date" id="fec" [(ngModel)]="pethistory.fec">
+            </nz-form-control>
+          </nz-form-item>
 
-        <nz-form-item>
-          <nz-form-label nzFor="fec">{{ 'PET.HISTORY.FORM.DATE' | translate}}</nz-form-label>
-          <nz-form-control>
-            <input nz-input name="fec" type="date" id="fec" [(ngModel)]="pethistory.fec">
-          </nz-form-control>
-        </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="6">
+          <!-- FLAG -->
+          <nz-form-item>
+
+            <a (click)="setFixed()">
+              <i class="bi bi-flag flag" *ngIf="!pethistory?.fixed" nz-typography></i>
+              <i class="bi bi-flag-fill flag" *ngIf="pethistory.fixed" nz-typography nzType="danger"></i>
+            </a>
+          </nz-form-item>
+        </div>
       </div>
 
 
@@ -81,33 +98,38 @@
           nzType="info" nzMessage="{{ 'FORM.UNSAVED.CHANGES' | translate }}" nzShowIcon></nz-alert>
       </nz-form-item>
 
-      <div class="column-2">
+
+      <div nz-row nzGutter="16">
 
         <!-- CONSULTATION_REASON -->
-        <nz-form-item style="padding-right: 5px;">
-          <nz-form-label nzFor="consultationReason">{{ 'PET.HISTORY.FORM.CONSULTATION_REASON' | translate }}
-          </nz-form-label>
-          <textarea nz-input name="consultationReason" id="consultationReason"
-            [(ngModel)]="pethistory.consultationReason" (input)="onTextInput($event, 'consultationReason')">
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+
+          <nz-form-item>
+            <nz-form-label nzFor="consultationReason">{{ 'PET.HISTORY.FORM.CONSULTATION_REASON' | translate }}
+            </nz-form-label>
+            <textarea nz-input name="consultationReason" id="consultationReason"
+              [(ngModel)]="pethistory.consultationReason" (input)="onTextInput($event, 'consultationReason')">
           </textarea>
-          <!-- <div nzStatus="error" *ngIf="submitted && !pethistory?.consultationReason">
-            <small class="error">{{ 'PET.HISTORY.FORM.DIAGNOSTIC.CONSULTATION_REASON' | translate }}</small>
-          </div> -->
-        </nz-form-item>
+          </nz-form-item>
+        </div>
+
 
         <!-- DIAGNOSTIC -->
-        <nz-form-item style="padding-left: 5px;">
-          <nz-form-label nzFor="cli">{{ 'PET.HISTORY.FORM.DIAGNOSTIC' | translate }} </nz-form-label>
-          <textarea nz-input name="cli" id="cli" [(ngModel)]="pethistory.cli" (input)="onTextInput($event, 'cli')"></textarea>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzFor="cli">{{ 'PET.HISTORY.FORM.DIAGNOSTIC' | translate }} </nz-form-label>
+            <textarea nz-input name="cli" id="cli" [(ngModel)]="pethistory.cli"
+              (input)="onTextInput($event, 'cli')"></textarea>
 
-          <div nzStatus="error" *ngIf="submitted && !pethistory?.cli">
-            <small class="error">{{ 'PET.HISTORY.FORM.DIAGNOSTIC.MANDATORY' | translate }}</small>
-          </div>
-        </nz-form-item>
+            <div nzStatus="error" *ngIf="submitted && !pethistory?.cli">
+              <small class="error">{{ 'PET.HISTORY.FORM.DIAGNOSTIC.MANDATORY' | translate }}</small>
+            </div>
+          </nz-form-item>
+        </div>
       </div>
 
 
-
+      <!--IMAGES -->
       <nz-upload nzType="drag" [nzMultiple]="true" (nzChange)="handleUploadChange($event)">
         <p class="ant-upload-drag-icon">
           <span nz-icon nzType="inbox"></span>
@@ -119,12 +141,10 @@
       </nz-upload>
 
 
-
-
       <div class="flex-button">
-        <!-- BOTON GUARDAR -->
+        <!-- SAVE BUTTON -->
         <nz-form-item>
-          <nz-form-control [nzOffset]="7" [nzSpan]="15">
+          <nz-form-control>
             <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
           </nz-form-control>
         </nz-form-item>

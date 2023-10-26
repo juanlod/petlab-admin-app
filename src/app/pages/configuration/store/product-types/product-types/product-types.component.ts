@@ -154,6 +154,45 @@ export class ProductTypesComponent implements OnInit {
     });
   }
 
+
+  /**
+   * Remove a registry
+   * @param registro
+   */
+  async restore(element: ProductType): Promise<void> {
+    const translationKeys = [
+      'RESTORE.CONFIRMATION_MESSAGE',
+      'CONFIRM_BUTTON',
+      'CANCEL_BUTTON',
+    ];
+    const translations = await this.translateService
+      .get(translationKeys)
+      .toPromise();
+
+    Swal.fire({
+      heightAuto: false,
+      title: '',
+      text: translations['RESTORE.CONFIRMATION_MESSAGE'],
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: translations['CONFIRM_BUTTON'],
+      cancelButtonText: translations['CANCEL_BUTTON'],
+      confirmButtonColor: '#22bb33',
+      cancelButtonColor: '#bb2124',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        element.deleted = false;
+        const result = this.save(element);
+        if (result) {
+          this.pageIndex = 1;
+          this.geProductTypes();
+          this.notificationService.showSuccess(`RESTORE.MESSAGE.OK`);
+        }
+      }
+    });
+  }
+
   /**
    *
    */

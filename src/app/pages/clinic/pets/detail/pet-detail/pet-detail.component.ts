@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { Client } from 'src/app/api/models/clinic/client';
@@ -15,13 +20,14 @@ import { NzTabPosition } from 'ng-zorro-antd/tabs';
 import { Utils } from 'src/app/utils';
 import { Locality } from 'src/app/api/models/master/locality';
 import { Province } from 'src/app/api/models/master/province';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 @Component({
   selector: 'app-pet-detail',
   templateUrl: './pet-detail.component.html',
   styleUrls: ['./pet-detail.component.css'],
 })
-export class PetDetailComponent implements OnInit {
+export class PetDetailComponent extends CommonComponent implements OnInit {
   loading: boolean = false;
   fileList: any[] = [];
   pet: Pet = new Pet();
@@ -49,6 +55,8 @@ export class PetDetailComponent implements OnInit {
   provinces: Province[] = [];
   localities: Locality[] = [];
 
+  isMobile: boolean = false;
+
   constructor(
     private petService: PetsService,
     private clientService: ClientsService,
@@ -56,7 +64,9 @@ export class PetDetailComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private masterCacheService: MasterCacheService,
+    private changeDetector: ChangeDetectorRef
   ) {
+    super();
   }
 
   async ngOnInit(): Promise<void> {
@@ -77,7 +87,6 @@ export class PetDetailComponent implements OnInit {
     this.petsCoat = petsCoat;
     this.provinces = provinces;
     this.localities = localities;
-
 
     this.route.paramMap.subscribe(async (params) => {
       const id: string = params.get('id')!;
@@ -106,6 +115,9 @@ export class PetDetailComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    this.isMobile = window.innerWidth < 768;
+    this.changeDetector.detectChanges();
   }
 
   showModal(): void {
@@ -204,4 +216,10 @@ export class PetDetailComponent implements OnInit {
     );
     this.isPetVisible = false;
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.isMobile = window.innerWidth < 768;
+  }
+
 }

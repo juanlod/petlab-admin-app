@@ -5,6 +5,7 @@ import {
   OnInit,
   TemplateRef,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
@@ -16,8 +17,8 @@ import { PetHistoryService } from 'src/app/api/services/clinic/history.service';
 import { NotificationService } from 'src/app/api/services/notification.service';
 import { WebSocketService } from 'src/app/api/services/websocket.service';
 import { CommonComponent } from 'src/app/api/common/common.component';
-import Swal from 'sweetalert2';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { PetHistoryFormComponent } from '../pet-history-form/pet-history-form.component';
 
 interface ComponentState {
   history: any[];
@@ -32,9 +33,9 @@ interface ComponentState {
   selector: 'app-pet-history',
   templateUrl: './pet-history.component.html',
   styleUrls: ['./pet-history.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PetHistoryComponent extends CommonComponent implements OnInit {
-
   @ViewChild('historyTemplate', { static: true })
   historyTemplate: TemplateRef<any>;
 
@@ -75,8 +76,7 @@ export class PetHistoryComponent extends CommonComponent implements OnInit {
 
       if (message === `historyDeleted_${this.pet.idm}`) {
         // Si el evento es 'historyDeleted', recarga los historiales
-         this.reloadHistory();
-
+        this.reloadHistory();
       }
     });
 
@@ -141,28 +141,6 @@ export class PetHistoryComponent extends CommonComponent implements OnInit {
   private setState(newState: Partial<ComponentState>): void {
     this.state = { ...this.state, ...newState };
   }
-
-
-  /**
-   * Carga mas elementos al hacer scroll
-   * @param event
-   */
-  @HostListener('window:scroll', ['$event'])
-  onTimelineScroll(event: any) {
-
-    if (this.isDeleting) {
-      return;
-    }
-
-    const element = event.target.documentElement;
-    const remainingHeight =
-      element.scrollHeight - (element.scrollTop + element.clientHeight);
-    if (remainingHeight < 20) {
-      this.loadMore();
-    }
-  }
-
-
 
   /**
    * Abre un nuevo modal
@@ -262,33 +240,86 @@ export class PetHistoryComponent extends CommonComponent implements OnInit {
       .get(translationKeys)
       .toPromise();
 
-    Swal.fire({
-      heightAuto: false,
-      title: '',
-      text: translations['DELETE.CONFIRMATION_MESSAGE'],
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: translations['DELETE.CONFIRM_BUTTON'],
-      cancelButtonText: translations['DELETE.CANCEL_BUTTON'],
-      confirmButtonColor: '#22bb33',
-      cancelButtonColor: '#bb2124',
-      reverseButtons: true,
-      didClose: () => window.scrollTo(0,0) // Corrige el autoscroll
-    }).then((result) => {
-      if (result.isConfirmed) {
-       this.removePetHistory(element.idClinica);
-      }
+    this.confirmModal = this.modal.confirm({
+      nzTitle: translations['DELETE.CONFIRMATION_MESSAGE'],
+      nzOkText: translations['DELETE.CONFIRM_BUTTON'],
+      nzCancelText: translations['CANCEL_BUTTON'],
+      nzOnOk: () => {
+        this.removePetHistory(element.idClinica);
+      },
     });
   }
 
   async removePetHistory(id: number) {
-    await lastValueFrom(
-      this.historyService.removePetHistory({ id: id })
-    ).catch( error => {
-      this.notificationService.showSuccess(`DELETE.MESSAGE.KO`)
-    });
+    await lastValueFrom(this.historyService.removePetHistory({ id: id })).catch(
+      (error) => {
+        this.notificationService.showSuccess(`DELETE.MESSAGE.KO`);
+      }
+    );
     this.notificationService.showSuccess(`DELETE.MESSAGE.OK`);
     // Emite el evento de actualizacion del historial del paciente
     this.webSocketService.send(`historyDeleted_${this.pet.idm}`);
+  }
+
+  /**
+   * Remove a registry
+   * @param registro
+   */
+  async setFixed(element: PetHistory, event: Event): Promise<void> {
+    this.isDeleting = true;
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    const translationKeys = [
+      'PET.HISTORY.FORM.UNFIXED',
+      'PET.HISTORY.FORM.FIXED',
+      'CONFIRM_BUTTON',
+      'CANCEL_BUTTON',
+    ];
+    const translations = await this.translateService
+      .get(translationKeys)
+      .toPromise();
+
+    this.confirmModal = this.modal.confirm({
+      nzTitle: element.fixed
+        ? translations['PET.HISTORY.FORM.UNFIXED']
+        : translations['PET.HISTORY.FORM.FIXED'],
+      nzOkText: translations['CONFIRM_BUTTON'],
+      nzCancelText: translations['CANCEL_BUTTON'],
+      nzOnOk: () => {
+        element.fixed = !element.fixed;
+        this.updatePetHistory(element);
+      },
+    });
+  }
+
+  /**
+   * Carga mas elementos al hacer scroll
+   * @param event
+   */
+  @HostListener('window:scroll', ['$event'])
+  onTimelineScroll(event: any) {
+    if (this.isDeleting) {
+      return;
+    }
+    const element = event.target.documentElement;
+    const remainingHeight =
+      element.scrollHeight - (element.scrollTop + element.clientHeight);
+    if (remainingHeight < 20) {
+      this.loadMore();
+    }
+  }
+
+
+  async updatePetHistory(history: PetHistory) {
+    await lastValueFrom(
+      this.historyService.updatePetHistory({
+        idClinica: history.idClinica,
+        body: history,
+      })
+    );
+    // Emite el evento de actualizacion del historial del paciente
+    this.webSocketService.send(`historySaved_${this.pet.idm}`);
   }
 }

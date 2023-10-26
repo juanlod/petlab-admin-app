@@ -15,10 +15,10 @@ import { PetHistoryService } from 'src/app/api/services/clinic/history.service';
 import { PetHistory } from 'src/app/api/models/clinic/history';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { WebSocketService } from 'src/app/api/services/websocket.service';
-import { diff_match_patch } from 'diff-match-patch';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonComponent } from 'src/app/api/common/common.component';
 import { GoogleDriveService } from 'src/app/api/services/google/google-drive.service';
+import { Product } from 'src/app/api/models/inventory/product';
 
 @Component({
   selector: 'app-pet-history-form',
@@ -31,6 +31,8 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
   @Output() updatePetHistory = new EventEmitter<PetHistory>();
   @Input() pethistory: PetHistory = new PetHistory();
   @Input() pet: Pet = new Pet();
+
+  public products: Product[] = [];
 
   public originalPethistory: PetHistory;
   public submitted: boolean = false;
@@ -50,9 +52,7 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-
-
-     // Nos suscribimos a los mensajes del WebSocket para actualizar los campos en tiempo real
+    // Nos suscribimos a los mensajes del WebSocket para actualizar los campos en tiempo real
     this.websocketService.textInput$.subscribe((data) => {
       if (data.idClinica === this.pethistory.idClinica) {
         if (data.field === 'consultationReason') {
@@ -68,11 +68,19 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
       if (message === `historySaved_${this.pet.idm}`) {
         // Si el evento es 'historySaved', recarga los historiales
         this.loadPetHistory();
-
       }
     });
 
     // Si tiene id se formatea la fecha para mostrar en el campo
+    await this.loadData();
+    this.originalPethistory = { ...this.pethistory };
+    this.changeDetector.detectChanges();
+  }
+
+  /**
+   * Carga los datos de la historia si los hubiese, si no, crea uno nuevo
+   */
+  private async loadData() {
     if (this.pethistory?._id) {
       this.pethistory.fec = this.transformDate(
         this.pethistory.fec,
@@ -114,15 +122,12 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
         this.pethistory.fec = date;
       }
     }
-    this.originalPethistory = { ...this.pethistory };
-    this.changeDetector.detectChanges();
   }
 
   /**
    * Carga los historiales de la mascota
    */
   private async loadPetHistory() {
-
     if (this.pethistory?.idClinica) {
       this.pethistory = await lastValueFrom(
         this.service.findByCLinicIdPetHistory({
@@ -178,12 +183,12 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
   /**
    * Updates a pet
    */
-  async update() {
+  async update(history?: PetHistory) {
     this.notificationService.showInfo('PET.HISTORY.UPDATE.MESSAGE.INFO');
     const result = await lastValueFrom(
       this.service.updatePetHistory({
-        id: this.pethistory._id,
-        body: this.pethistory,
+        idClinica: this.pethistory.idClinica,
+        body: history ? history : this.pethistory,
       })
     ).catch((error) => {
       this.submitted = false;
@@ -244,10 +249,10 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
 
   uploadImage(file: File): void {
     this.googleDriveService.uploadFile(file).subscribe(
-      response => {
+      (response) => {
         console.log('File uploaded successfully', response);
       },
-      error => {
+      (error) => {
         console.error('Error uploading file', error);
       }
     );
@@ -255,10 +260,10 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
 
   downloadImage(fileId: string): void {
     this.googleDriveService.downloadFile({ fileId }).subscribe(
-      response => {
+      (response) => {
         console.log('File downloaded successfully', response);
       },
-      error => {
+      (error) => {
         console.error('Error downloading file', error);
       }
     );
@@ -266,20 +271,27 @@ export class PetHistoryFormComponent extends CommonComponent implements OnInit {
 
   deleteImage(fileName: string): void {
     this.googleDriveService.deleteFile({ fileName }).subscribe(
-      response => {
+      (response) => {
         console.log('File deleted successfully', response);
       },
-      error => {
+      (error) => {
         console.error('Error deleting file', error);
       }
     );
   }
-
 
   handleUploadChange(event: NzUploadChangeParam): void {
     const file = event.file.originFileObj; // Obtén el objeto File desde el evento
     if (file) {
       this.uploadImage(file);
     }
+  }
+
+  /**
+   * Remove a registry
+   * @param registro
+   */
+  async setFixed(): Promise<void> {
+    this.pethistory.fixed = !this.pethistory.fixed;
   }
 }

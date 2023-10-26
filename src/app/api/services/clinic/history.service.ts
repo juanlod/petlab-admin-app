@@ -244,7 +244,7 @@ findByIdm(params: {
   /**
    * Path part for operation updatePetHistory
    */
-  static readonly UpdatePetHistoryPath = '/api/pet-history/update/{id}';
+  static readonly UpdatePetHistoryPath = '/api/pet-history/update/{idClinica}';
 
   /**
    * Update a PetHistory by ID.
@@ -257,13 +257,13 @@ findByIdm(params: {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   private updatePetHistory$Response(params: {
-    id: string;
+    idClinica: number;
     body: PetHistory
   }): Observable<StrictHttpResponse<PetHistory>> {
 
     const rb = new RequestBuilder(this.rootUrl, PetHistoryService.UpdatePetHistoryPath, 'patch');
     if (params) {
-      rb.path('id', params.id, {});
+      rb.path('idClinica', params.idClinica, {});
       rb.body(params.body, 'application/json');
     }
 
@@ -289,7 +289,7 @@ findByIdm(params: {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   updatePetHistory(params: {
-    id: string;
+    idClinica: number;
     body: PetHistory
   }): Observable<PetHistory> {
 
