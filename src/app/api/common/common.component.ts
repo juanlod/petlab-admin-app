@@ -1,13 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Directive, AfterViewInit, HostListener } from '@angular/core';
+import { Directive } from '@angular/core';
 import { Utils } from '../../utils';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 
 @Directive()
-export abstract class CommonComponent implements AfterViewInit {
+export abstract class CommonComponent  {
   public today: string;
+  public window = window;
+  public mobileWindowSize: number = 768;
 
   confirmModal?: NzModalRef;
 
@@ -18,8 +20,6 @@ export abstract class CommonComponent implements AfterViewInit {
       this.today = pipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
     }, 1000);
   }
-
-  ngAfterViewInit(): void {}
 
   /**
    * Lee un archivo y devuelve su contenido como un Array<number>

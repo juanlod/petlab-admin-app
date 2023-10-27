@@ -11,8 +11,6 @@ nz-layout {
 }
 
 
-
-
 .client-name {
   display: flex;
   justify-content: space-between;
@@ -33,3 +31,17 @@ nz-layout {
 }
 
 
+
+.pet-drawer {
+  font-size: 22px;
+}
+
+.client-list-item {
+  cursor: pointer;
+}
+
+.search-button-mobile {
+  color: #4390FF;
+  border-color: #4390FF;
+  outline-color: #4390FF;
+}

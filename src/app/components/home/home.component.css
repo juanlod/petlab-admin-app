@@ -104,3 +104,40 @@ nz-content {
 .title {
   margin-left: 10px;
 }
+
+
+.hamburger-btn {
+  display: none;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+
+  .menu-sidebar {
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+  }
+
+  .app-content {
+    margin-left: 0;
+  }
+
+  .menu-sidebar {
+    width: 0 !important;
+    overflow: hidden;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .menu-sidebar.collapsed {
+    display: none !important;
+  }
+}

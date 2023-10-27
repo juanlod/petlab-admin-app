@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { lastValueFrom } from 'rxjs';
 import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
+import { CommonComponent } from 'src/app/api/common/common.component';
 import { Client } from 'src/app/api/models/clinic/client';
 import { Debt } from 'src/app/api/models/clinic/debt';
 import { Coat } from 'src/app/api/models/master/coat';
@@ -18,32 +19,38 @@ import { NotificationService } from 'src/app/api/services/notification.service';
   templateUrl: './cliente.component.html',
   styleUrls: ['./cliente.component.css'],
 })
-export class ClienteComponent implements OnInit {
-  clientes: any[] = [];
-  loading = true;
-  filtro: string = '';
-  pageIndex = 1;
-  pageSize = 10;
-  totalResults = 0;
-  totalPages = 0;
-  visible = false;
-  expandSet = new Set<number>();
+export class ClienteComponent extends CommonComponent implements OnInit {
+  public clientes: any[] = [];
+  public loading = true;
+  public filtro: string = '';
+  public pageIndex = 1;
+  public pageSize = 10;
+  public totalResults = 0;
+  public totalPages = 0;
+  public visible = false;
+  public expandSet = new Set<number>();
 
-  isVisible = false;
-  isEdit = false;
-  client: Client = new Client();
+  public isVisible = false;
+  public isEdit = false;
+  public client: Client = new Client();
 
-  petsSex: Sex[] = [];
-  petsRace: Race[] = [];
-  petsSpecies: Species[] = [];
-  petsCoat: Coat[] = [];
+  public petsSex: Sex[] = [];
+  public petsRace: Race[] = [];
+  public petsSpecies: Species[] = [];
+  public petsCoat: Coat[] = [];
+
+
+  isPetsDrawerVisible = false; // controla la visibilidad del drawer
+  selectedClientMascotas = []; // almacena las mascotas del cliente seleccionado
 
   constructor(
     private clienteService: ClientsService,
     private router: Router,
     private notificationService: NotificationService,
     private masterCacheService: MasterCacheService
-  ) {}
+  ) {
+    super();
+  }
 
   async ngOnInit(): Promise<void> {
     const [petsSex, petsRace, petsSpecies, petsCoat] = await Promise.all([
@@ -57,6 +64,10 @@ export class ClienteComponent implements OnInit {
     this.petsRace = petsRace;
     this.petsSpecies = petsSpecies;
     this.petsCoat = petsCoat;
+
+    if (this.window.innerWidth < this.mobileWindowSize) {
+      this.listarClientes();
+    }
   }
 
   /**
@@ -83,7 +94,6 @@ export class ClienteComponent implements OnInit {
       this.totalResults = response.total_resultados;
       this.totalPages = response.total_paginas > 0 ? response.total_paginas : 1;
       this.loading = false;
-      console.log(this.clientes);
     }
   }
 
@@ -226,8 +236,12 @@ export class ClienteComponent implements OnInit {
       : '';
   }
 
+  /**
+   * Cuenta las deudas del cliente
+   * @param debts
+   * @returns
+   */
   countDebts(debts: any[]) {
-
     if (debts) {
       let value = 0;
       debts.forEach((debt) => {
@@ -238,5 +252,27 @@ export class ClienteComponent implements OnInit {
       return value.toString();
     }
     return null;
+  }
+
+  /**
+   * Paginación de mobil
+   */
+  pageIndexChanged(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.listarClientes();
+  }
+
+
+
+  showPetsDrawer(cliente: any, event: Event) {
+    event.preventDefault()
+    event.stopPropagation();
+    this.selectedClientMascotas = cliente.mascotas;
+    console.log(this.selectedClientMascotas)
+    this.isPetsDrawerVisible = true;
+  }
+
+  closePetsDrawer() {
+    this.isPetsDrawerVisible = false;
   }
 }

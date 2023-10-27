@@ -1,5 +1,5 @@
 <nz-layout>
-  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+  <nz-sider style="z-index: 2;" class="menu-sidebar" nzCollapsible [nzWidth]="getMenuWidth()" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
@@ -19,7 +19,7 @@
           </ng-template>
           <ul>
             <li *ngFor="let child of menu?.children" nz-menu-item [nzMatchRouter]="true">
-              <a [routerLink]="child?.link">
+              <a [routerLink]="child?.link" (click)="toggleMenu()">
                 <span><i class="icon" [ngClass]="child?.icon"></i></span>
                 <span class="title">{{child?.title | translate}}</span>
               </a>
@@ -27,7 +27,7 @@
           </ul>
         </li>
         <li *ngIf="!(menu?.children && menu?.children?.length > 0)" nz-menu-item [nzMatchRouter]="true">
-          <a [routerLink]="menu?.link">
+          <a [routerLink]="menu?.link" (click)="toggleMenu()">
             <!-- <span nz-icon nzType="{{menu?.icon}}"></span> -->
             <span class="icon" ngClass="{{menu?.icon}}"></span>
             <span *ngIf="!isCollapsed" class="title">{{menu?.title | translate}}</span>
@@ -41,11 +41,17 @@
   <nz-layout class="app-content">
 
     <!-- HEADER -->
-    <nz-header>
+    <nz-header style="z-index: 2;">
       <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
-        </span>
+
+        <div>
+          <span class="header-trigger" (click)="this.isCollapsed = !this.isCollapsed" *ngIf="window.innerWidth > mobileWindowSize">
+            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+          </span>
+          <button *ngIf="window.innerWidth < mobileWindowSize" nz-button class="hamburger-btn" (click)="toggleMenu()">☰</button>
+
+        </div>
+
 
         <!-- LANGUAGE CHANGER -->
         <nz-select class="app-language" [(ngModel)]="locale" (ngModelChange)="switchLanguage()" nzShowSearch

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Renderer2, ElementRef } from '@angular/core';
+
 import {
   NzI18nService,
   NzI18nInterface,
@@ -7,6 +9,8 @@ import {
   es_ES,
   gl_ES,
 } from 'ng-zorro-antd/i18n';
+import { Subscription, debounceTime, fromEvent, tap } from 'rxjs';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 interface MenuItem {
   title: string;
@@ -21,9 +25,10 @@ interface MenuItem {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends CommonComponent implements OnInit {
   isCollapsed = false;
   locale: string = '';
+  private resizeSubscription: Subscription;
 
   languages = [
     { label: 'English', value: 'en' },
@@ -79,14 +84,19 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public translationService: NzI18nService,
-    private translateService: TranslateService
-  ) {}
+    private translateService: TranslateService,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.locale = localStorage.getItem('lang')
       ? localStorage.getItem('lang')
       : 'es';
     this.switchLanguage();
+    this.handleResize();
   }
 
   switchLanguage() {
@@ -103,5 +113,50 @@ export class HomeComponent implements OnInit {
     this.translationService.setLocale(localeDictionary[this.locale]);
     this.translateService.setDefaultLang(this.locale);
     localStorage.setItem('lang', this.locale);
+  }
+
+  ngAfterViewInit(): void {
+    this.resizeSubscription = fromEvent(window, 'resize')
+      .pipe(
+        debounceTime(100),
+        tap(() => this.handleResize())
+      )
+      .subscribe();
+  }
+
+  handleResize() {
+    if (window.innerWidth < this.mobileWindowSize) {
+      this.isCollapsed = true;
+      this.hideMenu()
+    } else {
+      this.isCollapsed = false;
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.resizeSubscription) {
+      this.resizeSubscription.unsubscribe();
+    }
+  }
+
+  toggleMenu(): void {
+    if (this.window.innerWidth < this.mobileWindowSize) {
+      this.isCollapsed = !this.isCollapsed;
+      this.hideMenu();
+    }
+  }
+
+  private hideMenu() {
+    const sidebar = this.el.nativeElement.querySelector('.menu-sidebar');
+
+    if (this.isCollapsed) {
+      this.renderer.addClass(sidebar, 'collapsed');
+    } else {
+      this.renderer.removeClass(sidebar, 'collapsed');
+    }
+  }
+
+  getMenuWidth(): string {
+    return this.window.innerWidth > this.mobileWindowSize ? '256px' : '100%';
   }
 }
