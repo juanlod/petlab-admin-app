@@ -142,8 +142,7 @@
         </nz-list-item-meta>
       <!-- Abrir drawer -->
         <a (click)="showPetsDrawer(cliente, $event)" *ngIf="cliente?.mascotas?.length > 0">
-          <span nz-icon nzType="plus-circle" class="pet-drawer"></span>
-          <!-- <i class="fa-solid fa-shield-dog pet-drawer" ></i> -->
+          <i nz-icon nzType="plus-circle" class="pet-drawer"></i>
         </a>
     </nz-list-item>
     <nz-list-empty *ngIf="clientes?.length === 0"></nz-list-empty>
@@ -152,6 +151,11 @@
   <!-- Drawer para mostrar las mascotas -->
   <nz-drawer [nzVisible]="isPetsDrawerVisible" nzTitle="{{'CLIENT.DETAIL.PET.LEGEND' | translate}}" (nzOnClose)="closePetsDrawer()" nzPlacement="right">
     <ng-container *nzDrawerContent>
+
+      <div style="display: flex; justify-content: space-between !important; align-items: center; margin-bottom: 30px;">
+        <input type="text" nz-input placeholder="Buscar por mascota..." [(ngModel)]="filtroMascota" />
+          <button nz-button nzShape="circle" (click)="searchPet()" style="margin-left: 5px;" class="search-button-mobile"><span nz-icon nzType="search" ></span></button>
+      </div>
 
     <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
       <nz-list-item *ngFor="let mascota of selectedClientMascotas" (click)="petDetail(mascota._id)">

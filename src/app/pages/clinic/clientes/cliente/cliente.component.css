@@ -33,18 +33,13 @@ nz-layout {
 
 
 .pet-drawer {
-  font-size: 22px;
+  font-size: 30px;
 }
 
 .client-list-item {
   cursor: pointer;
 }
 
-.search-button-mobile {
-  color: #4390FF;
-  border-color: #4390FF;
-  outline-color: #4390FF;
-}
 
 .custom-meta .ant-list-item-meta-title {
   order: -1 !important;

@@ -6,7 +6,6 @@ import { lastValueFrom } from 'rxjs';
 import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
 import { CommonComponent } from 'src/app/api/common/common.component';
 import { Client } from 'src/app/api/models/clinic/client';
-import { Debt } from 'src/app/api/models/clinic/debt';
 import { Coat } from 'src/app/api/models/master/coat';
 import { Race } from 'src/app/api/models/master/race';
 import { Sex } from 'src/app/api/models/master/sex';
@@ -23,6 +22,8 @@ export class ClienteComponent extends CommonComponent implements OnInit {
   public clientes: any[] = [];
   public loading = true;
   public filtro: string = '';
+  public filtroMascota: string = '';
+
   public pageIndex = 1;
   public pageSize = 10;
   public totalResults = 0;
@@ -40,8 +41,9 @@ export class ClienteComponent extends CommonComponent implements OnInit {
   public petsCoat: Coat[] = [];
 
 
-  isPetsDrawerVisible = false; // controla la visibilidad del drawer
-  selectedClientMascotas = []; // almacena las mascotas del cliente seleccionado
+  public isPetsDrawerVisible = false; // controla la visibilidad del drawer
+  public selectedClientMascotas = []; // almacena las mascotas del cliente seleccionado
+  public originalClientMascotas = [];
 
   constructor(
     private clienteService: ClientsService,
@@ -268,15 +270,26 @@ export class ClienteComponent extends CommonComponent implements OnInit {
 
 
 
-  showPetsDrawer(cliente: any, event: Event) {
-    event.preventDefault()
-    event.stopPropagation();
-    this.selectedClientMascotas = cliente.mascotas;
-    console.log(this.selectedClientMascotas)
+  showPetsDrawer(cliente, event: Event) {
+    event.stopPropagation(); // Para evitar el evento de click del nz-list-item
     this.isPetsDrawerVisible = true;
+    this.originalClientMascotas = [...cliente.mascotas];
+    this.selectedClientMascotas = [...cliente.mascotas];
   }
+
 
   closePetsDrawer() {
     this.isPetsDrawerVisible = false;
   }
+
+  searchPet() {
+    if (this.filtroMascota) {
+      this.selectedClientMascotas = this.originalClientMascotas.filter(mascota =>
+        mascota.nom.toLowerCase().includes(this.filtroMascota.toLowerCase())
+      );
+    } else {
+      this.selectedClientMascotas = [...this.originalClientMascotas];
+    }
+  }
+
 }

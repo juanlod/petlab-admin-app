@@ -58,3 +58,25 @@
     margin-top: 40px;
   }
 }
+
+
+@media (max-width: 768px) { /* Ajusta este valor según el breakpoint que desees */
+
+  .ant-form-item-control {
+    margin-left: 5px;
+  }
+
+  .mobile-order .pets-section {
+    order: 2;
+    margin-top: 25px;
+  }
+
+  .pet-list {
+    margin-top: 0px;
+  }
+
+  .mobile-order .debts-section {
+    order: 1;
+    padding-top: 0;
+  }
+}

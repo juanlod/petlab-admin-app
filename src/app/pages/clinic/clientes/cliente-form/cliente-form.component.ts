@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Utils } from 'src/app/utils';
 import { NotificationService } from 'src/app/api/services/notification.service';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { NotificationService } from 'src/app/api/services/notification.service';
   templateUrl: './cliente-form.component.html',
   styleUrls: ['./cliente-form.component.css'],
 })
-export class ClienteFormComponent implements OnInit {
+export class ClienteFormComponent extends CommonComponent  implements OnInit {
   @Input() isEdit: boolean = false;
   @Input() isDetail: boolean = false;
   @Input() client: Client = new Client();
@@ -40,7 +41,9 @@ export class ClienteFormComponent implements OnInit {
     public route: ActivatedRoute,
     public notificationService: NotificationService,
     public router: Router
-  ) {}
+  ) {
+    super()
+  }
 
   async ngOnInit(): Promise<void> {
     const [provinces, localities] = await Promise.all([

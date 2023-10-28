@@ -21,99 +21,111 @@
 <nz-card style="width: 100%;margin-top: 25px" [nzActions]="[]" nzFlex nzFlex="auto">
   <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
 
-    <div class="legend">
-      <legend>{{client.ayn}}</legend>
-      <!-- TOP ICON -->
-      <i class="card-icon bi bi-person-circle"></i>
+    <i class="card-icon bi bi-person-circle"></i>
 
-      <a (click)="showModal()" class="edit-button">
+    <div nz-row nzJustify="space-between">
+      <label class="label-legend">{{client.ayn}}</label>
+      <!-- TOP ICON -->
+      <a (click)="showModal()" class="edit-button" nzJustify="end">
         <i class="bi bi-pencil-square"></i>
       </a>
     </div>
 
-    <div class="column-2">
+    <div nz-row nzGutter="16">
+
       <!-- DIRECCION -->
-      <nz-form-item>
-        <nz-form-label class="label-detail" class="label-detail" nzFor="dir">{{ 'CLIENTS.FORM.DIRECTION' | translate
-          }}</nz-form-label>
-        <nz-form-control>{{ client.dir }}</nz-form-control>
-      </nz-form-item>
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+
+        <nz-form-item>
+          <nz-form-label class="label-detail" class="label-detail" nzFor="dir">{{ 'CLIENTS.FORM.DIRECTION' | translate
+            }}</nz-form-label>
+          <nz-form-control>{{ client.dir }}</nz-form-control>
+        </nz-form-item>
+      </div>
 
       <!-- CODIGO POSTAL -->
-      <nz-form-item>
-        <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.POSTAL_CODE' | translate}}</nz-form-label>
-        <nz-form-control>{{client.codp}}</nz-form-control>
-      </nz-form-item>
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.POSTAL_CODE' | translate}}</nz-form-label>
+          <nz-form-control>{{client.codp}}</nz-form-control>
+        </nz-form-item>
+      </div>
 
       <!-- DNI -->
-      <nz-form-item>
-        <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.DNI' | translate}}</nz-form-label>
-        <nz-form-control>{{client.Identif}}</nz-form-control>
-      </nz-form-item>
-    </div>
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.DNI' | translate}}</nz-form-label>
+          <nz-form-control>{{client.Identif}}</nz-form-control>
+        </nz-form-item>
+      </div>
 
-    <div class="column-2">
       <!-- PROVINCIA -->
-      <nz-form-item>
-        <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.PROVINCE' | translate}}</nz-form-label>
-        <nz-form-control>{{ getProvinceName(client.Dep) }}</nz-form-control>
-      </nz-form-item>
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.PROVINCE' | translate}}</nz-form-label>
+          <nz-form-control>{{ getProvinceName(client.Dep) }}</nz-form-control>
+        </nz-form-item>
+      </div>
 
       <!-- LOCALIDAD -->
-      <nz-form-item>
-        <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.LOCALITY' | translate}}</nz-form-label>
-        <nz-form-control>{{ getLocalityName(client.Loc) }}</nz-form-control>
-      </nz-form-item>
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="codp">{{ 'CLIENTS.FORM.LOCALITY' | translate}}</nz-form-label>
+          <nz-form-control>{{ getLocalityName(client.Loc) }}</nz-form-control>
+        </nz-form-item>
+      </div>
 
-      <nz-form-item>
-      </nz-form-item>
-    </div>
-
-    <div class="column-2">
       <!-- TELEFONO -->
-      <nz-form-item>
-        <nz-form-label class="label-detail" nzFor="tel">{{ 'CLIENTS.FORM.TELEPHONE' | translate }}</nz-form-label>
-        <nz-form-control> {{client.tel2}}</nz-form-control>
-      </nz-form-item>
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="tel">{{ 'CLIENTS.FORM.TELEPHONE' | translate }}</nz-form-label>
+          <nz-form-control> {{client.tel2}}</nz-form-control>
+        </nz-form-item>
+      </div>
 
       <!-- TELEFONO MOVIL -->
-      <nz-form-item>
-        <nz-form-label class="label-detail" nzFor="telC">{{ 'CLIENTS.FORM.MOBILE_PHONE' | translate }}</nz-form-label>
-        <nz-form-control>{{client.telC2}}</nz-form-control>
-      </nz-form-item>
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="telC">{{ 'CLIENTS.FORM.MOBILE_PHONE' | translate
+            }}</nz-form-label>
+          <nz-form-control>{{client.telC2}}</nz-form-control>
+        </nz-form-item>
+      </div>
 
+      <!-- EMAIL -->
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="email">{{ 'CLIENTS.FORM.EMAIL' | translate }}</nz-form-label>
+          <nz-form-control>{{client.email}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- REGISTER DATE-->
+      <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
+        <nz-form-item>
+          <nz-form-label class="label-detail" nzFor="feci">{{ 'CLIENTS.FORM.REGISTER_DATE' | translate}}</nz-form-label>
+          <nz-form-control>
+            {{client.feci}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- COMMENTS -->
+      <div nz-col [nzSpan]="24" [nzSm]="24" [nzMd]="24"></div>
       <nz-form-item>
+        <nz-form-label class="label-detail obs-label" nzFor="obs">{{ 'CLIENTS.FORM.OBSERVATIONS' | translate }} </nz-form-label>
+        <nz-form-control> {{client.obs}}
+        </nz-form-control>
       </nz-form-item>
     </div>
-
-    <!-- EMAIL -->
-    <nz-form-item>
-      <nz-form-label class="label-detail" nzFor="email">{{ 'CLIENTS.FORM.EMAIL' | translate }}</nz-form-label>
-      <nz-form-control>{{client.email}}
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label class="label-detail" nzFor="feci">{{ 'CLIENTS.FORM.REGISTER_DATE' | translate}}</nz-form-label>
-      <nz-form-control>
-        {{client.feci}}
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-form-item>
-      <nz-form-label class="label-detail" nzFor="obs">{{ 'CLIENTS.FORM.OBSERVATIONS' | translate }} </nz-form-label>
-      <!-- <div nzFlex nzFlex="auto" style="width: 100%;"> -->
-      <nz-form-control> {{client.obs}}
-      </nz-form-control>
-      <!-- </div> -->
-    </nz-form-item>
   </nz-skeleton>
 </nz-card>
 <br>
 <br>
-<nz-row nzGutter="16">
+<nz-row nzGutter="16"  class="mobile-order">
   <!-- PET LIST -->
-  <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12">
+  <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12" class="pets-section">
     <nz-card nzFlex nzFlex="auto">
       <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
 
@@ -130,90 +142,116 @@
           </a>
         </div>
 
-        <!-- SHOW IF PET LIST IS EMPTY -->
-        <nz-empty *ngIf="client?.mascotas?.length == 0"></nz-empty>
 
-        <!-- TABLE FORMAT -->
-        <nz-table *ngIf="client?.mascotas?.length > 5" #basicTable nzShowSizeChanger [nzData]="listOfDisplayData"
-          [nzFrontPagination]="true" [nzLoading]="loading" nzTableLayout="fixed">
-          <thead>
-            <tr>
-              <th nzCustomFilter>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.NAME' | translate }}
-                <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="true" [nzDropdownMenu]="menu">
-                  <span style="font-size: 15px;" nz-icon nzType="search"></span>
-                </nz-filter-trigger>
-              </th>
-              <th>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.SPECIES' | translate}} </th>
-              <th>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.SEX' | translate }}</th>
-              <th>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.RACE' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let pet of basicTable.data">
+        <!-- WEB APEARANCE -->
+        <div *ngIf="window.innerWidth > mobileWindowSize ">
+          <!-- SHOW IF PET LIST IS EMPTY -->
+          <nz-empty *ngIf="client?.mascotas?.length == 0"></nz-empty>
+
+
+          <!-- TABLE FORMAT -->
+          <nz-table #basicTable nzShowSizeChanger [nzData]="listOfDisplayData" [nzFrontPagination]="true"
+            [nzLoading]="loading" nzTableLayout="fixed">
+            <thead>
               <tr>
-                <td>
-                  <a (click)="petDetail(pet._id)">{{ pet.nom }}</a>
-                </td>
-                <td>
-                  <span nz-tooltip *ngIf="getPetSpecieIcon(pet.esp)" [nzTooltipTitle]="getPetSpecie(pet.esp)"
-                    nzTooltipPlacement="top" [nzTooltipArrowPointAtCenter]="true" class="pet-icon fa-solid"
-                    [ngClass]="getPetSpecieIcon(pet.esp)"></span>
-                  <span *ngIf="!getPetSpecieIcon(pet.esp)">{{ getPetSpecie(pet.esp)}}</span>
-                </td>
-                <td>
-                  {{ getPetSex(pet.sex)}}
-                </td>
-
-                <td>
-                  {{ getPetRace(pet.raz)}}
-                </td>
+                <th nzCustomFilter>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.NAME' | translate }}
+                  <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="true" [nzDropdownMenu]="menu">
+                    <span style="font-size: 15px;" nz-icon nzType="search"></span>
+                  </nz-filter-trigger>
+                </th>
+                <th>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.SPECIES' | translate}} </th>
+                <th>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.SEX' | translate }}</th>
+                <th>{{ 'CLIENT.DETAIL.PET.LIST.TABLE.RACE' | translate }}</th>
               </tr>
-            </ng-container>
-          </tbody>
-        </nz-table>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let pet of basicTable.data">
+                <tr>
+                  <td>
+                    <a (click)="petDetail(pet._id)">{{ pet.nom }}</a>
+                  </td>
+                  <td>
+                    <span nz-tooltip *ngIf="getPetSpecieIcon(pet.esp)" [nzTooltipTitle]="getPetSpecie(pet.esp)"
+                      nzTooltipPlacement="top" [nzTooltipArrowPointAtCenter]="true" class="pet-icon fa-solid"
+                      [ngClass]="getPetSpecieIcon(pet.esp)"></span>
+                    <span *ngIf="!getPetSpecieIcon(pet.esp)">{{ getPetSpecie(pet.esp)}}</span>
+                  </td>
+                  <td>
+                    {{ getPetSex(pet.sex)}}
+                  </td>
 
-        <!-- SEARCH DROPDOWN -->
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <div class="ant-table-filter-dropdown">
-            <div class="search-box">
-              <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
-              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
-              <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                  <td>
+                    {{ getPetRace(pet.raz)}}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </nz-table>
+
+          <!-- SEARCH DROPDOWN -->
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box">
+                <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search()"
+                  class="search-button">Search</button>
+                <button nz-button nzSize="small" (click)="reset()">Reset</button>
+              </div>
             </div>
-          </div>
-        </nz-dropdown-menu>
+          </nz-dropdown-menu>
+        </div>
 
-        <!-- LIST FORMAT -->
-        <nz-list *ngIf="client?.mascotas?.length > 0 && client?.mascotas?.length <= 5" nzItemLayout="vertical">
-          <nz-list-item *ngFor="let pet of client.mascotas">
-            <nz-list-item-meta>
-              <nz-list-item-meta-description>
-                <a (click)="petDetail(pet._id)">{{ pet.nom }}</a>
-              </nz-list-item-meta-description>
-              <nz-list-item-meta-description>
-                {{ getPetSpecie(pet.esp)}}
-              </nz-list-item-meta-description>
-            </nz-list-item-meta>
-            {{ getPetRace(pet.raz)}}
-            <nz-list-item-extra>
-              <span nz-tooltip [nzTooltipTitle]="getPetSpecie(pet.esp)" nzTooltipPlacement="top"
-                [nzTooltipArrowPointAtCenter]="true" *ngIf="getPetSpecieIcon(pet.esp)" class="pet-icon fa-solid"
-                [ngClass]="getPetSpecieIcon(pet.esp)"></span>
-            </nz-list-item-extra>
-          </nz-list-item>
-        </nz-list>
+
+        <!-- MOBILE APEARANCE -->
+        <div *ngIf="window.innerWidth <= mobileWindowSize ">
+
+          <div
+            style="display: flex; justify-content: space-between !important; align-items: center; margin-bottom: 30px; margin-top: 20px;">
+            <input type="text" nz-input placeholder="Buscar mascota..." [(ngModel)]="filtroMascota" />
+            <button nz-button nzShape="circle" (click)="searchPet()" style="margin-left: 5px;"
+              class="search-button-mobile"><span nz-icon nzType="search"></span></button>
+          </div>
+
+          <!-- PET LIST FORMAT  -->
+          <nz-list nzItemLayout="vertical">
+            <nz-list-item *ngFor="let pet of paginatedMascotas">
+              <nz-list-item-meta>
+                <nz-list-item-meta-description>
+                  <a (click)="petDetail(pet._id)">{{ pet.nom }}</a>
+                </nz-list-item-meta-description>
+                <nz-list-item-meta-description>
+                  {{ getPetSpecie(pet.esp)}}
+                </nz-list-item-meta-description>
+              </nz-list-item-meta>
+              {{ getPetRace(pet.raz)}}
+              <nz-list-item-extra>
+                <span nz-tooltip [nzTooltipTitle]="getPetSpecie(pet.esp)" nzTooltipPlacement="top"
+                  [nzTooltipArrowPointAtCenter]="true" *ngIf="getPetSpecieIcon(pet.esp)" class="pet-icon fa-solid"
+                  [ngClass]="getPetSpecieIcon(pet.esp)"></span>
+              </nz-list-item-extra>
+            </nz-list-item>
+          </nz-list>
+
+          <!-- paginacion mobil-->
+          <nz-pagination [nzTotal]="totalPets" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" [nzSimple]="true"
+            nzSize="small" class="pagination" (nzPageIndexChange)="onPageChange($event)">
+          </nz-pagination>
+        </div>
+
       </nz-skeleton>
     </nz-card>
 
   </nz-col>
 
+
+
   <!-- DEBT LIST -->
-  <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12">
+  <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12"  class="debts-section">
     <nz-card class="pet-list" nzFlex nzFlex="auto">
       <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
-
         <div class="legend">
-          <legend>{{ 'CLIENT.DETAIL.DEBT.LEGEND' | translate}} <span *ngIf="client?.debts?.length > 0">({{ totalDebts | currency: 'EUR': true: '1.2-2':'es_ES' }})</span></legend>
+          <legend>{{ 'CLIENT.DETAIL.DEBT.LEGEND' | translate}} <span *ngIf="client?.debts?.length > 0">({{ totalDebts |
+              currency: 'EUR': true: '1.2-2':'es_ES' }})</span></legend>
           <!-- TOP PET ICON -->
           <div>
             <span class="card-icon" nz-icon nzType="dollar" nzTheme="outline"></span>
@@ -224,38 +262,72 @@
           </a>
         </div>
 
-        <!-- LIST FORMAT -->
-        <!-- TABLE FORMAT -->
-        <nz-table #basicTable nzShowSizeChanger [nzData]="client.debts" [nzFrontPagination]="true" [nzLoading]="loading"
-          nzTableLayout="fixed">
-          <thead>
-            <tr>
-              <th nzCustomFilter>{{ 'DEBT.LIST.TICKET_NUMBER' | translate }}  </th>
-              <th>{{ 'DEBT.LIST.QUANTITY' | translate}} </th>
-              <th>{{ 'DEBT.LIST.STATE' | translate }}</th>
-              <th>{{ 'DEBT.LIST.DEBT_DATE' | translate }}</th>
-              <th>{{ 'DEBT.LIST.PAID_DATE' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let debt of basicTable.data">
+        <!--  WEB APEARANCE -->
+        <div *ngIf="window.innerWidth > mobileWindowSize ">
+          <!-- TABLE FORMAT -->
+          <nz-table #basicTable nzShowSizeChanger [nzData]="client.debts" [nzFrontPagination]="true"
+            [nzLoading]="loading" nzTableLayout="fixed">
+            <thead>
               <tr>
-                <td>
-                  <a (click)="showDebtModal(debt)">{{debt.ticketNumber }}</a>
-                </td>
-                <td>
-                  {{ debt.quantity | currency: 'EUR': true: '1.2-2':'es_ES' }}
-                </td>
-                <td>
-                  <nz-tag *ngIf="debt.paid"  [nzColor]="'#45A745'">{{ 'DEBT.PAID' | translate }}</nz-tag>
-                  <nz-tag *ngIf="!debt.paid" [nzColor]="'#DC3545'">{{ 'DEBT.PENDING' | translate }}</nz-tag>
-                </td>
-                <td>{{debt.debtDate | date: 'dd-MM-yyyy'}}</td>
-                <td>{{debt.paidDate | date: 'dd-MM-yyyy' }}</td>
+                <th nzCustomFilter>{{ 'DEBT.LIST.TICKET_NUMBER' | translate }} </th>
+                <th>{{ 'DEBT.LIST.QUANTITY' | translate}} </th>
+                <th>{{ 'DEBT.LIST.STATE' | translate }}</th>
+                <th>{{ 'DEBT.LIST.DEBT_DATE' | translate }}</th>
+                <th>{{ 'DEBT.LIST.PAID_DATE' | translate }}</th>
               </tr>
-            </ng-container>
-          </tbody>
-        </nz-table>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let debt of basicTable.data">
+                <tr>
+                  <td>
+                    <a (click)="showDebtModal(debt)">{{debt.ticketNumber }}</a>
+                  </td>
+                  <td>
+                    {{ debt.quantity | currency: 'EUR': true: '1.2-2':'es_ES' }}
+                  </td>
+                  <td>
+                    <nz-tag *ngIf="debt.paid" [nzColor]="'#45A745'">{{ 'DEBT.PAID' | translate }}</nz-tag>
+                    <nz-tag *ngIf="!debt.paid" [nzColor]="'#DC3545'">{{ 'DEBT.PENDING' | translate }}</nz-tag>
+                  </td>
+                  <td>{{debt.debtDate | date: 'dd-MM-yyyy'}}</td>
+                  <td>{{debt.paidDate | date: 'dd-MM-yyyy' }}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </nz-table>
+
+        </div>
+
+        <!-- MOBILE APEARANCE -->
+        <div *ngIf="window.innerWidth <= mobileWindowSize " >
+
+          <!-- DEBT LIST FORMAT  -->
+          <nz-list nzItemLayout="vertical">
+            <nz-list-item *ngFor="let debt of client.debts" (click)="showDebtModal(debt)">
+              <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  {{ 'DEBT.LIST.TICKET_NUMBER' | translate }}: {{debt?.ticketNumber }}
+                </nz-list-item-meta-title>
+                <nz-list-item-meta-description>
+                  {{ 'DEBT.LIST.QUANTITY' | translate}}: {{ debt?.quantity | currency: 'EUR': true: '1.2-2':'es_ES' }}
+                  <br>
+                  {{ 'DEBT.LIST.STATE' | translate }} : <span>
+                    <nz-tag *ngIf="debt?.paid" [nzColor]="'#45A745'">{{ 'DEBT.PAID' | translate }}</nz-tag>
+                    <nz-tag *ngIf="!debt?.paid" [nzColor]="'#DC3545'">{{ 'DEBT.PENDING' | translate }}</nz-tag>
+                  </span>
+                  <br>
+                  <span>
+                    {{ 'DEBT.LIST.DEBT_DATE' | translate }}: {{debt?.debtDate | date: 'dd-MM-yyyy'}}
+                  </span>
+                  <br>
+                  <span *ngIf="debt?.paidDate">{{ 'DEBT.LIST.PAID_DATE' | translate }}: {{debt?.paidDate | date:
+                    'dd-MM-yyyy' }}</span>
+                </nz-list-item-meta-description>
+              </nz-list-item-meta>
+            </nz-list-item>
+          </nz-list>
+        </div>
+
       </nz-skeleton>
     </nz-card>
   </nz-col>
@@ -263,7 +335,7 @@
 
 <!-- CLIENT FORM MODAL -->
 <nz-modal [nzContent]="modalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
-  [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+  [nzWidth]="'90%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
 </nz-modal>
 <ng-template #modalContent>
   <app-cliente-form [client]="client" [isDetail]="true" (clientEmmiter)="onUpdateClient($event)"></app-cliente-form>
@@ -272,7 +344,7 @@
 
 <!-- PET FORM MODAL -->
 <nz-modal [nzContent]="petModalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
-  [nzWidth]="'70%'" [(nzVisible)]="isPetVisible" (nzOnCancel)="handleCancel()">
+  [nzWidth]="'90%'" [(nzVisible)]="isPetVisible" (nzOnCancel)="handleCancel()">
 </nz-modal>
 <ng-template #petModalContent>
   <app-pet-form [client]="client" (updateClient)="onUpdatePetClient($event)" [isDetail]="true"></app-pet-form>
@@ -280,7 +352,7 @@
 
 <!-- DEBT FORM MODAL -->
 <nz-modal *ngIf="client" [nzContent]="debtModalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false"
-  [nzFooter]="null" [nzWidth]="'70%'" [(nzVisible)]="isDebtVisible" (nzOnCancel)="handleCancel()">
+  [nzFooter]="null" [nzWidth]="'90%'" [(nzVisible)]="isDebtVisible" (nzOnCancel)="handleCancel()">
 </nz-modal>
 <ng-template #debtModalContent>
   <app-debts-form [client]="client" [debt]="selectedDebt" (debtEvent)="onUpdateDebt($event)"></app-debts-form>

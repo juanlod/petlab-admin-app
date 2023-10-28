@@ -21,23 +21,31 @@ export class ClientDetailComponent
   extends ClienteFormComponent
   implements OnInit
 {
-  loading = true;
-  isVisible = false;
+  public loading = true;
+  public isVisible = false;
 
-  petsSex: Sex[] = [];
-  petsRace: Race[] = [];
-  petsSpecies: Species[] = [];
-  petsCoat: Coat[] = [];
+  public petsSex: Sex[] = [];
+  public petsRace: Race[] = [];
+  public petsSpecies: Species[] = [];
+  public petsCoat: Coat[] = [];
 
-  searchValue = '';
-  visible = false;
-  listOfDisplayData: any[] = [];
+  public searchValue = '';
+  public visible = false;
+  public listOfDisplayData: any[] = [];
 
-  isPetVisible = false;
-  isDebtVisible = false;
-  totalDebts: number = 0;
-  selectedDebt: Debt;
-  locale: string;
+  public isPetVisible = false;
+  public isDebtVisible = false;
+  public totalDebts: number = 0;
+  public selectedDebt: Debt;
+  public locale: string;
+  public filtroMascota: string = '';
+  public selectedClientMascotas = []; // almacena las mascotas del cliente seleccionado
+  public originalClientMascotas = [];
+  public paginatedMascotas = [];
+
+  pageSize = 5; // Número de mascotas por página
+  pageIndex = 1; // Página actual
+  totalPets = 0; // Número total de mascotas
 
   constructor(
     clientService: ClientsService,
@@ -101,6 +109,13 @@ export class ClientDetailComponent
             this.totalDebts += debt.quantity;
           }
         });
+      }
+
+      if (this.client?.mascotas) {
+        this.originalClientMascotas = [...this.client.mascotas];
+        this.selectedClientMascotas = [...this.client.mascotas];
+        this.totalPets = this.client?.mascotas?.length;
+        this.paginateMascotas();
       }
     }
   }
@@ -203,5 +218,40 @@ export class ClientDetailComponent
     this.isDebtVisible = false;
     this.totalDebts = 0;
     await this.getClient(this.client._id);
+  }
+
+  searchPet() {
+    if (this.filtroMascota) {
+      this.selectedClientMascotas = this.originalClientMascotas.filter(
+        (mascota) =>
+          mascota.nom.toLowerCase().includes(this.filtroMascota.toLowerCase())
+      );
+    } else {
+      this.selectedClientMascotas = [...this.originalClientMascotas];
+    }
+
+    // Llamar a paginar después de filtrar
+    this.onPageChange(1);
+  }
+
+  paginateMascotas() {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedMascotas = this.selectedClientMascotas.slice(start, end);
+
+    if (!this.filtroMascota) {
+      this.totalPets = this.originalClientMascotas.length;
+    } else {
+      this.totalPets = this.paginatedMascotas.length;
+    }
+  }
+
+  petsForCurrentPage() {
+    return this.paginatedMascotas;
+  }
+
+  onPageChange(index: number) {
+    this.pageIndex = index;
+    this.paginateMascotas(); // Actualizar la lista paginada cuando se cambia de página
   }
 }
