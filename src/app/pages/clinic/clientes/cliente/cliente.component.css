@@ -45,3 +45,7 @@ nz-layout {
   border-color: #4390FF;
   outline-color: #4390FF;
 }
+
+.custom-meta .ant-list-item-meta-title {
+  order: -1 !important;
+}

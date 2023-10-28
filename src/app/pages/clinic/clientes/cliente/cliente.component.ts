@@ -235,7 +235,11 @@ export class ClienteComponent extends CommonComponent implements OnInit {
       ? this.petsSpecies.filter((specie) => specie.id === id)[0]?.nom
       : '';
   }
-
+  getPetSpecieIcon(id: number) {
+    return id && id !== 0
+      ? this.petsSpecies.filter((specie) => specie.id === id)[0]?.icon
+      : '';
+  }
   /**
    * Cuenta las deudas del cliente
    * @param debts

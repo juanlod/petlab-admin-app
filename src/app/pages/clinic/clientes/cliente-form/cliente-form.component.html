@@ -1,5 +1,5 @@
 <h2 class="flex-container">
-  <span *ngIf="!client.idc"> {{ 'CLIENTS.FORM.BREADCRUMB.NEW'  | translate }}</span>
+  <span *ngIf="!client.idc"> {{ 'CLIENTS.FORM.BREADCRUMB.NEW' | translate }}</span>
   <span *ngIf="client.idc"> {{ 'CLIENTS.FORM.BREADCRUMB.EDIT' | translate }}</span>
 
 </h2>
@@ -25,161 +25,166 @@
     <br>
     <br>
     <form nz-form (submit)="!client._id ? saveClient() : updateClient()">
+      <div nz-row nzGutter="112">
 
-      <div class="column-2">
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12" *ngIf="client?.idc">
+          <!-- FECI -->
+          <nz-form-item>
+            <nz-form-label  nzFor="feci">{{ 'CLIENTS.FORM.REGISTER_DATE' | translate}}</nz-form-label>
+            <nz-form-control >
+              <input nz-input name="feci" type="date" id="feci" [(ngModel)]="client.feci " [disabled]="true">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
         <!-- NOMBRE -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="ayn">{{'CLIENTS.FORM.NAME' | translate}}&nbsp;<span class="error">*</span></nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <div nzFlex nzFlex="auto">
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="ayn">{{'CLIENTS.FORM.NAME' | translate}}&nbsp;<span
+                class="error">*</span></nz-form-label>
+            <nz-form-control >
+              <div nzFlex nzFlex="auto">
 
-              <input nz-input name="ayn" type="text" id="ayn" [(ngModel)]="client.ayn">
-              <div nzStatus="error" *ngIf="submitted && !client.ayn">
-                <small class="error">{{ 'CLIENTS.FORM.NAME.MANDATORY' | translate }}</small>
+                <input nz-input name="ayn" type="text" id="ayn" [(ngModel)]="client.ayn">
+                <div nzStatus="error" *ngIf="submitted && !client.ayn">
+                  <small class="error">{{ 'CLIENTS.FORM.NAME.MANDATORY' | translate }}</small>
+                </div>
+
               </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-            </div>
-          </nz-form-control>
-        </nz-form-item>
 
         <!-- DIRECCION -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="dir">{{ 'CLIENTS.FORM.DIRECTION' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <div nzFlex nzFlex="auto">
-              <input nz-input name="dir" type="text" id="dir" [(ngModel)]="client.dir">
-            </div>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="dir">{{ 'CLIENTS.FORM.DIRECTION' | translate }}</nz-form-label>
+            <nz-form-control >
+              <div nzFlex nzFlex="auto">
+                <input nz-input name="dir" type="text" id="dir" [(ngModel)]="client.dir">
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2">
         <!-- CODIGO POSTAL -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="codp">{{ 'CLIENTS.FORM.POSTAL_CODE' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="7">
-            <input nz-input name="codp" type="text" id="codp" [(ngModel)]="client.codp">
-          </nz-form-control>
-        </nz-form-item>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="codp">{{ 'CLIENTS.FORM.POSTAL_CODE' | translate}}</nz-form-label>
+            <nz-form-control >
+              <input nz-input name="codp" type="text" id="codp" [(ngModel)]="client.codp">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
         <!-- DNI -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="identif">{{ 'CLIENTS.FORM.DNI' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <div nzFlex nzFlex="auto">
-              <input nz-input name="identif" type="text" id="identif" [(ngModel)]="client.Identif">
-              <div nzStatus="error" *ngIf="identifExist">
-                <small class="error">{{ 'CLIENTS.FORM.DNI.USED' | translate }}</small>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="identif">{{ 'CLIENTS.FORM.DNI' | translate }}</nz-form-label>
+            <nz-form-control >
+              <div nzFlex nzFlex="auto">
+                <input nz-input name="identif" type="text" id="identif" [(ngModel)]="client.Identif">
+                <div nzStatus="error" *ngIf="identifExist">
+                  <small class="error">{{ 'CLIENTS.FORM.DNI.USED' | translate }}</small>
+                </div>
               </div>
-            </div>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2">
         <!-- PROVINCIA -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="codt">{{ 'CLIENTS.FORM.PROVINCE' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'CLIENTS.FORM.PROVINCE.PLACEHOLDER' | translate }}" [(ngModel)]="client.Dep"
-              name="dep" (ngModelChange)="changeLocalities()">
-              <nz-option *ngFor="let option of provinces" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="codt">{{ 'CLIENTS.FORM.PROVINCE' | translate }}</nz-form-label>
+            <nz-form-control >
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'CLIENTS.FORM.PROVINCE.PLACEHOLDER' | translate }}"
+                [(ngModel)]="client.Dep" name="dep" (ngModelChange)="changeLocalities()">
+                <nz-option *ngFor="let option of provinces" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
         <!-- LOCALIDAD -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="codt">{{ 'CLIENTS.FORM.LOCALITY' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'CLIENTS.FORM.LOCALITY.PLACEHOLDER' | translate }}" [(ngModel)]="client.Loc"
-              name="loc" (ngModelChange)="changeProvince()">
-              <nz-option *ngFor="let option of localities" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="codt">{{ 'CLIENTS.FORM.LOCALITY' | translate }}</nz-form-label>
+            <nz-form-control >
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'CLIENTS.FORM.LOCALITY.PLACEHOLDER' | translate }}"
+                [(ngModel)]="client.Loc" name="loc" (ngModelChange)="changeProvince()">
+                <nz-option *ngFor="let option of localities" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2">
+
         <!-- TELEFONO -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="tel">{{ 'CLIENTS.FORM.TELEPHONE' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <input nz-input name="tel" type="text" id="tel" [(ngModel)]="client.tel2">
-          </nz-form-control>
-        </nz-form-item>
-
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="tel">{{ 'CLIENTS.FORM.TELEPHONE' | translate }}</nz-form-label>
+            <nz-form-control >
+              <input nz-input name="tel" type="text" id="tel" [(ngModel)]="client.tel2">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
         <!-- TELEFONO CONTACTO -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="telC">{{ 'CLIENTS.FORM.MOBILE_PHONE' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <input nz-input name="telC" type="text" id="telC" [(ngModel)]="client.telC2">
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="telC">{{ 'CLIENTS.FORM.MOBILE_PHONE' | translate }}</nz-form-label>
+            <nz-form-control >
+              <input nz-input name="telC" type="text" id="telC" [(ngModel)]="client.telC2">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2">
         <!-- EMAIL -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="email">{{ 'CLIENTS.FORM.EMAIL' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <div nzFlex nzFlex="auto">
-              <input nz-input name="email" type="email" id="email" [(ngModel)]="client.email">
-              <div nzStatus="error" *ngIf="emailExist">
-                <small class="error">{{ 'CLIENTS.FORM.EMAIL.USED' | translate }}</small>
+        <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label  nzFor="email">{{ 'CLIENTS.FORM.EMAIL' | translate }}</nz-form-label>
+            <nz-form-control >
+              <div nzFlex nzFlex="auto">
+                <input nz-input name="email" type="email" id="email" [(ngModel)]="client.email">
+                <div nzStatus="error" *ngIf="emailExist">
+                  <small class="error">{{ 'CLIENTS.FORM.EMAIL.USED' | translate }}</small>
+                </div>
               </div>
-            </div>
-          </nz-form-control>
-        </nz-form-item>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-        <nz-form-item>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzSpan]="24" [nzSm]="24" [nzMd]="24">
+          <!-- PROBLEMATICO -->
+          <nz-form-item>
+            <nz-form-label  nzFor="problematico">{{ 'CLIENTS.FORM.PROBLEMATIC' | translate}}</nz-form-label>
+            <nz-form-control >
+              <nz-switch name="problematico" id="problematico" [(ngModel)]="client.problematico"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2">
-        <!-- PROBLEMATICO -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="problematico">{{ 'CLIENTS.FORM.PROBLEMATIC' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-switch name="problematico" id="problematico" [(ngModel)]="client.problematico"></nz-switch>
-          </nz-form-control>
-        </nz-form-item>
+        <div nz-col [nzSpan]="24" [nzSm]="24" [nzMd]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="3" nzFor="obs">{{ 'CLIENTS.FORM.OBSERVATIONS' | translate }} </nz-form-label>
+            <nz-form-control [nzSpan]="20">
+              <textarea nz-input name="obs" id="obs" [(ngModel)]="client.obs"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-        <!--  -->
-        <nz-form-item>
-        </nz-form-item>
-      </div>
 
-      <div class="column-2">
-        <!-- FECI -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="feci">{{ 'CLIENTS.FORM.REGISTER_DATE' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <input nz-input name="feci" type="date" id="feci" [(ngModel)]="client.feci " [disabled]="true">
-          </nz-form-control>
-        </nz-form-item>
-        <!--  -->
-        <nz-form-item>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzSpan]="24" [nzSm]="24" [nzMd]="24" style="display: flex; justify-content: center; align-items: center;">
+          <!-- BOTON GUARDAR -->
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2 obs">
-        <nz-form-item>
-          <nz-form-label [nzSpan]="3" nzFor="obs">{{ 'CLIENTS.FORM.OBSERVATIONS' | translate }} </nz-form-label>
-          <nz-form-control [nzSpan]="20">
-            <textarea nz-input name="obs" id="obs" [(ngModel)]="client.obs"></textarea>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-      <div class="flex-button">
-        <!-- BOTON GUARDAR -->
-        <nz-form-item>
-          <nz-form-control>
-            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
-          </nz-form-control>
-        </nz-form-item>
       </div>
 
     </form>

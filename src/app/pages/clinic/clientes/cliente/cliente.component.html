@@ -98,7 +98,6 @@
 
               <nz-divider nzType="vertical"></nz-divider>
               {{ getPetSpecie(mascota.esp)}}
-
               <nz-divider nzType="vertical"></nz-divider>
               {{ getPetSex(mascota.sex)}}
               <nz-divider nzType="vertical"></nz-divider>
@@ -132,31 +131,46 @@
   <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
     <nz-list-item *ngFor="let cliente of clientes" (click)="clientDetail(cliente._id)" class="client-list-item">
       <!-- Ir a ficha de cliente -->
-        <nz-list-item-meta
-        nzAvatar="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
-                           nzDescription="{{ cliente?.dir }}, {{ cliente.email }}, {{ cliente.tel }}, {{ cliente.tel2 }}, {{ cliente.telC2 }}">
-          <nz-list-item-meta-title>
+        <nz-list-item-meta >
+           <nz-list-item-meta-avatar [nzSrc]="'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'"></nz-list-item-meta-avatar>
+           <nz-list-item-meta-title>
             <a>{{ cliente?.ayn }}</a>
           </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            {{ cliente?.dir }}, {{ cliente.email }}, {{ cliente.tel }}, {{ cliente.tel2 }}, {{ cliente.telC2 }}
+          </nz-list-item-meta-description>
         </nz-list-item-meta>
       <!-- Abrir drawer -->
-        <a (click)="showPetsDrawer(cliente, $event)" ><span nz-icon nzType="plus-square" class="pet-drawer"></span></a>
+        <a (click)="showPetsDrawer(cliente, $event)" *ngIf="cliente?.mascotas?.length > 0">
+          <span nz-icon nzType="plus-circle" class="pet-drawer"></span>
+          <!-- <i class="fa-solid fa-shield-dog pet-drawer" ></i> -->
+        </a>
     </nz-list-item>
-
     <nz-list-empty *ngIf="clientes?.length === 0"></nz-list-empty>
   </nz-list>
 
   <!-- Drawer para mostrar las mascotas -->
   <nz-drawer [nzVisible]="isPetsDrawerVisible" nzTitle="{{'CLIENT.DETAIL.PET.LEGEND' | translate}}" (nzOnClose)="closePetsDrawer()" nzPlacement="right">
     <ng-container *nzDrawerContent>
-    <nz-list nzItemLayout="horizontal">
-      <nz-list-item *ngFor="let mascota of selectedClientMascotas">
-        <a (click)="petDetail(mascota._id)" [ngClass]="{'contains-pet' : checkFiltroMascota(mascota) }">{{ mascota.nom }}</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <span>{{ getPetSpecie(mascota.esp) }}</span>
-        <nz-divider nzType="vertical"></nz-divider>
-        <span>{{ getPetSex(mascota.sex) }}</span>
+
+    <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+      <nz-list-item *ngFor="let mascota of selectedClientMascotas" (click)="petDetail(mascota._id)">
+          <nz-list-item-meta >
+             <nz-list-item-meta-avatar [nzSrc]="'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'"></nz-list-item-meta-avatar>
+             <nz-list-item-meta-title>
+              <a  [ngClass]="{'contains-pet' : checkFiltroMascota(mascota) }">{{ mascota.nom }}</a>
+            </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              <span *ngIf="getPetSpecieIcon(mascota.esp)"> <i class="{{getPetSpecieIcon(mascota.esp)}}"></i> </span>
+              <span *ngIf="!getPetSpecieIcon(mascota.esp)"> {{ getPetSpecie(mascota.esp)  }} </span>
+              <nz-divider nzType="vertical"></nz-divider>
+              {{ getPetSex(mascota.sex)}}
+              <nz-divider nzType="vertical"></nz-divider>
+              {{ getPetRace(mascota.raz)}}
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
       </nz-list-item>
+      <nz-list-empty *ngIf="clientes?.length === 0"></nz-list-empty>
     </nz-list>
   </ng-container>
   </nz-drawer>
@@ -170,7 +184,7 @@
 
 
 <nz-modal [nzContent]="modalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
-  [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+  [nzWidth]="'90%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
 </nz-modal>
 
 

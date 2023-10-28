@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +32,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InventarioModule } from './pages/inventario/inventario.module';
 import { ConfigurationModule } from './pages/configuration/configuration.module';
-import { GoogleDriveService } from './api/services/google/google-drive.service';
 
 registerLocaleData(es);
 registerLocaleData(en);
@@ -66,6 +65,7 @@ registerLocaleData(gl);
   ],
   exports: [],
   providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
     { provide: NZ_I18N, useValue: [es_ES, en_GB, gl_ES] },
   ],
   bootstrap: [AppComponent],
