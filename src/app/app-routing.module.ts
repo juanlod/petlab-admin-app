@@ -10,7 +10,6 @@ import { ClientDetailComponent } from './pages/clinic/clientes/client-detail/cli
 import { PetFormComponent } from './pages/clinic/pets/detail/pet-form/pet-form.component';
 import { PetDetailComponent } from './pages/clinic/pets/detail/pet-detail/pet-detail.component';
 import { ProductosComponent } from './pages/inventario/productos-component/productos/productos.component';
-import { ProveedoresFormComponent } from './pages/configuration/store/store-providers/proveedores-form/proveedores-form.component';
 import { ProveedoresComponent } from './pages/configuration/store/store-providers/proveedores/proveedores.component';
 import { ProductosFormComponent } from './pages/inventario/productos-component/productos-form/productos-form.component';
 import { ProductosDetailComponent } from './pages/inventario/productos-component/productos-detail/productos-detail.component';
@@ -27,7 +26,7 @@ import { SexComponent } from './pages/configuration/clinic/sexes/sexes/sexes.com
 import { ClinicImagesComponent } from './pages/configuration/clinic/clinic-images/clinic-images/clinic-images.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard/clients', pathMatch: 'full' },
   {
     path: 'dashboard',
     component: HomeComponent,

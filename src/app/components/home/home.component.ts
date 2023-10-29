@@ -125,7 +125,7 @@ export class HomeComponent extends CommonComponent implements OnInit {
   }
 
   handleResize() {
-    if (window.innerWidth < this.mobileWindowSize) {
+    if (window.innerWidth <= this.mobileWindowSize) {
       this.isCollapsed = true;
       this.hideMenu()
     } else {
@@ -140,7 +140,7 @@ export class HomeComponent extends CommonComponent implements OnInit {
   }
 
   toggleMenu(): void {
-    if (this.window.innerWidth < this.mobileWindowSize) {
+    if (this.window.innerWidth <= this.mobileWindowSize) {
       this.isCollapsed = !this.isCollapsed;
       this.hideMenu();
     }

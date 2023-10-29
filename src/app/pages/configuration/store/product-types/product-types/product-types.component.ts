@@ -148,8 +148,6 @@ export class ProductTypesComponent implements OnInit {
           this.geProductTypes();
           this.notificationService.showSuccess(`DELETE.MESSAGE.OK`);
         }
-
-        console.log(element);
       }
     });
   }

@@ -122,17 +122,20 @@
 </div>
 
  <!-- MOBILE APPEARANCE -->
-<div *ngIf="window.innerWidth < mobileWindowSize ">
+<div *ngIf="window.innerWidth <= mobileWindowSize ">
   <div style="display: flex; justify-content: space-between !important; align-items: center; margin-bottom: 30px;">
     <input type="text" nz-input placeholder="Buscar por cliente, mascota..." [(ngModel)]="filtro" />
       <button nz-button nzShape="circle" (click)="search()" style="margin-left: 5px;" class="search-button-mobile"><span nz-icon nzType="search" ></span></button>
   </div>
 
   <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
-    <nz-list-item *ngFor="let cliente of clientes" (click)="clientDetail(cliente._id)" class="client-list-item">
+    <!-- <nz-list-item *ngFor="let cliente of clientes" (click)="clientDetail(cliente._id)" class="client-list-item"> -->
+    <nz-list-item *ngFor="let cliente of clientes" class="client-list-item">
       <!-- Ir a ficha de cliente -->
-        <nz-list-item-meta >
-           <nz-list-item-meta-avatar [nzSrc]="'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'"></nz-list-item-meta-avatar>
+        <nz-list-item-meta (click)="clientDetail(cliente._id)">
+           <nz-list-item-meta-avatar >
+            <nz-avatar [nzSize]="50" [nzSrc]="'../assets/image/avatar/user.png'"></nz-avatar>
+           </nz-list-item-meta-avatar>
            <nz-list-item-meta-title>
             <a>{{ cliente?.ayn }}</a>
           </nz-list-item-meta-title>
@@ -142,7 +145,7 @@
         </nz-list-item-meta>
       <!-- Abrir drawer -->
         <a (click)="showPetsDrawer(cliente, $event)" *ngIf="cliente?.mascotas?.length > 0">
-          <i nz-icon nzType="plus-circle" class="pet-drawer"></i>
+          <i class="add-icon bi bi-plus-circle"></i>
         </a>
     </nz-list-item>
     <nz-list-empty *ngIf="clientes?.length === 0"></nz-list-empty>
@@ -158,11 +161,13 @@
       </div>
 
     <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
-      <nz-list-item *ngFor="let mascota of selectedClientMascotas" (click)="petDetail(mascota._id)">
+      <nz-list-item *ngFor="let mascota of selectedClientMascotas" >
           <nz-list-item-meta >
-             <nz-list-item-meta-avatar [nzSrc]="'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'"></nz-list-item-meta-avatar>
+            <nz-list-item-meta-avatar >
+              <nz-avatar [nzSize]="50" [nzSrc]="'../assets/image/avatar/mascota_2.png'"></nz-avatar>
+             </nz-list-item-meta-avatar>
              <nz-list-item-meta-title>
-              <a  [ngClass]="{'contains-pet' : checkFiltroMascota(mascota) }">{{ mascota.nom }}</a>
+              <a (click)="petDetail(mascota._id)" [ngClass]="{'contains-pet' : checkFiltroMascota(mascota) }" >{{ mascota.nom }}</a>
             </nz-list-item-meta-title>
             <nz-list-item-meta-description>
               <span *ngIf="getPetSpecieIcon(mascota.esp)"> <i class="{{getPetSpecieIcon(mascota.esp)}}"></i> </span>

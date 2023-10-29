@@ -139,7 +139,6 @@ export class ClinicImagesComponent extends CommonComponent implements OnInit {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(element)
          this.service.removeClinicImageConfiguration({id : element.id}).subscribe({
           next: () => {
             this.pageIndex = 1;

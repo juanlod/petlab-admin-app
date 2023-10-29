@@ -35,7 +35,6 @@
 
       <!-- DIRECCION -->
       <div nz-col [nzSpan]="24" [nzSm]="12" [nzMd]="8">
-
         <nz-form-item>
           <nz-form-label class="label-detail" class="label-detail" nzFor="dir">{{ 'CLIENTS.FORM.DIRECTION' | translate
             }}</nz-form-label>
@@ -114,7 +113,8 @@
       <!-- COMMENTS -->
       <div nz-col [nzSpan]="24" [nzSm]="24" [nzMd]="24"></div>
       <nz-form-item>
-        <nz-form-label class="label-detail obs-label" nzFor="obs">{{ 'CLIENTS.FORM.OBSERVATIONS' | translate }} </nz-form-label>
+        <nz-form-label class="label-detail obs-label" nzFor="obs">{{ 'CLIENTS.FORM.OBSERVATIONS' | translate }}
+        </nz-form-label>
         <nz-form-control> {{client.obs}}
         </nz-form-control>
       </nz-form-item>
@@ -123,8 +123,11 @@
 </nz-card>
 <br>
 <br>
-<nz-row nzGutter="16"  class="mobile-order">
-  <!-- PET LIST -->
+
+<!-- PETS -->
+<nz-row nzGutter="16" class="mobile-order">
+
+
   <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12" class="pets-section">
     <nz-card nzFlex nzFlex="auto">
       <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
@@ -213,7 +216,7 @@
           </div>
 
           <!-- PET LIST FORMAT  -->
-          <nz-list nzItemLayout="vertical">
+          <!-- <nz-list nzItemLayout="vertical">
             <nz-list-item *ngFor="let pet of paginatedMascotas">
               <nz-list-item-meta>
                 <nz-list-item-meta-description>
@@ -230,6 +233,28 @@
                   [ngClass]="getPetSpecieIcon(pet.esp)"></span>
               </nz-list-item-extra>
             </nz-list-item>
+          </nz-list> -->
+
+          <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+            <nz-list-item *ngFor="let mascota of paginatedMascotas" >
+                <nz-list-item-meta >
+                   <nz-list-item-meta-avatar >
+                    <nz-avatar [nzSize]="50" [nzSrc]="'../assets/image/avatar/mascota_2.png'"></nz-avatar>
+                   </nz-list-item-meta-avatar>
+                   <nz-list-item-meta-title>
+                    <a (click)="petDetail(mascota._id)" >{{ mascota.nom }}</a>
+                  </nz-list-item-meta-title>
+                  <nz-list-item-meta-description>
+                    <span *ngIf="getPetSpecieIcon(mascota.esp)"> <i class="{{getPetSpecieIcon(mascota.esp)}}"></i> </span>
+                    <span *ngIf="!getPetSpecieIcon(mascota.esp)"> {{ getPetSpecie(mascota.esp)  }} </span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    {{ getPetSex(mascota.sex)}}
+                    <nz-divider nzType="vertical"></nz-divider>
+                    {{ getPetRace(mascota.raz)}}
+                  </nz-list-item-meta-description>
+                </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="paginatedMascotas?.length === 0"></nz-list-empty>
           </nz-list>
 
           <!-- paginacion mobil-->
@@ -246,7 +271,7 @@
 
 
   <!-- DEBT LIST -->
-  <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12"  class="debts-section">
+  <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12" class="debts-section">
     <nz-card class="pet-list" nzFlex nzFlex="auto">
       <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
         <div class="legend">
@@ -299,28 +324,30 @@
         </div>
 
         <!-- MOBILE APEARANCE -->
-        <div *ngIf="window.innerWidth <= mobileWindowSize " >
+        <div *ngIf="window.innerWidth <= mobileWindowSize ">
 
           <!-- DEBT LIST FORMAT  -->
           <nz-list nzItemLayout="vertical">
             <nz-list-item *ngFor="let debt of client.debts" (click)="showDebtModal(debt)">
               <nz-list-item-meta>
+                <nz-list-item-meta-avatar [nzSrc]="'../assets/image/avatar/deuda.png'"></nz-list-item-meta-avatar>
                 <nz-list-item-meta-title>
-                  {{ 'DEBT.LIST.TICKET_NUMBER' | translate }}: {{debt?.ticketNumber }}
+                  <span class="bold">{{ 'DEBT.LIST.TICKET_NUMBER' | translate }}:</span> <span> {{debt?.ticketNumber }}</span>
                 </nz-list-item-meta-title>
                 <nz-list-item-meta-description>
-                  {{ 'DEBT.LIST.QUANTITY' | translate}}: {{ debt?.quantity | currency: 'EUR': true: '1.2-2':'es_ES' }}
-                  <br>
-                  {{ 'DEBT.LIST.STATE' | translate }} : <span>
+                  <span class="bold">{{ 'DEBT.LIST.QUANTITY' | translate}}:</span> {{ debt?.quantity | currency: 'EUR': true: '1.2-2':'es_ES' }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <span class="bold">{{ 'DEBT.LIST.STATE' | translate }}: </span>
+                  <span>
                     <nz-tag *ngIf="debt?.paid" [nzColor]="'#45A745'">{{ 'DEBT.PAID' | translate }}</nz-tag>
                     <nz-tag *ngIf="!debt?.paid" [nzColor]="'#DC3545'">{{ 'DEBT.PENDING' | translate }}</nz-tag>
                   </span>
-                  <br>
-                  <span>
-                    {{ 'DEBT.LIST.DEBT_DATE' | translate }}: {{debt?.debtDate | date: 'dd-MM-yyyy'}}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <span class="bold">
+                    {{ 'DEBT.LIST.DEBT_DATE' | translate }}: </span> <span>{{debt?.debtDate | date: 'dd-MM-yyyy'}}
                   </span>
-                  <br>
-                  <span *ngIf="debt?.paidDate">{{ 'DEBT.LIST.PAID_DATE' | translate }}: {{debt?.paidDate | date:
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <span *ngIf="debt?.paidDate" class="bold">{{ 'DEBT.LIST.PAID_DATE' | translate }}:</span> <span> {{debt?.paidDate | date:
                     'dd-MM-yyyy' }}</span>
                 </nz-list-item-meta-description>
               </nz-list-item-meta>
@@ -329,6 +356,7 @@
         </div>
 
       </nz-skeleton>
+
     </nz-card>
   </nz-col>
 </nz-row>

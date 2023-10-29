@@ -25,196 +25,205 @@
     <br>
     <form nz-form (submit)="!pet._id ? save() : update()">
 
-      <div class="column-2">
-        <!-- NAME -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="nom">{{'PET.FORM.NAME' | translate}}&nbsp;<span
-              class="error">*</span></nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <div nzFlex nzFlex="auto">
-              <input nz-input name="nom" type="text" id="nom" [(ngModel)]="pet.nom">
-              <div nzStatus="error" *ngIf="submitted && !pet.nom">
-                <small class="error">{{ 'PET.FORM.NAME.MANDATORY' | translate }}</small>
+      <div nz-row nzGutter="16">
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- NAME -->
+          <nz-form-item>
+            <nz-form-label nzFor="nom">{{'PET.FORM.NAME' | translate}}&nbsp;<span class="error">*</span></nz-form-label>
+            <nz-form-control>
+              <div nzFlex nzFlex="auto">
+                <input nz-input name="nom" type="text" id="nom" [(ngModel)]="pet.nom">
+                <div nzStatus="error" *ngIf="submitted && !pet.nom">
+                  <small class="error">{{ 'PET.FORM.NAME.MANDATORY' | translate }}</small>
+                </div>
               </div>
-            </div>
-          </nz-form-control>
-        </nz-form-item>
+            </nz-form-control>
+          </nz-form-item>
 
-        <nz-form-item></nz-form-item>
-      </div>
+        </div>
 
-      <div class="column-2">
-        <!-- SPECIE -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="esp">{{ 'PET.FORM.SPECIES' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.SPECIES.PLACEHOLDER' | translate }}"
-              [(ngModel)]="pet.esp" name="esp" (ngModelChange)="changeSpecies()">
-              <nz-option *ngFor="let option of petsSpecies" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
+
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- SPECIE -->
+          <nz-form-item>
+            <nz-form-label nzFor="esp">{{ 'PET.FORM.SPECIES' | translate }}</nz-form-label>
+            <nz-form-control>
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.SPECIES.PLACEHOLDER' | translate }}"
+                [(ngModel)]="pet.esp" name="esp" (ngModelChange)="changeSpecies()">
+                <nz-option *ngFor="let option of petsSpecies" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
         <!-- RACE -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <nz-form-item>
+            <nz-form-label nzFor="raz">{{ 'PET.FORM.RACE' | translate }}</nz-form-label>
+            <nz-form-control>
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.RACE.PLACEHOLDER' | translate }}"
+                [(ngModel)]="pet.raz" name="raz" (ngModelChange)="changeRace()">
+                <nz-option *ngFor="let option of petsRace" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="raz">{{ 'PET.FORM.RACE' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.RACE.PLACEHOLDER' | translate }}"
-              [(ngModel)]="pet.raz" name="raz" (ngModelChange)="changeRace()">
-              <nz-option *ngFor="let option of petsRace" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- COAT -->
+          <nz-form-item>
+            <nz-form-label nzFor="pel">{{ 'PET.FORM.COAT' | translate }}</nz-form-label>
+            <nz-form-control>
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.COAT.PLACEHOLDER' | translate }}"
+                [(ngModel)]="pet.pel" name="pel">
+                <nz-option *ngFor="let option of petsCoat" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- SEX -->
+          <nz-form-item>
+            <nz-form-label nzFor="sex">{{ 'PET.FORM.SEX' | translate }}</nz-form-label>
+            <nz-form-control>
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.SEX.PLACEHOLDER' | translate }}"
+                [(ngModel)]="pet.sex" name="sex">
+                <nz-option *ngFor="let option of petsSex" [nzLabel]="option.value" [nzValue]="option.ids"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2">
-        <!-- COAT -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="pel">{{ 'PET.FORM.COAT' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.COAT.PLACEHOLDER' | translate }}"
-              [(ngModel)]="pet.pel" name="pel">
-              <nz-option *ngFor="let option of petsCoat" [nzLabel]="option.nom" [nzValue]="option.id"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-
-
-        <!-- SEX -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="sex">{{ 'PET.FORM.SEX' | translate }}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'PET.FORM.SEX.PLACEHOLDER' | translate }}"
-              [(ngModel)]="pet.sex" name="sex">
-              <nz-option *ngFor="let option of petsSex" [nzLabel]="option.value" [nzValue]="option.ids"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-      <div class="column-2">
-        <!-- MOOD -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="car">{{'PET.FORM.CHARACTERISTICS' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <div nzFlex nzFlex="auto">
-              <input nz-input name="car" type="text" id="car" [(ngModel)]="pet.car">
-            </div>
-          </nz-form-control>
-        </nz-form-item>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- MOOD -->
+          <nz-form-item>
+            <nz-form-label nzFor="car">{{'PET.FORM.CHARACTERISTICS' | translate}}</nz-form-label>
+            <nz-form-control>
+              <div nzFlex nzFlex="auto">
+                <input nz-input name="car" type="text" id="car" [(ngModel)]="pet.car">
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
 
         <!-- BIRTH_DATE -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="fecn">{{ 'PET.FORM.BIRTH_DATE' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <input nz-input name="fecn" type="date" id="fecn" [(ngModel)]="birthDate">
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <nz-form-item>
+            <nz-form-label nzFor="fecn">{{ 'PET.FORM.BIRTH_DATE' | translate}}</nz-form-label>
+            <nz-form-control>
+              <input nz-input name="fecn" type="date" id="fecn" [(ngModel)]="birthDate">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
 
-      <div class="column-2">
-        <!-- WEIGHT -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="car">{{'PET.FORM.WEIGHT' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="5">
-            <div nzFlex nzFlex="auto">
-              <nz-input-group nzSuffix="KG">
-                <input nz-input name="pes" type="number" id="pes" [(ngModel)]="pet.pes" min="0">
-              </nz-input-group>
-            </div>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- WEIGHT -->
+          <nz-form-item>
+            <nz-form-label nzFor="pes">{{'PET.FORM.WEIGHT' | translate}}</nz-form-label>
+            <nz-form-control>
+              <div nzFlex nzFlex="auto">
+                <nz-input-group nzSuffix="KG">
+                  <input nz-input name="pes" type="number" id="pes" [(ngModel)]="pet.pes" min="0">
+                </nz-input-group>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2">
+
 
         <!-- MICROCHIP -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="car">{{'PET.FORM.MICROCHIP' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <div nzFlex nzFlex="auto">
-              <input nz-input name="Chip" type="text" id="Chip" [(ngModel)]="pet.Chip" min="0">
-            </div>
-          </nz-form-control>
-        </nz-form-item>
-        <!--  -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="lastRevisionDate">{{ 'PET.FORM.LAST_REVISION_DATE' |
-            translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <input nz-input name="lastRevisionDate" type="date" id="lastRevisionDate" [(ngModel)]="lastRevisionDate">
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <nz-form-item>
+            <nz-form-label nzFor="car">{{'PET.FORM.MICROCHIP' | translate}}</nz-form-label>
+            <nz-form-control>
+              <div nzFlex nzFlex="auto">
+                <input nz-input name="Chip" type="text" id="Chip" [(ngModel)]="pet.Chip" min="0">
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
 
-      <div class="column-2">
-        <!-- REPRODUCTOR -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="dec">{{ 'PET.FORM.DEAD' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-switch name="dec" id="dec" [(ngModel)]="pet.dec"></nz-switch>
-          </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-          <nz-form-label *ngIf="pet.dec" [nzSpan]="7" nzFor="fecDec">{{ 'PET.FORM.DEAD_DATE' |
-            translate}}</nz-form-label>
-          <nz-form-control *ngIf="pet.dec" [nzSpan]="15">
-            <input nz-input name="fecDec" type="date" id="fecDec" [(ngModel)]="deathDate">
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-      <div class="column-2">
-        <!-- REPRODUCTOR -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="rep">{{ 'PET.FORM.BREEDER' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-switch name="rep" id="rep" [(ngModel)]="pet.rep"></nz-switch>
-          </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-        </nz-form-item>
-      </div>
+        <!-- LAST_REVISON_DATE  -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <nz-form-item>
+            <nz-form-label nzFor="lastRevisionDate">{{ 'PET.FORM.LAST_REVISION_DATE' |
+              translate}}</nz-form-label>
+            <nz-form-control>
+              <input nz-input name="lastRevisionDate" type="date" id="lastRevisionDate" [(ngModel)]="lastRevisionDate">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
 
-      <div class="column-2">
-        <!-- PEDIGREE -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7" nzFor="ped">{{ 'PET.FORM.PEDIGREE' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="15">
-            <nz-switch name="ped" id="ped" [(ngModel)]="pet.ped"></nz-switch>
-          </nz-form-control>
-        </nz-form-item>
 
-        <nz-form-item>
-        </nz-form-item>
-      </div>
+        <!-- DEAD_DATE -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <nz-form-item>
+            <nz-form-label nzFor="dec">{{ 'PET.FORM.DEAD' | translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-switch name="dec" id="dec" [(ngModel)]="pet.dec"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-      <div class="column-2 obs">
-        <nz-form-item>
-          <nz-form-label [nzSpan]="3" nzFor="obs">{{ 'PET.FORM.OBSERVATIONS' | translate }} </nz-form-label>
-          <nz-form-control [nzSpan]="20">
-            <textarea nz-input name="obs" id="obs" [(ngModel)]="pet.obs"></textarea>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
 
-      <div class="flex-button">
-        <!-- BOTON GUARDAR -->
-        <nz-form-item>
-          <nz-form-control>
-            <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
-          </nz-form-control>
-        </nz-form-item>
+        <!-- DEAD_DATE-->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <nz-form-item>
+            <nz-form-label *ngIf="pet.dec" nzFor="fecDec">{{ 'PET.FORM.DEAD_DATE' |
+              translate}}</nz-form-label>
+            <nz-form-control *ngIf="pet.dec">
+              <input nz-input name="fecDec" type="date" id="fecDec" [(ngModel)]="deathDate">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- REPRODUCTOR -->
+          <nz-form-item>
+            <nz-form-label nzFor="rep">{{ 'PET.FORM.BREEDER' | translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-switch name="rep" id="rep" [(ngModel)]="pet.rep"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="window.innerWidth <= mobileWindowSize ? 12 : 8 ">
+          <!-- PEDIGREE -->
+          <nz-form-item>
+            <nz-form-label nzFor="ped">{{ 'PET.FORM.PEDIGREE' | translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-switch name="ped" id="ped" [(ngModel)]="pet.ped"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
+          <nz-form-item>
+            <nz-form-label nzFor="obs">{{ 'PET.FORM.OBSERVATIONS' | translate }} </nz-form-label>
+            <nz-form-control>
+              <textarea nz-input name="obs" id="obs" [(ngModel)]="pet.obs"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="flex-button">
+          <!-- BOTON GUARDAR -->
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary">{{ 'BUTTON.SAVE' | translate }}</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
       </div>
     </form>
   </div>

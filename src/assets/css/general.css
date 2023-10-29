@@ -64,3 +64,20 @@ body {
 .text-center {
   text-align: center;
 }
+
+.ant-list-item-meta-title:nth-child(0) {
+  color: #4390FF !important;
+}
+
+.ant-list-item-meta-title > a {
+  color: #4390FF !important;
+}
+
+.deleted {
+  text-decoration:line-through;
+}
+
+
+.bold {
+  font-weight: bold;
+}

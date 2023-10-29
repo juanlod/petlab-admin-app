@@ -148,8 +148,6 @@ export class ProveedoresComponent implements OnInit {
             this.getProviders();
             this.notificationService.showSuccess(`DELETE.MESSAGE.OK`);
           }
-
-          console.log(element);
         }
       });
     }

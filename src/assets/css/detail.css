@@ -43,7 +43,7 @@ nz-list-item {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 810px) {
   /* Ajusta este valor según el breakpoint que desees */
 
   .ant-form-item-control {

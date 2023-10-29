@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Form, NgForm } from '@angular/forms';
-import { Observable, async, lastValueFrom, map, switchMap, timer } from 'rxjs';
+import { lastValueFrom} from 'rxjs';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormGroup } from '@angular/forms';
 import { NotificationService } from 'src/app/api/services/notification.service';
 import { AuthService } from 'src/app/api/services/auth.service';
 import { UserService } from 'src/app/api/services/user.service';
@@ -41,7 +40,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.token = this.authService.getToken();
     if (this.token) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['dashboard/clients']);
     }
 
     setInterval(() => {
@@ -89,7 +88,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', response.token);
       localStorage.setItem('id', response.user._id);
       this.notificationService.showSuccess('USER.LOGIN.OK');
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['dashboard/clients']);
     }
 
 

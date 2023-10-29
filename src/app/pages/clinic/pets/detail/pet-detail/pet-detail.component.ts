@@ -46,7 +46,7 @@ export class PetDetailComponent extends CommonComponent implements OnInit {
 
   isPetVisible = false;
   isDebtVisible = false;
-  nzTabPosition: NzTabPosition = 'left';
+
 
   birthDate: string = '';
   deathDate: string = '';
@@ -116,7 +116,7 @@ export class PetDetailComponent extends CommonComponent implements OnInit {
       }
     });
 
-    this.isMobile = window.innerWidth < 768;
+    this.isMobile = window.innerWidth <= this.mobileWindowSize;
     this.changeDetector.detectChanges();
   }
 
@@ -131,10 +131,6 @@ export class PetDetailComponent extends CommonComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
     this.isPetVisible = false;
-  }
-
-  log(args: any[]): void {
-    console.log(args);
   }
 
   getPetSex(id: number) {
@@ -219,7 +215,7 @@ export class PetDetailComponent extends CommonComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.isMobile = window.innerWidth < 768;
+    this.isMobile = window.innerWidth <= this.mobileWindowSize;
   }
 
 }

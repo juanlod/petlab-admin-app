@@ -60,7 +60,8 @@
 }
 
 
-@media (max-width: 768px) { /* Ajusta este valor según el breakpoint que desees */
+@media (max-width: 810px) {
+  /* Ajusta este valor según el breakpoint que desees */
 
   .ant-form-item-control {
     margin-left: 5px;
@@ -79,4 +80,13 @@
     order: 1;
     padding-top: 0;
   }
+
+  .pet-avatar img {
+    margin: 0;
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+
+
 }

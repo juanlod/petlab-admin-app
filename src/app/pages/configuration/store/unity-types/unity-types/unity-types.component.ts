@@ -144,8 +144,6 @@ export class UnityTypesComponent implements OnInit {
           this.getUnityTypes();
           this.notificationService.showSuccess(`DELETE.MESSAGE.OK`);
         }
-
-        console.log(element)
       }
     });
   }

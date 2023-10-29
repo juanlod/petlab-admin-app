@@ -114,7 +114,7 @@ nz-content {
   z-index: 2;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 810px) {
   .hamburger-btn {
     display: block;
   }
@@ -136,7 +136,7 @@ nz-content {
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 810px) {
   .menu-sidebar.collapsed {
     display: none !important;
   }

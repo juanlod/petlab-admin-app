@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //  apiUrl: 'http://192.168.1.131:4201', // Ip para emitir la web a través de wifi
-  // websocketUrl: '192.168.1.131:4202',
+  //  apiUrl: 'http://192.168.1.110:4201', // Ip para emitir la web a través de wifi
+  // websocketUrl: '192.168.1.110:4202',
   apiUrl: 'http://localhost:4201',
   websocketUrl: 'localhost:4202',
   emails: ['AVISOSMS@GMAIL.COM'],

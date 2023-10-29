@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
 import { Client } from 'src/app/api/models/clinic/client';
@@ -10,13 +17,14 @@ import { Species } from 'src/app/api/models/master/species';
 import { NotificationService } from 'src/app/api/services/notification.service';
 import { PetsService } from 'src/app/api/services/clinic/pets.service';
 import { Utils } from 'src/app/utils';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 @Component({
   selector: 'app-pet-form',
   templateUrl: './pet-form.component.html',
   styleUrls: ['./pet-form.component.css'],
 })
-export class PetFormComponent implements OnInit {
+export class PetFormComponent extends CommonComponent implements OnInit {
   @Input() isDetail: boolean = false;
   @Input() client: Client = new Client();
   @Output() updateClient = new EventEmitter<Client>();
@@ -36,17 +44,18 @@ export class PetFormComponent implements OnInit {
   deathDate: string = '';
   lastRevisionDate: string = '';
 
-  compareFn = (o1: any, o2: any) => o1 && o2 ? o1.id === o2.id : o1 === o2;
+  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.id === o2.id : o1 === o2);
 
   constructor(
     public masterCacheService: MasterCacheService,
     public petService: PetsService,
     public notificationService: NotificationService,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) {
+    super();
+  }
 
   async ngOnInit(): Promise<void> {
-
     const [petsSex, petsRace, petsSpecies, petsCoat] = await Promise.all([
       this.masterCacheService.getSex(),
       this.masterCacheService.getRace(),
@@ -61,9 +70,12 @@ export class PetFormComponent implements OnInit {
     this.petsSpeciesBackup = [...petsSpecies];
     this.petsCoat = petsCoat;
 
-
     if (this.pet) {
-      this.birthDate = Utils.transformDate(this.pet.fecn, 'yyyy-MM-dd', 'en-US');
+      this.birthDate = Utils.transformDate(
+        this.pet.fecn,
+        'yyyy-MM-dd',
+        'en-US'
+      );
       this.lastRevisionDate = Utils.transformDate(
         this.pet.feci,
         'yyyy-MM-dd',
@@ -74,14 +86,8 @@ export class PetFormComponent implements OnInit {
         'yyyy-MM-dd',
         'en-US'
       );
-
-
     }
-    this.changeDetector.detectChanges()
-
-
-
-
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -156,7 +162,6 @@ export class PetFormComponent implements OnInit {
    * Change the species if the race is modified
    */
   changeRace() {
-
     if (this.pet.raz) {
       const race = this.petsRace.find((s) => s.id === this.pet.raz);
       if (race) {

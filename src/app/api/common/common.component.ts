@@ -9,7 +9,7 @@ import * as CryptoJS from 'crypto-js';
 export abstract class CommonComponent  {
   public today: string;
   public window = window;
-  public mobileWindowSize: number = 768;
+  public mobileWindowSize: number = 810;
 
   confirmModal?: NzModalRef;
 

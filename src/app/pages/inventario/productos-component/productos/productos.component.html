@@ -19,64 +19,106 @@
 </div>
 <br>
 
-<!-- TABLE -->
-<nz-table #basicTable nzShowSizeChanger [nzData]="products" [nzFrontPagination]="false" [nzLoading]="loading"
-  [nzTotal]="totalResults" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-  (nzQueryParams)="onQueryParamsChange($event)" nzTableLayout="auto">
-  <thead>
-    <tr>
-      <th nzCustomFilter nzWidth="20%">
-        {{ 'PRODUCTS.LIST.TABLE.NAME' | translate }}
-        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="filtro.length > 0" [nzDropdownMenu]="menu">
-          <span style="font-size: 15px;" nz-icon nzType="search"></span>
-        </nz-filter-trigger>
-      </th>
-
-      <th nzWidth="5%">{{ 'PRODUCTS.LIST.TABLE.PRODUCT_GROUP' | translate }}</th>
-      <th nzWidth="20%" nzColumnKey="provider" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.PROVIDER' | translate }}</th>
-      <th nzWidth="20%" nzColumnKey="product" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.PRODUCT_TYPE' | translate}} </th>
-      <th nzWidth="20%" nzColumnKey="unity_type" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.UNITY_TYPE' | translate }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let product of basicTable.data">
+<!-- WEB APPEARANCE-->
+<div *ngIf="window.innerWidth > mobileWindowSize ">
+  <!-- TABLE -->
+  <nz-table #basicTable nzShowSizeChanger [nzData]="products" [nzFrontPagination]="false" [nzLoading]="loading"
+    [nzTotal]="totalResults" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)" nzTableLayout="auto">
+    <thead>
       <tr>
-        <!-- CLIENT NAME -->
-        <td class="product-name">
-          <a (click)="productDetail(product._id)"><span>{{ product.name}}</span></a>
-        </td>
+        <th nzCustomFilter nzWidth="20%">
+          {{ 'PRODUCTS.LIST.TABLE.NAME' | translate }}
+          <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="filtro.length > 0" [nzDropdownMenu]="menu">
+            <span style="font-size: 15px;" nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
 
-        <!-- ICON-->
-        <td>
-          <span ngClass="{{findProductType(product.typeProductId)?.icon}}"> </span>
-        </td>
-
-        <!-- PROVIDER NAME -->
-        <td>{{ findProvider(product.providerId)?.name }} </td>
-
-        <!-- PRODUCT_TYPE -->
-        <td>{{ findProductType(product.typeProductId)?.name  }}</td>
-
-        <!-- UNITY_TYPE -->
-        <td>{{ findUnity(product.unityTypeId)?.name }}</td>
+        <th nzWidth="5%">{{ 'PRODUCTS.LIST.TABLE.PRODUCT_GROUP' | translate }}</th>
+        <th nzWidth="20%" nzColumnKey="provider" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.PROVIDER' | translate }}</th>
+        <th nzWidth="20%" nzColumnKey="product" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.PRODUCT_TYPE' | translate}}
+        </th>
+        <th nzWidth="20%" nzColumnKey="unity_type" [nzSortFn]="true">{{ 'PRODUCTS.LIST.TABLE.UNITY_TYPE' | translate }}
+        </th>
       </tr>
-    </ng-container>
-  </tbody>
-</nz-table>
-<nz-dropdown-menu #menu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Buscar por product, mascota..." [(ngModel)]="filtro" />
-      <div style="display: flex; justify-content: space-between;">
-        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Buscar</button>
-        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let product of basicTable.data">
+        <tr>
+          <!-- CLIENT NAME -->
+          <td class="product-name">
+            <a (click)="productDetail(product._id)"><span>{{ product.name}}</span></a>
+          </td>
+          <!-- ICON-->
+          <td>
+            <span ngClass="{{findProductType(product.typeProductId)?.icon}}"> </span>
+          </td>
+
+          <!-- PROVIDER NAME -->
+          <td>{{ findProvider(product.providerId)?.name }} </td>
+
+          <!-- PRODUCT_TYPE -->
+          <td>{{ findProductType(product.typeProductId)?.name }}</td>
+
+          <!-- UNITY_TYPE -->
+          <td>{{ findUnity(product.unityTypeId)?.name }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Buscar producto" [(ngModel)]="filtro" />
+        <div style="display: flex; justify-content: space-between;">
+          <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Buscar</button>
+          <button nz-button nzSize="small" (click)="reset()">Reset</button>
+        </div>
       </div>
     </div>
+  </nz-dropdown-menu>
+</div>
+
+<!-- MOBILE APPEARANCE -->
+<div *ngIf="window.innerWidth <= mobileWindowSize ">
+  <div style="display: flex; justify-content: space-between !important; align-items: center; margin-bottom: 30px;">
+    <input type="text" nz-input placeholder="Buscar producto" [(ngModel)]="filtro" />
+    <button nz-button nzShape="circle" (click)="search()" style="margin-left: 5px;" class="search-button-mobile"><span
+        nz-icon nzType="search"></span></button>
   </div>
-</nz-dropdown-menu>
+
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+    <!-- <nz-list-item *ngFor="let product of products" (click)="clientDetail(product._id)" class="client-list-item"> -->
+    <nz-list-item *ngFor="let product of products" class="client-list-item" (click)="productDetail(product._id)">
+      <!-- Ir a ficha de product -->
+      <nz-list-item-meta>
+        <nz-list-item-meta-avatar
+          [nzSrc]="'../assets/image/avatar/corazon.png'"></nz-list-item-meta-avatar>
+        <nz-list-item-meta-title>
+          <a>{{ product.name}}</a>
+        </nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          <!-- PRODUCT_TYPE -->
+          <span ngClass="{{findProductType(product.typeProductId)?.icon}}"> </span>
+          <br>
+          <!-- PROVIDER NAME -->
+          <span class="bold">{{ 'PRODUCTS.LIST.TABLE.PROVIDER' | translate }}: </span> <span>{{ findProvider(product.providerId)?.name }}</span>
+          <br>
+          <span class="bold">{{ 'PRODUCTS.LIST.TABLE.UNITY_TYPE' | translate }}: </span> <span>{{ findUnity(product.unityTypeId)?.name }} </span>
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+
+    </nz-list-item>
+    <nz-list-empty *ngIf="products?.length === 0"></nz-list-empty>
+  </nz-list>
+
+
+
+</div>
+
 
 <nz-modal [nzContent]="modalContent" [nzStyle]="{ top: '20px' }" [nzMaskClosable]="false" [nzFooter]="null"
-  [nzWidth]="'70%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+  [nzWidth]="'90%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
 </nz-modal>
 
 <ng-template #modalContent>

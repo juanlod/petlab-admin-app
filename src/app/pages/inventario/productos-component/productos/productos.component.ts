@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { ProductService } from 'src/app/api/services/inventory/product.service';
 import { Product } from 'src/app/api/models/inventory/product';
 import { NotificationService } from 'src/app/api/services/notification.service';
 import { lastValueFrom } from 'rxjs';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { InventoryCacheService } from 'src/app/api/cache/inventory-cache-service';
+import { CommonComponent } from 'src/app/api/common/common.component';
 
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css'],
 })
-export class ProductosComponent implements OnInit {
+export class ProductosComponent extends CommonComponent implements OnInit {
 
   loading = true;
   filtro: string = '';
@@ -41,7 +40,9 @@ export class ProductosComponent implements OnInit {
     private service: ProductService,
     private notificationService: NotificationService,
     private inventoryCache: InventoryCacheService
-  ) {}
+  ) {
+    super()
+  }
 
   async ngOnInit(): Promise<void> {
     const [productTypes, providers, unities] = await Promise.all([
@@ -53,6 +54,10 @@ export class ProductosComponent implements OnInit {
     this.productTypes = productTypes;
     this.providers = providers;
     this.unities = unities;
+
+    if (this.window.innerWidth <= this.mobileWindowSize) {
+      this.getProducts();
+    }
   }
 
   /**

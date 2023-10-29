@@ -1,5 +1,5 @@
 <div class="legend">
-  <legend> {{ 'PET.DETAIL.HISTORY' | translate }}</legend>
+  <label class="label-legend"> {{ 'PET.DETAIL.HISTORY' | translate }}</label>
   <!-- EDIT BUTTON  -->
   <a (click)="showModal($event)" class="edit-button">
     <i class="bi bi-plus-circle"></i>
@@ -16,19 +16,14 @@
         <nz-timeline-item [nzDot]="getItemType(item?.type)" *ngFor="let item of state.history" style="padding-bottom: 20px;">
 
           <div class="font-color-black timeline" >
-
             <div class="flex flex-between">
-
-
               <!-- DATE -->
                 <p class="bold" [ngClass]="{'today' : historyToday(item.fec)}" (click)="showEditModal(item, $event)">
                   {{transformDate(item.fec, 'dd-MM-yyyy' , 'es-ES')}}
               </p>
 
-
               <!-- BUTTONS -->
               <div class="d-flex">
-
                 <!-- FLAG -->
                 <a (click)="setFixed(item, $event)">
                   <i class="bi bi-flag flag" *ngIf="!item?.fixed" nz-typography></i>
@@ -43,10 +38,10 @@
 
             </div>
 
-            <div style="display: flex; flex-direction: row;" (click)="showEditModal(item, $event)">
+            <div (click)="showEditModal(item, $event)">
 
               <!-- PET.HISTORY.FORM.CONSULTATION_REASON -->
-              <div *ngIf="item?.consultationReason" style="flex: 1; padding: 0 10px 0 0;"> <!-- padding para dar espacio entre las columnas -->
+              <div *ngIf="item?.consultationReason"> <!-- padding para dar espacio entre las columnas -->
                 <nz-divider class="bold" nzPlain nzText="{{ 'PET.HISTORY.FORM.CONSULTATION_REASON' | translate}}"
                   nzOrientation="left"></nz-divider>
                 <p class="preserve-newline">
@@ -55,7 +50,7 @@
               </div>
 
               <!-- PET.HISTORY.FORM.DIAGNOSTIC -->
-              <div style="flex: 1; padding: 0 0 0 10px;"> <!-- padding para dar espacio entre las columnas -->
+              <div> <!-- padding para dar espacio entre las columnas -->
                 <nz-divider class="bold" nzPlain nzText="{{ 'PET.HISTORY.FORM.DIAGNOSTIC' | translate}}"
                   nzOrientation="left"></nz-divider>
                 <p class="preserve-newline">
@@ -72,7 +67,7 @@
 
 <!-- PET FORM MODAL -->
 <nz-modal [nzContent]="petModalContent" [nzStyle]="{ top: '20px', height: '100%' }" [nzMaskClosable]="false"
-  [nzFooter]="null" [nzWidth]="'90%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
+  [nzFooter]="null" [nzWidth]="'99%'" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()">
 </nz-modal>
 <ng-template #petModalContent>
   <app-pet-history-form [pet]="pet" [client]="client" [pethistory]="pethistory"

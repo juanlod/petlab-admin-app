@@ -48,7 +48,7 @@
           <span class="header-trigger" (click)="this.isCollapsed = !this.isCollapsed" *ngIf="window.innerWidth > mobileWindowSize">
             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
           </span>
-          <button *ngIf="window.innerWidth < mobileWindowSize" nz-button class="hamburger-btn" (click)="toggleMenu()">☰</button>
+          <button *ngIf="window.innerWidth <= mobileWindowSize" nz-button class="hamburger-btn" (click)="toggleMenu()">☰</button>
 
         </div>
 

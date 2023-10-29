@@ -67,7 +67,7 @@ export class ClienteComponent extends CommonComponent implements OnInit {
     this.petsSpecies = petsSpecies;
     this.petsCoat = petsCoat;
 
-    if (this.window.innerWidth < this.mobileWindowSize) {
+    if (this.window.innerWidth <= this.mobileWindowSize) {
       this.listarClientes();
     }
   }
