@@ -1,7 +1,7 @@
 export const environment = {
-  production: true,
-  apiUrl: '',
-  websocketUrl: '',
+  production: false,
+  apiUrl: 'https://petlab-back-app.onrender.com',
+  websocketUrl: 'wss://petlab-back-app.onrender.com',
   emails: ['AVISOSMS@GMAIL.COM'],
-  secretKey: '2G48mZQrbG8Z9w9xo0E2tO3OCghU4mX6'
+  secretKey: 'xmcLMVF9ov7DsYXdIhPka4LuD0LTIrXO'
 };
