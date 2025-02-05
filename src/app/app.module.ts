@@ -19,7 +19,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NgZorroModule } from './ng-zorro.module';
 import { MaterialModule } from './material.module';
-import { ClienteModule } from './pages/clinic/clientes/cliente.module';
+import { ClienteModule } from './pages/clinic/clients/cliente.module';
 
 import es from '@angular/common/locales/es';
 import en from '@angular/common/locales/en';
@@ -30,7 +30,7 @@ import { TranslationModule } from './translation.module';
 import { PetModule } from './pages/clinic/pets/pet.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { InventarioModule } from './pages/inventario/inventario.module';
+import { InventarioModule } from './pages/inventory/inventario.module';
 import { ConfigurationModule } from './pages/configuration/configuration.module';
 
 registerLocaleData(es);

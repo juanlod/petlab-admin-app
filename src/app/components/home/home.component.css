@@ -135,6 +135,10 @@ nz-content {
   }
 }
 
+.footer {
+  display: flex;
+  justify-content: end;
+}
 
 @media screen and (max-width: 810px) {
   .menu-sidebar.collapsed {

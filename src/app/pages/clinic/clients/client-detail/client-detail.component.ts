@@ -4,7 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { MasterCacheService } from 'src/app/api/cache/master-cache-service';
 import { ClientsService } from 'src/app/api/services/clinic/clients.service';
 import { Utils } from 'src/app/utils';
-import { ClienteFormComponent } from '../cliente-form/cliente-form.component';
+import { ClienteFormComponent } from '../client-form/cliente-form.component';
 import { NotificationService } from 'src/app/api/services/notification.service';
 import { Coat } from 'src/app/api/models/master/coat';
 import { Race } from 'src/app/api/models/master/race';

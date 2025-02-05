@@ -43,6 +43,8 @@ export class UserService extends BaseService {
       UserService.LoginUserPath,
       'post'
     );
+
+    console.log(params.body)
     if (params) {
       rb.body(params.body, 'application/json');
     }
