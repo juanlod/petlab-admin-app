@@ -29,3 +29,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # Generate code with ng-openapi-gen
 
 ```ng-openapi-gen --input api.json --output ./generated-source```
+
+
+## Access to test
+User: admin@petlab.com
+
+Password: admin
+
+Url: https://juanlod.github.io/petlab-admin-app
