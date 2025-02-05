@@ -1,0 +1,53 @@
+.legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-icon {
+  position: absolute;
+  top: -20px;
+  left: -15px;
+  font-size: 30px;
+  background-color: #fff;
+}
+
+.edit-button {
+  font-size: 30px;
+  color: #1890ff !important;
+}
+
+.edit-button:hover {
+  font-size: 30px;
+  color: #44ADFF !important;
+}
+
+.search-button-mobile {
+  color: #4390FF;
+  border-color: #4390FF;
+  outline-color: #4390FF;
+}
+
+nz-list-item {
+  cursor: pointer;
+}
+
+.label-legend {
+  font-size: 25px;
+
+}
+
+.obs-label {
+  margin-left: 8px;
+}
+
+
+
+@media (max-width: 810px) {
+  /* Ajusta este valor según el breakpoint que desees */
+
+  .ant-form-item-control {
+    margin-left: 5px;
+  }
+
+}

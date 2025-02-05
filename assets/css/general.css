@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  width: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.column-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+
+.vertical-form-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-form-item nz-form-label {
+ text-align: left;
+  order: 1;
+}
+
+.vertical-form-item nz-form-control {
+  margin-top: 10px;
+  order: 2;
+}
+
+.font-color-black {
+  color: #000;
+}
+
+
+.bold {
+  font-weight: bold !important;
+}
+
+
+.delete-icon {
+  font-size: 18px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.space-around {
+  justify-content: space-around !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.ant-list-item-meta-title:nth-child(0) {
+  color: #4390FF !important;
+}
+
+.ant-list-item-meta-title > a {
+  color: #4390FF !important;
+}
+
+.deleted {
+  text-decoration:line-through;
+}
+
+
+.bold {
+  font-weight: bold;
+}

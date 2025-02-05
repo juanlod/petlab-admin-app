@@ -1,0 +1,48 @@
+
+
+.error, .warning {
+  color: #ff4d4f;
+}
+
+.search-box {
+  padding: 8px;
+}
+
+.search-box input {
+  width: 250px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.search-box button {
+  width: 90px;
+}
+
+.search-button {
+  margin-right: 8px;
+}
+
+.add-icon {
+  font-size: 30px;
+}
+
+.table-icon {
+  font-size: 22px;
+  padding: 0 !important;
+}
+
+.ant-table-row {
+  min-height: 7rem !important;
+}
+
+.clickable {
+  color: #1890ff !important;
+}
+
+.clickable:hover {
+  color: #44ADFF !important;
+}
+
+.delete-icon {
+  font-size: 18px;
+}

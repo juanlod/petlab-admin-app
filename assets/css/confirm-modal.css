@@ -1,0 +1,12 @@
+::ng-deep .ant-modal-confirm-body {
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: center;
+}
+
+::ng-deep .ant-modal-confirm-confirm .ant-modal-confirm-body>.anticon,
+.ant-modal-confirm-warning .ant-modal-confirm-body>.anticon {
+  font-size: 50px !important;
+  padding-bottom: 10px !important;
+}
+
